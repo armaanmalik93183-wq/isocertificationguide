@@ -1,138 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Workspace Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Professional Blog Admin Panel</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family: 'Inter', sans-serif;
+    }
+
+    .sidebar-link:hover{
+      background: #1e293b;
+    }
+
+    .glass{
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.7);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen text-gray-800">
 
-    <div id="auth-gate" class="fixed inset-0 bg-gray-900 flex flex-col justify-center items-center px-4 z-50">
-        <div class="bg-white p-8 rounded-xl shadow-xl max-w-md w-full">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Secure Workspace Terminal</h2>
-            <p class="text-sm text-gray-500 mb-6 text-center">Enter your administrative password credential below.</p>
-            <input type="password" id="gate-pass" placeholder="••••••••" class="w-full border p-3 rounded-lg border-gray-300 mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <button onclick="unlockDashboard()" class="w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-black transition">Unlock Controls</button>
-            <p id="gate-error" class="text-red-500 text-xs mt-3 hidden text-center font-medium">Invalid administration key sequence.</p>
+<body class="bg-slate-100">
+
+<!-- LOGIN SCREEN -->
+<div id="auth-gate" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-50 px-4">
+
+  <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
+
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-bold">
+        A
+      </div>
+
+      <h1 class="text-3xl font-bold mt-4 text-slate-800">
+        Admin Login
+      </h1>
+
+      <p class="text-slate-500 mt-2">
+        Secure access to your dashboard
+      </p>
+    </div>
+
+    <input
+      type="password"
+      id="gate-pass"
+      placeholder="Enter Password"
+      class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+    >
+
+    <button
+      onclick="unlockDashboard()"
+      class="w-full mt-4 bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-semibold"
+    >
+      Login Dashboard
+    </button>
+
+    <p id="gate-error" class="hidden text-red-500 text-sm mt-4 text-center">
+      Incorrect Password
+    </p>
+
+  </div>
+
+</div>
+
+<!-- MAIN DASHBOARD -->
+<div id="dashboard-ui" class="hidden min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="w-72 bg-slate-900 text-white min-h-screen p-6">
+
+    <div class="flex items-center gap-3 mb-10">
+      <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-xl">
+        A
+      </div>
+
+      <div>
+        <h2 class="font-bold text-lg">
+          Admin Panel
+        </h2>
+
+        <p class="text-slate-400 text-sm">
+          Blog Management
+        </p>
+      </div>
+    </div>
+
+    <nav class="space-y-2">
+
+      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl bg-slate-800 transition">
+        Dashboard
+      </a>
+
+      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition">
+        Blog Posts
+      </a>
+
+      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition">
+        Analytics
+      </a>
+
+      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition">
+        Settings
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="flex-1">
+
+    <!-- TOPBAR -->
+    <header class="bg-white border-b px-8 py-5 flex justify-between items-center">
+
+      <div>
+        <h1 class="text-2xl font-bold text-slate-800">
+          Dashboard
+        </h1>
+
+        <p class="text-slate-500 text-sm">
+          Welcome back admin
+        </p>
+      </div>
+
+      <a href="index.html"
+         class="bg-slate-900 hover:bg-black text-white px-5 py-2 rounded-xl text-sm font-medium transition">
+        Visit Website
+      </a>
+
+    </header>
+
+    <!-- DASHBOARD STATS -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-8">
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border">
+        <p class="text-slate-500 text-sm">Total Posts</p>
+        <h2 id="total-posts" class="text-4xl font-bold mt-2">0</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border">
+        <p class="text-slate-500 text-sm">Database Status</p>
+        <h2 class="text-2xl font-bold mt-2 text-green-600">
+          Connected
+        </h2>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border">
+        <p class="text-slate-500 text-sm">Admin Access</p>
+        <h2 class="text-2xl font-bold mt-2 text-blue-600">
+          Active
+        </h2>
+      </div>
+
+    </section>
+
+    <!-- MAIN GRID -->
+    <section class="grid grid-cols-1 xl:grid-cols-3 gap-8 px-8 pb-8">
+
+      <!-- CREATE POST -->
+      <div class="xl:col-span-1 bg-white rounded-2xl shadow-sm border p-6 h-fit">
+
+        <h2 class="text-xl font-bold text-slate-800 mb-6">
+          Create New Post
+        </h2>
+
+        <form id="post-form" onsubmit="publishArticle(event)" class="space-y-5">
+
+          <div>
+            <label class="text-sm font-medium text-slate-700 block mb-2">
+              Post Title
+            </label>
+
+            <input
+              type="text"
+              id="post-title"
+              required
+              class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter title"
+            >
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-slate-700 block mb-2">
+              Article Content
+            </label>
+
+            <textarea
+              id="post-content"
+              rows="10"
+              required
+              class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Write article..."
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-semibold"
+          >
+            Publish Post
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- POSTS -->
+      <div class="xl:col-span-2 bg-white rounded-2xl shadow-sm border p-6">
+
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-slate-800">
+            Published Posts
+          </h2>
         </div>
-    </div>
 
-    <div id="dashboard-ui" class="hidden">
-        <header class="bg-white shadow-sm border-b">
-            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-                <span class="font-bold text-gray-900 tracking-tight flex items-center gap-2">
-                    <span class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></span> Control Node Panel
-                </span>
-                <a href="index.html" class="text-sm font-medium text-blue-600 hover:underline">&larr; Live Portal Site</a>
-            </div>
-        </header>
+        <div id="admin-feed" class="space-y-4">
+          <p class="text-slate-400">
+            Loading posts...
+          </p>
+        </div>
 
-        <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <section class="lg:col-span-1 bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-fit">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Compose Fresh Entry</h3>
-                <form id="post-form" onsubmit="publishArticle(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Post Title</label>
-                        <input type="text" id="post-title" required class="w-full border border-gray-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="E.g., ISO 9001 Implementation Steps">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Article Body Content</label>
-                        <textarea id="post-content" rows="10" required class="w-full border border-gray-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Write comprehensive markdown or standard paragraphs text layout here..."></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white font-medium py-2.5 rounded-lg text-sm hover:bg-blue-700 transition">Broadcast Live Post</button>
-                </form>
-            </section>
+      </div>
 
-            <section class="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Active Database Indexes</h3>
-                <div id="admin-feed" class="space-y-4">
-                    <p class="text-sm text-gray-400">Syncing configuration feeds index tables...</p>
+    </section>
+
+  </main>
+
+</div>
+
+<script>
+
+  // FIREBASE CONFIG
+  const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const database = firebase.database();
+
+  // ADMIN PASSWORD
+  const SECRET_PASSPHRASE = "Admin123";
+
+  // LOGIN
+  function unlockDashboard() {
+
+      const input = document.getElementById('gate-pass').value;
+
+      if(input === SECRET_PASSPHRASE){
+
+          document.getElementById('auth-gate').classList.add('hidden');
+
+          document.getElementById('dashboard-ui').classList.remove('hidden');
+
+          loadAdminArticlesFeed();
+
+      } else {
+
+          document.getElementById('gate-error').classList.remove('hidden');
+
+      }
+
+  }
+
+  // CREATE POST
+  function publishArticle(e){
+
+      e.preventDefault();
+
+      const title = document.getElementById('post-title').value;
+
+      const content = document.getElementById('post-content').value;
+
+      const today = new Date().toLocaleDateString();
+
+      database.ref('blogs').push({
+          title,
+          content,
+          date: today,
+          timestamp: Date.now()
+      })
+
+      .then(() => {
+
+          document.getElementById('post-form').reset();
+
+          alert('Post Published Successfully');
+
+      })
+
+      .catch((err) => {
+
+          alert(err.message);
+
+      });
+
+  }
+
+  // LOAD POSTS
+  function loadAdminArticlesFeed(){
+
+      database.ref('blogs').on('value', (snapshot) => {
+
+          const feed = document.getElementById('admin-feed');
+
+          feed.innerHTML = '';
+
+          const data = snapshot.val();
+
+          if(!data){
+
+              feed.innerHTML = `
+                <div class="text-slate-400">
+                  No posts available
                 </div>
-            </section>
-        </main>
-    </div>
+              `;
 
-    <script>
-        // Paste your exact identical Firebase Config object keys schema structural map here:
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            databaseURL: "YOUR_DATABASE_URL",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_App_ID"
-        };
+              return;
 
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+          }
 
-        // ⚠️ DEFINE YOUR OWN SECURE WORKSPACE DASHBOARD ACCESS CODE HERE
-        const SECRET_PASSPHRASE = "Admin123"; 
+          const totalPosts = Object.keys(data).length;
 
-        function unlockDashboard() {
-            const input = document.getElementById('gate-pass').value;
-            if(input === SECRET_PASSPHRASE) {
-                document.getElementById('auth-gate').classList.add('hidden');
-                document.getElementById('dashboard-ui').classList.remove('hidden');
-                loadAdminArticlesFeed();
-            } else {
-                const err = document.getElementById('gate-error');
-                err.classList.remove('hidden');
-            }
-        }
+          document.getElementById('total-posts').innerText = totalPosts;
 
-        function publishArticle(e) {
-            e.preventDefault();
-            const title = document.getElementById('post-title').value;
-            const content = document.getElementById('post-content').value;
-            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            
-            database.ref('blogs').push({
-                title: title,
-                content: content,
-                date: today,
-                timestamp: Date.now()
-            }).then(() => {
-                document.getElementById('post-form').reset();
-                alert('Entry successfully written globally to Realtime node sync tables matrix.');
-            }).catch(err => alert('Data write synchronization trace fault: ' + err.message));
-        }
+          Object.keys(data)
+          .sort((a,b) => data[b].timestamp - data[a].timestamp)
+          .forEach((key) => {
 
-        function loadAdminArticlesFeed() {
-            database.ref('blogs').on('value', (snapshot) => {
-                const feed = document.getElementById('admin-feed');
-                feed.innerHTML = '';
-                const data = snapshot.val();
+              const post = data[key];
 
-                if(!data) {
-                    feed.innerHTML = '<p class="text-sm text-gray-400">Database node entry structures are currently completely null empty.</p>';
-                    return;
-                }
+              feed.innerHTML += `
 
-                Object.keys(data).sort((a,b) => data[b].timestamp - data[a].timestamp).forEach((key) => {
-                    const post = data[key];
-                    feed.innerHTML += `
-                        <div class="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition">
-                            <div class="max-w-[75%]">
-                                <h4 class="font-bold text-gray-900 truncate">${post.title}</h4>
-                                <p class="text-xs text-gray-500">Node ID Ref: ${key} • Published: ${post.date}</p>
-                            </div>
-                            <button onclick="dropArticle('${key}')" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded-md font-medium hover:bg-red-100 border border-red-200 transition">Drop Post</button>
+                <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition">
+
+                    <div class="flex justify-between items-start gap-4">
+
+                        <div>
+
+                            <h3 class="font-bold text-lg text-slate-800">
+                              ${post.title}
+                            </h3>
+
+                            <p class="text-sm text-slate-500 mt-1">
+                              Published on ${post.date}
+                            </p>
+
                         </div>
-                    `;
-                });
-            });
-        }
 
-        function dropArticle(key) {
-            if(confirm('Are you entirely certain you want to purge this record index cluster data entry from active nodes permanently?')) {
-                database.ref(`blogs/${key}`).remove();
-            }
-        }
-    </script>
+                        <button
+                          onclick="dropArticle('${key}')"
+                          class="bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-xl text-sm font-medium transition"
+                        >
+                          Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+              `;
+
+          });
+
+      });
+
+  }
+
+  // DELETE POST
+  function dropArticle(key){
+
+      if(confirm('Delete this post permanently?')){
+
+          database.ref('blogs/' + key).remove();
+
+      }
+
+  }
+
+</script>
+
 </body>
 </html>
