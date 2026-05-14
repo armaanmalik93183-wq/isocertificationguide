@@ -82,46 +82,40 @@
 <div id="dashboard-ui" class="hidden min-h-screen flex">
 
   <!-- SIDEBAR -->
-  <aside class="w-72 bg-slate-900 text-white min-h-screen p-6">
+  <aside class="w-72 bg-slate-950 text-white min-h-screen p-6">
 
-    <div class="flex items-center gap-3 mb-10">
-      <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-xl">
-        A
-      </div>
+<div class="mb-12">
 
-      <div>
-        <h2 class="font-bold text-lg">
-          Admin Panel
-        </h2>
+<h1 class="text-3xl font-extrabold text-blue-500">
+ISO Admin
+</h1>
 
-        <p class="text-slate-400 text-sm">
-          Blog Management
-        </p>
-      </div>
-    </div>
+<p class="text-slate-400 mt-2">
+Professional CMS Dashboard
+</p>
 
-    <nav class="space-y-2">
+</div>
 
-      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl bg-slate-800 transition">
-        Dashboard
-      </a>
+<nav class="space-y-3">
 
-      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition">
-        Blog Posts
-      </a>
+<button onclick="showSection('dashboard')"
+class="w-full text-left px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 transition">
+Dashboard
+</button>
 
-      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition">
-        Analytics
-      </a>
+<button onclick="showSection('analytics')"
+class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+Analytics
+</button>
 
-      <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition">
-        Settings
-      </a>
+<button onclick="showSection('settings')"
+class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+Settings
+</button>
 
-    </nav>
+</nav>
 
-  </aside>
-
+</aside>
   <!-- CONTENT -->
   <main class="flex-1">
 
