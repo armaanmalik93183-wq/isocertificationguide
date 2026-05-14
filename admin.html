@@ -1,92 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Professional Blog Admin Panel</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<title>Professional CMS Admin Panel</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 
-  <style>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    body{
-      font-family: 'Inter', sans-serif;
-    }
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    .sidebar-link:hover{
-      background: #1e293b;
-    }
+<style>
 
-    .glass{
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.7);
-    }
-  </style>
+body{
+    font-family: 'Inter', sans-serif;
+}
+
+.ql-toolbar{
+    border-radius: 12px 12px 0 0;
+}
+
+.ql-container{
+    border-radius: 0 0 12px 12px;
+    height: 250px;
+}
+
+.sidebar-btn.active{
+    background:#1e293b;
+}
+
+</style>
+
 </head>
 
 <body class="bg-slate-100">
 
-<!-- LOGIN SCREEN -->
-<div id="auth-gate" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-50 px-4">
+<!-- LOGIN -->
+<div id="auth-gate"
+class="fixed inset-0 bg-slate-950 flex items-center justify-center z-50 px-4">
 
-  <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
+<div class="bg-white p-10 rounded-3xl w-full max-w-md shadow-2xl">
 
-    <div class="text-center mb-8">
-      <div class="w-16 h-16 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center text-white text-2xl font-bold">
-        A
-      </div>
+<div class="text-center mb-8">
 
-      <h1 class="text-3xl font-bold mt-4 text-slate-800">
-        Admin Login
-      </h1>
+<div class="w-20 h-20 bg-blue-600 rounded-3xl mx-auto flex items-center justify-center text-white text-3xl font-bold">
+A
+</div>
 
-      <p class="text-slate-500 mt-2">
-        Secure access to your dashboard
-      </p>
-    </div>
+<h1 class="text-4xl font-bold mt-5 text-slate-800">
+Admin Login
+</h1>
 
-    <input
-      type="password"
-      id="gate-pass"
-      placeholder="Enter Password"
-      class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-    >
-
-    <button
-      onclick="unlockDashboard()"
-      class="w-full mt-4 bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-semibold"
-    >
-      Login Dashboard
-    </button>
-
-    <p id="gate-error" class="hidden text-red-500 text-sm mt-4 text-center">
-      Incorrect Password
-    </p>
-
-  </div>
+<p class="text-slate-500 mt-2">
+Secure access to dashboard
+</p>
 
 </div>
 
-<!-- MAIN DASHBOARD -->
-<div id="dashboard-ui" class="hidden min-h-screen flex">
+<input
+type="password"
+id="gate-pass"
+placeholder="Enter Password"
+class="w-full border border-slate-300 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-blue-500"
+/>
 
-  <!-- SIDEBAR -->
-  <aside class="w-72 bg-slate-950 text-white min-h-screen p-6">
+<button
+onclick="unlockDashboard()"
+class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-semibold mt-5">
+Login Dashboard
+</button>
+
+<p id="gate-error"
+class="hidden text-red-500 text-center mt-4">
+Incorrect Password
+</p>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard-ui" class="hidden">
+
+<div class="flex min-h-screen">
+
+<!-- SIDEBAR -->
+<aside class="w-72 bg-slate-950 text-white p-6">
 
 <div class="mb-12">
 
-<h1 class="text-3xl font-extrabold text-blue-500">
+<h1 class="text-4xl font-extrabold text-blue-500">
 ISO Admin
 </h1>
 
@@ -99,302 +112,485 @@ Professional CMS Dashboard
 <nav class="space-y-3">
 
 <button onclick="showSection('dashboard')"
-class="w-full text-left px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 transition">
+class="sidebar-btn active w-full text-left px-5 py-4 rounded-2xl transition hover:bg-slate-800">
 Dashboard
 </button>
 
 <button onclick="showSection('analytics')"
-class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+class="sidebar-btn w-full text-left px-5 py-4 rounded-2xl transition hover:bg-slate-800">
 Analytics
 </button>
 
 <button onclick="showSection('settings')"
-class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 transition">
+class="sidebar-btn w-full text-left px-5 py-4 rounded-2xl transition hover:bg-slate-800">
 Settings
 </button>
 
 </nav>
 
 </aside>
-  <!-- CONTENT -->
-  <main class="flex-1 bg-slate-100 min-h-screen">
-...
+
+<!-- MAIN -->
+<main class="flex-1">
+
+<!-- TOPBAR -->
+<header class="bg-white border-b px-10 py-6 flex justify-between items-center">
+
+<div>
+
+<h2 class="text-3xl font-bold text-slate-800">
+Dashboard
+</h2>
+
+<p class="text-slate-500 mt-1">
+Manage blogs and website content
+</p>
+
+</div>
+
+<a href="index.html"
+class="bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-medium transition">
+Visit Website
+</a>
+
+</header>
+
+<!-- DASHBOARD SECTION -->
+<section id="dashboard-section" class="p-10">
+
+<!-- STATS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+<div class="bg-white rounded-3xl p-8 shadow-sm border">
+
+<p class="text-slate-500">
+Total Posts
+</p>
+
+<h2 id="total-posts"
+class="text-5xl font-bold mt-3 text-slate-800">
+0
+</h2>
+
+</div>
+
+<div class="bg-white rounded-3xl p-8 shadow-sm border">
+
+<p class="text-slate-500">
+Database Status
+</p>
+
+<h2 class="text-4xl font-bold mt-3 text-green-600">
+Connected
+</h2>
+
+</div>
+
+<div class="bg-white rounded-3xl p-8 shadow-sm border">
+
+<p class="text-slate-500">
+Admin Access
+</p>
+
+<h2 class="text-4xl font-bold mt-3 text-blue-600">
+Active
+</h2>
+
+</div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+
+<!-- BLOG FORM -->
+<div class="bg-white rounded-3xl p-8 shadow-sm border">
+
+<h2 class="text-2xl font-bold mb-6 text-slate-800">
+Create New Blog
+</h2>
+
+<form id="post-form" class="space-y-5">
+
+<div>
+
+<label class="block mb-2 font-medium text-slate-700">
+Blog Title
+</label>
+
+<input
+type="text"
+id="post-title"
+required
+placeholder="Enter blog title"
+class="w-full border border-slate-300 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+/>
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-medium text-slate-700">
+Featured Image URL
+</label>
+
+<input
+type="text"
+id="post-image"
+placeholder="Paste image URL"
+class="w-full border border-slate-300 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+/>
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-medium text-slate-700">
+Blog Content
+</label>
+
+<div id="editor"></div>
+
+</div>
+
+<button
+type="submit"
+class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-semibold">
+Publish Blog
+</button>
+
+</form>
+
+</div>
+
+<!-- POSTS -->
+<div class="xl:col-span-2 bg-white rounded-3xl p-8 shadow-sm border">
+
+<div class="flex justify-between items-center mb-8">
+
+<h2 class="text-2xl font-bold text-slate-800">
+Published Blogs
+</h2>
+
+<input
+type="text"
+id="search-posts"
+placeholder="Search blogs..."
+class="border border-slate-300 rounded-2xl px-4 py-3 outline-none"
+/>
+
+</div>
+
+<div id="admin-feed" class="space-y-5">
+
+<div class="text-slate-400">
+Loading blogs...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ANALYTICS -->
+<section id="analytics-section" class="hidden p-10">
+
+<div class="bg-white rounded-3xl p-10 shadow-sm border">
+
+<h2 class="text-3xl font-bold mb-10 text-slate-800">
+Website Analytics
+</h2>
+
+<canvas id="analyticsChart"></canvas>
+
+</div>
+
+</section>
+
+<!-- SETTINGS -->
+<section id="settings-section" class="hidden p-10">
+
+<div class="bg-white rounded-3xl p-10 shadow-sm border max-w-4xl">
+
+<h2 class="text-3xl font-bold mb-10 text-slate-800">
+Website Settings
+</h2>
+
+<div class="space-y-6">
+
+<div>
+
+<label class="block mb-2 font-medium">
+Website Name
+</label>
+
+<input
+type="text"
+value="ISO Certification Guide"
+class="w-full border rounded-2xl px-4 py-3"
+/>
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-medium">
+Admin Email
+</label>
+
+<input
+type="email"
+placeholder="admin@example.com"
+class="w-full border rounded-2xl px-4 py-3"
+/>
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-medium">
+Homepage Description
+</label>
+
+<textarea
+rows="5"
+class="w-full border rounded-2xl px-4 py-3">Professional ISO certification blogs and compliance insights.</textarea>
+
+</div>
+
+<button
+class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-semibold">
+Save Settings
+</button>
+
+</div>
+
+</div>
+
+</section>
+
 </main>
 
-    <!-- TOPBAR -->
-    <header class="bg-white border-b px-8 py-5 flex justify-between items-center">
-
-      <div>
-        <h1 class="text-2xl font-bold text-slate-800">
-          Dashboard
-        </h1>
-
-        <p class="text-slate-500 text-sm">
-          Welcome back admin
-        </p>
-      </div>
-
-      <a href="index.html"
-         class="bg-slate-900 hover:bg-black text-white px-5 py-2 rounded-xl text-sm font-medium transition">
-        Visit Website
-      </a>
-
-    </header>
-
-    <!-- DASHBOARD STATS -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-8">
-
-      <div class="bg-white rounded-2xl p-6 shadow-sm border">
-        <p class="text-slate-500 text-sm">Total Posts</p>
-        <h2 id="total-posts" class="text-4xl font-bold mt-2">0</h2>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 shadow-sm border">
-        <p class="text-slate-500 text-sm">Database Status</p>
-        <h2 class="text-2xl font-bold mt-2 text-green-600">
-          Connected
-        </h2>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 shadow-sm border">
-        <p class="text-slate-500 text-sm">Admin Access</p>
-        <h2 class="text-2xl font-bold mt-2 text-blue-600">
-          Active
-        </h2>
-      </div>
-
-    </section>
-
-    <!-- MAIN GRID -->
-    <section class="grid grid-cols-1 xl:grid-cols-3 gap-8 px-8 pb-8">
-
-      <!-- CREATE POST -->
-      <div class="xl:col-span-1 bg-white rounded-2xl shadow-sm border p-6 h-fit">
-
-        <h2 class="text-xl font-bold text-slate-800 mb-6">
-          Create New Post
-        </h2>
-
-        <form id="post-form" onsubmit="publishArticle(event)" class="space-y-5">
-
-          <div>
-            <label class="text-sm font-medium text-slate-700 block mb-2">
-              Post Title
-            </label>
-
-            <input
-              type="text"
-              id="post-title"
-              required
-              class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter title"
-            >
-          </div>
-
-          <div>
-            <label class="text-sm font-medium text-slate-700 block mb-2">
-              Article Content
-            </label>
-
-            <textarea
-              id="post-content"
-              rows="10"
-              required
-              class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Write article..."
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-semibold"
-          >
-            Publish Post
-          </button>
-
-        </form>
-
-      </div>
-
-      <!-- POSTS -->
-      <div class="xl:col-span-2 bg-white rounded-2xl shadow-sm border p-6">
-
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="text-xl font-bold text-slate-800">
-            Published Posts
-          </h2>
-        </div>
-
-        <div id="admin-feed" class="space-y-4">
-          <p class="text-slate-400">
-            Loading posts...
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
+</div>
 
 </div>
 
 <script>
 
-  // FIREBASE CONFIG
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
   authDomain: "iso-certification-guide.firebaseapp.com",
   databaseURL: "https://iso-certification-guide-default-rtdb.firebaseio.com",
   projectId: "iso-certification-guide",
   storageBucket: "iso-certification-guide.firebasestorage.app",
   messagingSenderId: "277771367161",
-  appId: "1:277771367161:web:0f61aef15bb9ce0d64a828",
-  measurementId: "G-MJL8MBRQEB"
+  appId: "1:277771367161:web:0f61aef15bb9ce0d64a828"
 };
 
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-  const database = firebase.database();
+const database = firebase.database();
 
-  // ADMIN PASSWORD
-  const SECRET_PASSPHRASE = "8520";
+const SECRET_PASSPHRASE = "8520";
 
-  // LOGIN
-  function unlockDashboard() {
+const quill = new Quill('#editor', {
 
-      const input = document.getElementById('gate-pass').value;
+theme: 'snow',
 
-      if(input === SECRET_PASSPHRASE){
+placeholder: 'Write professional blog content...',
 
-          document.getElementById('auth-gate').classList.add('hidden');
+modules: {
 
-          document.getElementById('dashboard-ui').classList.remove('hidden');
+toolbar: [
 
-          loadAdminArticlesFeed();
+[{ header: [1,2,3,false] }],
 
-      } else {
+['bold','italic','underline'],
 
-          document.getElementById('gate-error').classList.remove('hidden');
+[{ align: [] }],
 
-      }
+[{ list:'ordered' },{ list:'bullet' }],
 
-  }
+['link','image'],
 
-  // CREATE POST
-  function publishArticle(e){
+['clean']
 
-      e.preventDefault();
+]
 
-      const title = document.getElementById('post-title').value;
+}
 
-      const content = document.getElementById('post-content').value;
+});
 
-      const today = new Date().toLocaleDateString();
+function unlockDashboard(){
 
-      database.ref('blogs').push({
-          title,
-          content,
-          date: today,
-          timestamp: Date.now()
-      })
+const input = document.getElementById('gate-pass').value;
 
-      .then(() => {
+if(input === SECRET_PASSPHRASE){
 
-          document.getElementById('post-form').reset();
+document.getElementById('auth-gate').classList.add('hidden');
 
-          alert('Post Published Successfully');
+document.getElementById('dashboard-ui').classList.remove('hidden');
 
-      })
+loadBlogs();
 
-      .catch((err) => {
+}else{
 
-          alert(err.message);
+document.getElementById('gate-error').classList.remove('hidden');
 
-      });
+}
 
-  }
+}
 
-  // LOAD POSTS
-  function loadAdminArticlesFeed(){
+function showSection(section){
 
-      database.ref('blogs').on('value', (snapshot) => {
+document.getElementById('dashboard-section').classList.add('hidden');
 
-          const feed = document.getElementById('admin-feed');
+document.getElementById('analytics-section').classList.add('hidden');
 
-          feed.innerHTML = '';
+document.getElementById('settings-section').classList.add('hidden');
 
-          const data = snapshot.val();
+document.getElementById(section + '-section').classList.remove('hidden');
 
-          if(!data){
+}
 
-              feed.innerHTML = `
-                <div class="text-slate-400">
-                  No posts available
-                </div>
-              `;
+document.getElementById('post-form')
+.addEventListener('submit', function(e){
 
-              return;
+e.preventDefault();
 
-          }
+const title = document.getElementById('post-title').value;
 
-          const totalPosts = Object.keys(data).length;
+const image = document.getElementById('post-image').value;
 
-          document.getElementById('total-posts').innerText = totalPosts;
+const content = quill.root.innerHTML;
 
-          Object.keys(data)
-          .sort((a,b) => data[b].timestamp - data[a].timestamp)
-          .forEach((key) => {
+database.ref('blogs').push({
 
-              const post = data[key];
+title,
+image,
+content,
+date: new Date().toLocaleDateString(),
+timestamp: Date.now()
 
-              feed.innerHTML += `
+}).then(() => {
 
-                <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition">
+alert('Blog Published Successfully');
 
-                    <div class="flex justify-between items-start gap-4">
+document.getElementById('post-form').reset();
 
-                        <div>
+quill.root.innerHTML = '';
 
-                            <h3 class="font-bold text-lg text-slate-800">
-                              ${post.title}
-                            </h3>
+});
 
-                            <p class="text-sm text-slate-500 mt-1">
-                              Published on ${post.date}
-                            </p>
+});
 
-                        </div>
+function loadBlogs(){
 
-                        <button
-                          onclick="dropArticle('${key}')"
-                          class="bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-xl text-sm font-medium transition"
-                        >
-                          Delete
-                        </button>
+database.ref('blogs').on('value', (snapshot)=>{
 
-                    </div>
+const feed = document.getElementById('admin-feed');
 
-                </div>
+feed.innerHTML = '';
 
-              `;
+const data = snapshot.val();
 
-          });
+if(!data){
 
-      });
+feed.innerHTML = `
+<div class="text-slate-400">
+No blogs available
+</div>
+`;
 
-  }
+return;
 
-  // DELETE POST
-  function dropArticle(key){
+}
 
-      if(confirm('Delete this post permanently?')){
+const posts = Object.keys(data);
 
-          database.ref('blogs/' + key).remove();
+document.getElementById('total-posts').innerText = posts.length;
 
-      }
+posts.reverse().forEach((key)=>{
 
-  }
+const post = data[key];
+
+feed.innerHTML += `
+
+<div class="border border-slate-200 rounded-3xl p-5 hover:shadow-lg transition">
+
+<div class="flex justify-between gap-5">
+
+<div class="flex gap-5">
+
+<img
+src="${post.image || 'https://via.placeholder.com/120'}"
+class="w-28 h-28 rounded-2xl object-cover"
+/>
+
+<div>
+
+<h3 class="text-2xl font-bold text-slate-800">
+${post.title}
+</h3>
+
+<p class="text-slate-500 mt-2">
+${post.date}
+</p>
+
+</div>
+
+</div>
+
+<button
+onclick="deleteBlog('${key}')"
+class="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-3 rounded-2xl h-fit">
+Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+});
+
+}
+
+function deleteBlog(id){
+
+if(confirm('Delete this blog permanently?')){
+
+database.ref('blogs/' + id).remove();
+
+}
+
+}
+
+new Chart(document.getElementById('analyticsChart'), {
+
+type: 'bar',
+
+data: {
+
+labels: ['Blogs','Visitors','Views','Comments'],
+
+datasets: [{
+
+label: 'Website Analytics',
+
+data: [12,50,120,30]
+
+}]
+
+}
+
+});
 
 </script>
 
