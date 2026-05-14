@@ -5,13 +5,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Professional Blog Article</title>
+<title>ISO Blog Article</title>
+
+<meta name="description" content="Professional ISO certification insights and compliance guides.">
+
+<meta name="robots" content="index, follow">
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -19,44 +21,44 @@
 <style>
 
 body{
-    font-family:'Inter',sans-serif;
-    background:#f1f5f9;
+    font-family:'Manrope',sans-serif;
+    background:#f8fafc;
 }
 
 /* ARTICLE CONTENT */
 
 #content{
-    font-size:18px;
+    font-size:19px;
     line-height:2;
     color:#334155;
-    text-align:justify;
 }
 
 #content p{
     margin-bottom:28px;
+    text-align:justify;
 }
 
 #content h1{
-    font-size:42px;
+    font-size:48px;
     font-weight:800;
-    margin-top:40px;
+    margin-top:50px;
     margin-bottom:25px;
-    color:#0f172a;
+    color:#020617;
     line-height:1.2;
 }
 
 #content h2{
-    font-size:34px;
+    font-size:38px;
     font-weight:800;
-    margin-top:35px;
+    margin-top:45px;
     margin-bottom:20px;
-    color:#0f172a;
+    color:#020617;
 }
 
 #content h3{
-    font-size:28px;
+    font-size:30px;
     font-weight:700;
-    margin-top:30px;
+    margin-top:35px;
     margin-bottom:18px;
     color:#0f172a;
 }
@@ -64,7 +66,7 @@ body{
 #content ul,
 #content ol{
     padding-left:30px;
-    margin-bottom:25px;
+    margin-bottom:28px;
 }
 
 #content li{
@@ -73,33 +75,54 @@ body{
 
 #content img{
     width:100%;
-    border-radius:24px;
-    margin:40px 0;
+    border-radius:28px;
+    margin:45px 0;
 }
 
 #content blockquote{
-    border-left:5px solid #0f766e;
-    background:#f8fafc;
-    padding:24px;
-    border-radius:20px;
-    margin:35px 0;
+    background:white;
+    border-left:6px solid #2563eb;
+    padding:30px;
+    border-radius:24px;
+    margin:40px 0;
     font-style:italic;
+    box-shadow:0 10px 40px rgba(0,0,0,0.05);
 }
 
 #content a{
-    color:#0f766e;
+    color:#2563eb;
     text-decoration:underline;
 }
 
-/* SCROLLBAR */
-
-::-webkit-scrollbar{
-    width:8px;
+.glass{
+    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.08);
 }
 
-::-webkit-scrollbar-thumb{
-    background:#0f766e;
-    border-radius:20px;
+.hero-grid{
+    background-image:
+    radial-gradient(circle at top left, rgba(59,130,246,0.15), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(14,165,233,0.15), transparent 30%);
+}
+
+@media(max-width:768px){
+
+#content{
+    font-size:17px;
+}
+
+#content h1{
+    font-size:36px;
+}
+
+#content h2{
+    font-size:30px;
+}
+
+#content h3{
+    font-size:24px;
+}
+
 }
 
 </style>
@@ -108,61 +131,56 @@ body{
 
 <body>
 
-<!-- HERO -->
-<section class="relative overflow-hidden bg-gradient-to-r from-emerald-950 via-teal-900 to-emerald-950 text-white">
-
-<!-- GLOW EFFECT -->
-<div class="absolute inset-0 opacity-20">
-
-<div class="absolute top-0 left-0 w-[500px] h-[500px] bg-emerald-500 blur-3xl rounded-full"></div>
-
-<div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-teal-500 blur-3xl rounded-full"></div>
-
-</div>
-
 <!-- NAVBAR -->
-<header class="relative z-10">
+<header class="fixed top-0 left-0 w-full z-50">
 
-<div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+<div class="max-w-7xl mx-auto px-6 pt-6">
+
+<div class="glass border border-white/10 rounded-2xl px-8 py-5 flex justify-between items-center">
 
 <a href="index.html"
-class="text-3xl font-black tracking-tight">
+class="text-2xl font-extrabold text-white tracking-tight">
 ISO Guide
 </a>
 
-<nav class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8 text-white/80">
 
-<a href="index.html"
-class="text-white/80 hover:text-white transition">
+<a href="index.html" class="hover:text-white transition">
 Home
 </a>
 
-<a href="index.html"
-class="text-white/80 hover:text-white transition">
-Blogs
+<a href="index.html" class="hover:text-white transition">
+Articles
 </a>
 
-<a href="index.html"
-class="bg-white/10 hover:bg-white/20 transition px-5 py-2 rounded-full">
-Back
+<a href="admin.html"
+class="bg-white text-slate-900 px-5 py-2 rounded-full font-semibold">
+Dashboard
 </a>
 
 </nav>
 
 </div>
 
+</div>
+
 </header>
 
-<!-- HERO CONTENT -->
-<div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-16 pb-44">
+<!-- HERO -->
+<section class="hero-grid bg-slate-950 text-white pt-44 pb-28 overflow-hidden">
 
-<div class="inline-flex items-center gap-3 bg-white/10 px-5 py-2 rounded-full">
+<div class="max-w-7xl mx-auto px-6">
 
-<span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+<div class="grid lg:grid-cols-2 gap-16 items-center">
 
-<span class="text-sm tracking-wide">
-Professional Blog Article
-</span>
+<!-- LEFT -->
+<div>
+
+<div class="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-400/20 text-blue-300 px-5 py-2 rounded-full text-sm font-semibold">
+
+<span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+
+ISO Knowledge Base
 
 </div>
 
@@ -171,35 +189,48 @@ class="text-5xl md:text-7xl font-black leading-tight mt-8">
 Loading...
 </h1>
 
-<p id="hero-description"
-class="mt-8 text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
-Explore professional ISO certification insights, compliance strategies, and business improvement guides.
+<p class="text-slate-300 text-xl leading-relaxed mt-8 max-w-2xl">
+Explore modern ISO certification strategies, implementation frameworks, compliance systems, and operational excellence insights.
 </p>
 
-<div class="flex justify-center items-center gap-8 mt-10 flex-wrap">
+<div class="flex flex-wrap items-center gap-6 mt-10">
 
 <div class="flex items-center gap-4">
 
-<div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center text-xl font-bold">
+<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xl">
 I
 </div>
 
-<div class="text-left">
+<div>
 
 <p class="font-semibold">
 ISO Editorial Team
 </p>
 
 <p id="date"
-class="text-white/70 text-sm">
+class="text-slate-400 text-sm">
 </p>
 
 </div>
 
 </div>
 
-<div class="bg-white/10 px-5 py-2 rounded-full text-sm">
-Updated Article
+<div class="bg-white/5 border border-white/10 px-5 py-3 rounded-2xl">
+SEO Optimized Article
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div>
+
+<img
+id="featured-image"
+class="w-full h-[500px] object-cover rounded-[40px] shadow-2xl border border-white/10"
+/>
+
 </div>
 
 </div>
@@ -208,86 +239,86 @@ Updated Article
 
 </section>
 
-<!-- FEATURED IMAGE -->
-<div class="max-w-5xl mx-auto px-6 relative z-20 -mt-28">
-
-<img
-id="featured-image"
-class="w-full h-[520px] object-cover rounded-[36px] shadow-2xl border-[6px] border-white"
-/>
-
-</div>
-
-<!-- MAIN -->
+<!-- CONTENT -->
 <main class="max-w-7xl mx-auto px-6 py-20">
 
-<div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+<div class="grid lg:grid-cols-12 gap-14">
 
-<!-- SHARE -->
-<div class="hidden lg:flex flex-col items-center gap-5 pt-10">
+<!-- TOC -->
+<aside class="lg:col-span-3">
 
-<div class="rotate-90 text-slate-400 tracking-[6px] text-sm">
-SHARE
+<div class="sticky top-32">
+
+<div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200">
+
+<p class="uppercase text-sm tracking-[4px] text-slate-400 font-bold">
+Article Overview
+</p>
+
+<h3 class="text-2xl font-extrabold text-slate-900 mt-5">
+Quick Navigation
+</h3>
+
+<div id="toc"
+class="mt-8 space-y-4 text-slate-600">
 </div>
 
-<button class="w-12 h-12 bg-white rounded-full shadow hover:shadow-xl transition">
-🔗
-</button>
-
-<button class="w-12 h-12 bg-white rounded-full shadow hover:shadow-xl transition">
-𝕏
-</button>
-
-<button class="w-12 h-12 bg-white rounded-full shadow hover:shadow-xl transition">
-f
-</button>
-
-<button class="w-12 h-12 bg-white rounded-full shadow hover:shadow-xl transition">
-P
-</button>
+</div>
 
 </div>
+
+</aside>
 
 <!-- ARTICLE -->
-<article class="lg:col-span-2 bg-white rounded-[36px] p-8 md:p-16 shadow-sm">
+<article class="lg:col-span-6">
+
+<div class="bg-white rounded-[40px] p-8 md:p-16 shadow-sm border border-slate-200">
 
 <div id="content"></div>
+
+</div>
 
 </article>
 
 <!-- SIDEBAR -->
-<aside class="space-y-8">
+<aside class="lg:col-span-3 space-y-8">
 
 <!-- CTA -->
-<div class="bg-gradient-to-br from-emerald-900 to-teal-800 text-white rounded-[32px] p-8 shadow-2xl">
+<div class="bg-slate-950 text-white rounded-[32px] p-8 overflow-hidden relative">
 
-<h3 class="text-3xl font-black leading-tight">
-Need ISO Consultation?
-</h3>
+<div class="absolute top-0 right-0 w-40 h-40 bg-blue-500 blur-3xl opacity-20"></div>
 
-<p class="mt-5 text-white/80 leading-relaxed">
-Connect with experienced ISO professionals and simplify your certification process.
+<div class="relative z-10">
+
+<p class="uppercase text-sm tracking-[4px] text-blue-400 font-bold">
+Professional Support
 </p>
 
-<button class="mt-8 w-full bg-white text-emerald-900 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">
-Get Started →
+<h3 class="text-3xl font-black leading-tight mt-5">
+Need ISO Certification Help?
+</h3>
+
+<p class="text-slate-300 leading-relaxed mt-6">
+Get expert guidance on ISO implementation, audits, compliance, and certification processes.
+</p>
+
+<button class="mt-8 w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-bold">
+Contact Experts
 </button>
 
 </div>
 
-<!-- RECENT POSTS -->
-<div class="bg-white rounded-[32px] p-6 shadow-sm">
+</div>
 
-<h3 class="text-2xl font-bold text-slate-900 mb-8">
-Recent Articles
+<!-- RECENT POSTS -->
+<div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200">
+
+<h3 class="text-2xl font-extrabold text-slate-900">
+Latest Articles
 </h3>
 
-<div id="recent-posts" class="space-y-6">
-
-<div class="animate-pulse h-24 rounded-2xl bg-slate-100"></div>
-
-<div class="animate-pulse h-24 rounded-2xl bg-slate-100"></div>
-
+<div id="recent-posts"
+class="space-y-6 mt-8">
 </div>
 
 </div>
@@ -326,15 +357,56 @@ const post = snapshot.val();
 
 document.getElementById('hero-title').innerText = post.title;
 
-document.getElementById('date').innerText = post.date;
-
 document.getElementById('featured-image').src = post.image;
+
+document.getElementById('date').innerText = post.date;
 
 document.getElementById('content').innerHTML = post.content;
 
 document.title = post.title;
 
+// SEO DESCRIPTION
+const firstParagraph = document.querySelector('#content p');
+
+if(firstParagraph){
+
+document.querySelector('meta[name="description"]')
+.setAttribute('content', firstParagraph.innerText.substring(0,150));
+
+}
+
+// GENERATE TOC
+generateTOC();
+
 });
+
+// TOC FUNCTION
+function generateTOC(){
+
+const headings = document.querySelectorAll('#content h2, #content h3');
+
+const toc = document.getElementById('toc');
+
+headings.forEach((heading,index)=>{
+
+const id = 'heading-' + index;
+
+heading.id = id;
+
+toc.innerHTML += `
+
+<a href="#${id}"
+class="block hover:text-blue-600 transition leading-relaxed">
+
+${heading.innerText}
+
+</a>
+
+`;
+
+});
+
+}
 
 // RECENT POSTS
 database.ref('blogs')
@@ -366,7 +438,7 @@ class="w-24 h-24 object-cover rounded-2xl"
 
 <div>
 
-<h4 class="font-bold text-slate-800 leading-snug group-hover:text-emerald-700 transition">
+<h4 class="font-bold text-slate-800 leading-snug group-hover:text-blue-600 transition">
 ${post.title.substring(0,60)}...
 </h4>
 
