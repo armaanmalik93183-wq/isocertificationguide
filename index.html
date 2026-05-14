@@ -167,30 +167,36 @@ function renderPosts(posts){
 
         container.innerHTML += `
 
-        <article class="bg-white rounded-3xl overflow-hidden shadow-sm border hover:shadow-xl transition duration-300">
+       <article class="bg-white rounded-3xl overflow-hidden shadow-sm border hover:shadow-xl transition duration-300">
 
-            <div class="p-8">
+    <!-- BLOG IMAGE -->
+    <img
+    src="${post.image}"
+    class="w-full h-56 object-cover"
+    />
 
-                <span class="text-blue-600 text-sm font-semibold">
-                    ${post.date}
-                </span>
+    <div class="p-8">
 
-                <h3 class="text-2xl font-bold mt-3 text-slate-800 leading-snug">
-                    ${post.title}
-                </h3>
+        <span class="text-blue-600 text-sm font-semibold">
+            ${post.date}
+        </span>
 
-                <p class="mt-4 text-slate-600 leading-relaxed">
-                    ${snippet}...
-                </p>
+        <h3 class="text-2xl font-bold mt-3 text-slate-800 leading-snug">
+            ${post.title}
+        </h3>
 
-                <a href="post.html?id=${post.id}"
-                class="inline-block mt-6 bg-slate-900 text-white px-5 py-3 rounded-xl hover:bg-black transition">
-                    Read More
-                </a>
+        <p class="mt-4 text-slate-600 leading-relaxed">
+            ${snippet}...
+        </p>
 
-            </div>
+        <a href="post.html?id=${post.id}"
+        class="inline-block mt-6 bg-slate-900 text-white px-5 py-3 rounded-xl hover:bg-black transition">
+            Read More
+        </a>
 
-        </article>
+    </div>
+
+</article>
 
         `;
 
