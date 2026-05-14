@@ -396,6 +396,8 @@ const database = firebase.database();
 
 const SECRET_PASSPHRASE = "8520";
 
+let editingBlogId = null;
+
 const quill = new Quill('#editor', {
 
 theme: 'snow',
@@ -424,6 +426,7 @@ toolbar: [
 
 });
 
+// LOGIN
 function unlockDashboard(){
 
 const input = document.getElementById('gate-pass').value;
@@ -444,6 +447,7 @@ document.getElementById('gate-error').classList.remove('hidden');
 
 }
 
+// SECTION SWITCH
 function showSection(section){
 
 document.getElementById('dashboard-section').classList.add('hidden');
@@ -456,6 +460,7 @@ document.getElementById(section + '-section').classList.remove('hidden');
 
 }
 
+// CREATE / UPDATE BLOG
 document.getElementById('post-form')
 .addEventListener('submit', async function(e){
 
@@ -471,7 +476,7 @@ try{
 
 let imageURL = '';
 
-// NEW IMAGE UPLOAD
+// IMAGE UPLOAD
 if(imageFile){
 
 const formData = new FormData();
@@ -491,7 +496,7 @@ imageURL = result.data.url;
 
 }
 
-// UPDATE EXISTING BLOG
+// UPDATE BLOG
 if(editingBlogId){
 
 const updates = {
@@ -502,7 +507,6 @@ date: new Date().toLocaleDateString()
 
 };
 
-// ONLY UPDATE IMAGE IF NEW IMAGE SELECTED
 if(imageURL){
 updates.image = imageURL;
 }
@@ -544,6 +548,7 @@ alert('Blog Published Successfully');
 
 }
 
+// RESET FORM
 document.getElementById('post-form').reset();
 
 quill.root.innerHTML = '';
@@ -558,6 +563,7 @@ alert(error.message);
 
 });
 
+// LOAD BLOGS
 function loadBlogs(){
 
 database.ref('blogs').on('value', (snapshot)=>{
@@ -592,7 +598,7 @@ feed.innerHTML += `
 
 <div class="border border-slate-200 rounded-3xl p-5 hover:shadow-lg transition">
 
-<div class="flex justify-between gap-5">
+<div class="flex justify-between gap-5 items-start">
 
 <div class="flex gap-5">
 
@@ -603,7 +609,7 @@ class="w-28 h-28 rounded-2xl object-cover"
 
 <div>
 
-<h3 class="text-2xl font-bold text-slate-800">
+<h3 class="text-2xl font-bold text-slate-800 max-w-xl">
 ${post.title}
 </h3>
 
@@ -628,33 +634,6 @@ onclick="deleteBlog('${key}')"
 class="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-3 rounded-2xl h-fit">
 Delete
 </button>
-function editBlog(id){
-
-database.ref('blogs/' + id).once('value')
-.then((snapshot)=>{
-
-const post = snapshot.val();
-
-document.getElementById('post-title').value = post.title;
-
-quill.root.innerHTML = post.content;
-
-// STORE CURRENT EDITING ID
-editingBlogId = id;
-
-// SCROLL TO FORM
-window.scrollTo({
-top:0,
-behavior:'smooth'
-});
-
-// CHANGE BUTTON TEXT
-document.querySelector('#post-form button[type="submit"]')
-.innerText = 'Update Blog';
-
-});
-
-}
 
 </div>
 
@@ -670,6 +649,33 @@ document.querySelector('#post-form button[type="submit"]')
 
 }
 
+// EDIT BLOG
+function editBlog(id){
+
+database.ref('blogs/' + id).once('value')
+.then((snapshot)=>{
+
+const post = snapshot.val();
+
+document.getElementById('post-title').value = post.title;
+
+quill.root.innerHTML = post.content;
+
+editingBlogId = id;
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+document.querySelector('#post-form button[type="submit"]')
+.innerText = 'Update Blog';
+
+});
+
+}
+
+// DELETE BLOG
 function deleteBlog(id){
 
 if(confirm('Delete this blog permanently?')){
@@ -680,6 +686,7 @@ database.ref('blogs/' + id).remove();
 
 }
 
+// ANALYTICS CHART
 new Chart(document.getElementById('analyticsChart'), {
 
 type: 'bar',
