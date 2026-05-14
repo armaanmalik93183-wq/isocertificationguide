@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Workspace Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
 
+    <div id="auth-gate" class="fixed inset-0 bg-gray-900 flex flex-col justify-center items-center px-4 z-50">
+        <div class="bg-white p-8 rounded-xl shadow-xl max-w-md w-full">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Secure Workspace Terminal</h2>
+            <p class="text-sm text-gray-500 mb-6 text-center">Enter your administrative password credential below.</p>
+            <input type="password" id="gate-pass" placeholder="••••••••" class="w-full border p-3 rounded-lg border-gray-300 mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button onclick="unlockDashboard()" class="w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-black transition">Unlock Controls</button>
+            <p id="gate-error" class="text-red-500 text-xs mt-3 hidden text-center font-medium">Invalid administration key sequence.</p>
+        </div>
+    </div>
+
+    <div id="dashboard-ui" class="hidden">
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+                <span class="font-bold text-gray-900 tracking-tight flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></span> Control Node Panel
+                </span>
+                <a href="index.html" class="text-sm font-medium text-blue-600 hover:underline">&larr; Live Portal Site</a>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <section class="lg:col-span-1 bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-fit">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Compose Fresh Entry</h3>
+                <form id="post-form" onsubmit="publishArticle(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Post Title</label>
+                        <input type="text" id="post-title" required class="w-full border border-gray-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="E.g., ISO 9001 Implementation Steps">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Article Body Content</label>
+                        <textarea id="post-content" rows="10" required class="w-full border border-gray-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Write comprehensive markdown or standard paragraphs text layout here..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white font-medium py-2.5 rounded-lg text-sm hover:bg-blue-700 transition">Broadcast Live Post</button>
+                </form>
+            </section>
+
+            <section class="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Active Database Indexes</h3>
+                <div id="admin-feed" class="space-y-4">
+                    <p class="text-sm text-gray-400">Syncing configuration feeds index tables...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Paste your exact identical Firebase Config object keys schema structural map here:
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_App_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // ⚠️ DEFINE YOUR OWN SECURE WORKSPACE DASHBOARD ACCESS CODE HERE
+        const SECRET_PASSPHRASE = "Admin123"; 
+
+        function unlockDashboard() {
+            const input = document.getElementById('gate-pass').value;
+            if(input === SECRET_PASSPHRASE) {
+                document.getElementById('auth-gate').classList.add('hidden');
+                document.getElementById('dashboard-ui').classList.remove('hidden');
+                loadAdminArticlesFeed();
+            } else {
+                const err = document.getElementById('gate-error');
+                err.classList.remove('hidden');
+            }
+        }
+
+        function publishArticle(e) {
+            e.preventDefault();
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            
+            database.ref('blogs').push({
+                title: title,
+                content: content,
+                date: today,
+                timestamp: Date.now()
+            }).then(() => {
+                document.getElementById('post-form').reset();
+                alert('Entry successfully written globally to Realtime node sync tables matrix.');
+            }).catch(err => alert('Data write synchronization trace fault: ' + err.message));
+        }
+
+        function loadAdminArticlesFeed() {
+            database.ref('blogs').on('value', (snapshot) => {
+                const feed = document.getElementById('admin-feed');
+                feed.innerHTML = '';
+                const data = snapshot.val();
+
+                if(!data) {
+                    feed.innerHTML = '<p class="text-sm text-gray-400">Database node entry structures are currently completely null empty.</p>';
+                    return;
+                }
+
+                Object.keys(data).sort((a,b) => data[b].timestamp - data[a].timestamp).forEach((key) => {
+                    const post = data[key];
+                    feed.innerHTML += `
+                        <div class="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition">
+                            <div class="max-w-[75%]">
+                                <h4 class="font-bold text-gray-900 truncate">${post.title}</h4>
+                                <p class="text-xs text-gray-500">Node ID Ref: ${key} • Published: ${post.date}</p>
+                            </div>
+                            <button onclick="dropArticle('${key}')" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded-md font-medium hover:bg-red-100 border border-red-200 transition">Drop Post</button>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        function dropArticle(key) {
+            if(confirm('Are you entirely certain you want to purge this record index cluster data entry from active nodes permanently?')) {
+                database.ref(`blogs/${key}`).remove();
+            }
+        }
+    </script>
+</body>
+</html>
