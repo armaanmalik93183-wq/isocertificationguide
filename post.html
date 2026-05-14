@@ -78,11 +78,9 @@ database.ref('blogs/' + id).once('value')
 
     document.getElementById('date').innerText = post.date;
 
-    document.getElementById('content').innerText = post.content;
+    // IMPORTANT FIX
+    document.getElementById('content').innerHTML = post.content;
 
 });
 
 </script>
-
-</body>
-</html>
