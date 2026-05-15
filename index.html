@@ -72,27 +72,38 @@ Admin Panel
 
 </header>
 
-<!-- HERO -->
-<section class="hero-bg text-white py-32">
+<section class="relative overflow-hidden h-[500px] rounded-[40px]">
 
-<div class="max-w-4xl mx-auto px-6 text-center">
+<!-- Background image -->
+<div
+class="absolute inset-0 bg-cover bg-center scale-110 animate-[pulse_8s_ease-in-out_infinite]"
+style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop');">
+</div>
 
-<h2 class="text-6xl font-extrabold leading-tight">
+<!-- Dark overlay -->
+<div class="absolute inset-0 bg-slate-950/65"></div>
+
+<!-- Animated circles -->
+<div class="absolute top-10 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-bounce"></div>
+
+<div class="absolute bottom-0 right-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+
+<div class="relative z-10 flex flex-col justify-center items-center text-center h-full px-6">
+
+<h1 class="text-5xl md:text-7xl font-black text-white leading-tight max-w-4xl">
 Professional ISO Certification Insights
-</h2>
+</h1>
 
-<p class="mt-6 text-xl text-slate-200 leading-relaxed">
-Latest ISO certification guides, audit preparation strategies,
-compliance insights, and implementation tutorials.
+<p class="text-xl text-white/80 mt-8 max-w-3xl">
+Latest ISO certification guides, implementation strategies, audit preparation and compliance resources.
 </p>
 
-<div class="mt-8">
+<div class="mt-10 w-full max-w-xl">
 
 <input
 type="text"
-id="searchInput"
 placeholder="Search articles..."
-class="w-full max-w-2xl px-6 py-4 rounded-2xl text-slate-900 outline-none text-lg"
+class="w-full py-5 px-8 rounded-2xl outline-none text-lg shadow-xl"
 />
 
 </div>
@@ -100,7 +111,6 @@ class="w-full max-w-2xl px-6 py-4 rounded-2xl text-slate-900 outline-none text-l
 </div>
 
 </section>
-
 <!-- BLOGS -->
 <section class="max-w-7xl mx-auto px-6 py-16">
 
