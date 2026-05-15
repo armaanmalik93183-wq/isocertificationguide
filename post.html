@@ -5,10 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ISO Blog Article</title>
+<title>ISO Certification Guide</title>
 
-<meta name="description" content="Professional ISO certification insights and compliance guides.">
-
+<meta name="description" content="Professional ISO certification insights and compliance guides">
 <meta name="robots" content="index, follow">
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -25,102 +24,111 @@ body{
     background:#f8fafc;
 }
 
-/* ARTICLE CONTENT */
+/* HERO EFFECT */
+
+.hero-grid{
+background:
+radial-gradient(circle at top left,rgba(59,130,246,.15),transparent 30%),
+radial-gradient(circle at bottom right,rgba(14,165,233,.15),transparent 30%);
+}
+
+/* GLASS NAV */
+
+.glass{
+backdrop-filter:blur(14px);
+background:rgba(255,255,255,.08);
+}
+
+/* BLOG CONTENT */
 
 #content{
-    font-size:19px;
-    line-height:2;
-    color:#334155;
+font-size:20px;
+line-height:2.2;
+color:#334155;
+width:100%;
+max-width:none;
 }
 
 #content p{
-    margin-bottom:28px;
-    text-align:justify;
+margin-bottom:30px;
+text-align:justify;
 }
 
 #content h1{
-    font-size:38px;
-    font-weight:750;
-    margin-top:50px;
-    margin-bottom:25px;
-    color:#020617;
-    line-height:1.2;
+font-size:42px;
+font-weight:800;
+margin-top:50px;
+margin-bottom:25px;
+color:#020617;
+line-height:1.2;
 }
 
 #content h2{
-    font-size:38px;
-    font-weight:800;
-    margin-top:45px;
-    margin-bottom:20px;
-    color:#020617;
+font-size:36px;
+font-weight:800;
+margin-top:45px;
+margin-bottom:20px;
+color:#020617;
+line-height:1.3;
 }
 
 #content h3{
-    font-size:30px;
-    font-weight:700;
-    margin-top:35px;
-    margin-bottom:18px;
-    color:#0f172a;
+font-size:30px;
+font-weight:700;
+margin-top:35px;
+margin-bottom:18px;
+color:#0f172a;
 }
 
 #content ul,
 #content ol{
-    padding-left:30px;
-    margin-bottom:28px;
+padding-left:35px;
+margin-bottom:28px;
 }
 
 #content li{
-    margin-bottom:12px;
+margin-bottom:12px;
 }
 
 #content img{
-    width:100%;
-    border-radius:28px;
-    margin:45px 0;
+width:100%;
+border-radius:28px;
+margin:50px 0;
+box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
 #content blockquote{
-    background:white;
-    border-left:6px solid #2563eb;
-    padding:30px;
-    border-radius:24px;
-    margin:40px 0;
-    font-style:italic;
-    box-shadow:0 10px 40px rgba(0,0,0,0.05);
+background:white;
+border-left:6px solid #2563eb;
+padding:30px;
+border-radius:24px;
+margin:40px 0;
+font-style:italic;
+box-shadow:0 10px 40px rgba(0,0,0,.05);
 }
 
 #content a{
-    color:#2563eb;
-    text-decoration:underline;
-}
-
-.glass{
-    backdrop-filter: blur(14px);
-    background: rgba(255,255,255,0.08);
-}
-
-.hero-grid{
-    background-image:
-    radial-gradient(circle at top left, rgba(59,130,246,0.15), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(14,165,233,0.15), transparent 30%);
+color:#2563eb;
+text-decoration:underline;
 }
 
 @media(max-width:768px){
 
 #content{
-    font-size:17px;
+font-size:17px;
+line-height:2;
 }
 
 #content h1{
-    font-size:36px;
+font-size:32px;
 }
 
 #content h2{
-    font-size:30px;
+font-size:28px;
 }
 
 #content h3{
-    font-size:24px;
+font-size:24px;
 }
 
 }
@@ -132,6 +140,7 @@ body{
 <body>
 
 <!-- NAVBAR -->
+
 <header class="fixed top-0 left-0 w-full z-50">
 
 <div class="max-w-7xl mx-auto px-6 pt-6">
@@ -139,17 +148,17 @@ body{
 <div class="glass border border-white/10 rounded-2xl px-8 py-5 flex justify-between items-center">
 
 <a href="index.html"
-class="text-2xl font-extrabold text-white tracking-tight">
+class="text-2xl font-extrabold text-white">
 ISO Certification Guide
 </a>
 
 <nav class="hidden md:flex items-center gap-8 text-white/80">
 
-<a href="index.html" class="hover:text-white transition">
+<a href="index.html" class="hover:text-white">
 Home
 </a>
 
-<a href="index.html" class="hover:text-white transition">
+<a href="index.html" class="hover:text-white">
 Articles
 </a>
 
@@ -167,13 +176,13 @@ Dashboard
 </header>
 
 <!-- HERO -->
-<section class="hero-grid bg-slate-950 text-white pt-44 pb-28 overflow-hidden">
+
+<section class="hero-grid bg-slate-950 text-white pt-44 pb-24 overflow-hidden">
 
 <div class="max-w-7xl mx-auto px-6">
 
 <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-<!-- LEFT -->
 <div>
 
 <div class="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-400/20 text-blue-300 px-5 py-2 rounded-full text-sm font-semibold">
@@ -190,21 +199,19 @@ Loading...
 </h1>
 
 <p class="text-slate-300 text-xl leading-relaxed mt-8 max-w-2xl">
-Explore modern ISO certification strategies, implementation frameworks, compliance systems, and operational excellence insights.
+Practical insights on ISO standards, compliance, business systems and certification strategies.
 </p>
 
-<div class="flex flex-wrap items-center gap-6 mt-10">
+<div class="flex items-center gap-5 mt-10">
 
-<div class="flex items-center gap-4">
-
-<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xl">
+<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center font-bold">
 I
 </div>
 
 <div>
 
 <p class="font-semibold">
-Author
+Editorial Team
 </p>
 
 <p id="date"
@@ -215,15 +222,8 @@ class="text-slate-400 text-sm">
 
 </div>
 
-<div class="bg-white/5 border border-white/10 px-5 py-3 rounded-2xl">
-SEO Optimized Article
 </div>
 
-</div>
-
-</div>
-
-<!-- RIGHT -->
 <div>
 
 <img
@@ -239,15 +239,18 @@ class="w-full h-[500px] object-cover rounded-[40px] shadow-2xl border border-whi
 
 </section>
 
-<!-- CONTENT -->
-<main class="max-w-7xl mx-auto px-6 py-20">
 
-<div class="grid lg:grid-cols-12 gap-14">
+<!-- CONTENT -->
+
+<main class="max-w-[1600px] mx-auto px-6 py-20">
+
+<div class="grid lg:grid-cols-12 gap-10">
 
 <!-- ARTICLE -->
-<article class="lg:col-span-6">
 
-<div class="bg-white rounded-[40px] p-8 md:p-16 shadow-sm border border-slate-200">
+<article class="lg:col-span-9">
+
+<div class="bg-white rounded-[40px] p-10 md:p-20 shadow-sm border border-slate-200">
 
 <div id="content"></div>
 
@@ -255,11 +258,12 @@ class="w-full h-[500px] object-cover rounded-[40px] shadow-2xl border border-whi
 
 </article>
 
+
 <!-- SIDEBAR -->
+
 <aside class="lg:col-span-3 space-y-8">
 
-<!-- CTA -->
-<div class="bg-slate-950 text-white rounded-[32px] p-8 overflow-hidden relative">
+<div class="bg-slate-950 text-white rounded-[32px] p-8 relative overflow-hidden">
 
 <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500 blur-3xl opacity-20"></div>
 
@@ -269,15 +273,15 @@ class="w-full h-[500px] object-cover rounded-[40px] shadow-2xl border border-whi
 Professional Support
 </p>
 
-<h3 class="text-3xl font-black leading-tight mt-5">
+<h3 class="text-3xl font-black mt-5">
 Need ISO Certification Help?
 </h3>
 
-<p class="text-slate-300 leading-relaxed mt-6">
-Get expert guidance on ISO implementation, audits, compliance, and certification processes.
+<p class="text-slate-300 mt-6 leading-relaxed">
+Get expert guidance on implementation, audits and certification support.
 </p>
 
-<button class="mt-8 w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-bold">
+<button class="mt-8 w-full bg-blue-600 py-4 rounded-2xl font-bold hover:bg-blue-700 transition">
 Contact Experts
 </button>
 
@@ -285,7 +289,6 @@ Contact Experts
 
 </div>
 
-<!-- RECENT POSTS -->
 <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200">
 
 <h3 class="text-2xl font-extrabold text-slate-900">
@@ -304,104 +307,77 @@ class="space-y-6 mt-8">
 
 </main>
 
+
 <script>
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
-  authDomain: "iso-certification-guide.firebaseapp.com",
-  databaseURL: "https://iso-certification-guide-default-rtdb.firebaseio.com",
-  projectId: "iso-certification-guide",
-  storageBucket: "iso-certification-guide.firebasestorage.app",
-  messagingSenderId: "277771367161",
-  appId: "1:277771367161:web:0f61aef15bb9ce0d64a828"
+apiKey:"AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
+authDomain:"iso-certification-guide.firebaseapp.com",
+databaseURL:"https://iso-certification-guide-default-rtdb.firebaseio.com",
+projectId:"iso-certification-guide",
+storageBucket:"iso-certification-guide.firebasestorage.app",
+messagingSenderId:"277771367161",
+appId:"1:277771367161:web:0f61aef15bb9ce0d64a828"
 };
 
 firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
+const database=firebase.database();
 
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams=new URLSearchParams(window.location.search);
 
-const id = urlParams.get('id');
+const id=urlParams.get('id');
 
-// LOAD BLOG
-database.ref('blogs/' + id).once('value')
-.then(snapshot => {
+database.ref('blogs/'+id)
+.once('value')
+.then(snapshot=>{
 
-const post = snapshot.val();
+const post=snapshot.val();
 
-document.getElementById('hero-title').innerText = post.title;
+document.getElementById('hero-title').innerText=post.title;
 
-document.getElementById('featured-image').src = post.image;
+document.getElementById('featured-image').src=post.image;
 
-document.getElementById('date').innerText = post.date;
+document.getElementById('date').innerText=post.date;
 
-document.getElementById('content').innerHTML = post.content;
+document.getElementById('content').innerHTML=post.content;
 
-document.title = post.title;
+document.title=post.title;
 
-// SEO DESCRIPTION
-const firstParagraph = document.querySelector('#content p');
+const firstParagraph=document.querySelector('#content p');
 
 if(firstParagraph){
 
 document.querySelector('meta[name="description"]')
-.setAttribute('content', firstParagraph.innerText.substring(0,150));
+.setAttribute(
+'content',
+firstParagraph.innerText.substring(0,150)
+);
 
 }
 
-// GENERATE TOC
-generateTOC();
-
 });
 
-// TOC FUNCTION
-function generateTOC(){
-
-const headings = document.querySelectorAll('#content h2, #content h3');
-
-const toc = document.getElementById('toc');
-
-headings.forEach((heading,index)=>{
-
-const id = 'heading-' + index;
-
-heading.id = id;
-
-toc.innerHTML += `
-
-<a href="#${id}"
-class="block hover:text-blue-600 transition leading-relaxed">
-
-${heading.innerText}
-
-</a>
-
-`;
-
-});
-
-}
-
-// RECENT POSTS
 database.ref('blogs')
 .limitToLast(4)
 .once('value')
-.then(snapshot => {
+.then(snapshot=>{
 
-const data = snapshot.val();
+const data=snapshot.val();
 
-const container = document.getElementById('recent-posts');
+const container=document.getElementById('recent-posts');
 
-container.innerHTML = '';
+container.innerHTML='';
 
 if(!data) return;
 
-Object.keys(data).reverse().forEach(key => {
+Object.keys(data)
+.reverse()
+.forEach(key=>{
 
-const post = data[key];
+const post=data[key];
 
-container.innerHTML += `
+container.innerHTML+=`
 
 <a href="post.html?id=${key}"
 class="flex gap-4 group">
