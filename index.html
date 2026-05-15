@@ -72,43 +72,215 @@ Admin Panel
 
 </header>
 
-<section class="relative overflow-hidden h-[500px] rounded-[40px]">
+<section class="relative min-h-[90vh] overflow-hidden bg-slate-950">
 
-<!-- Background image -->
-<div
-class="absolute inset-0 bg-cover bg-center scale-110 animate-[pulse_8s_ease-in-out_infinite]"
-style="background-image:url('https://www.google.com/imgres?q=iso%20certification&imgurl=https%3A%2F%2Fmanexconsulting.com%2Fwp-content%2Fuploads%2FISO-certification.jpg&imgrefurl=https%3A%2F%2Fmanexconsulting.com%2Fblog%2Fwhat-does-iso-certification-mean-and-why-does-being-iso-certified-matter%2F&docid=LvqMUP64pdf4xM&tbnid=AZ9gZ-gKDZGFYM&vet=12ahUKEwjFqJyk2LqUAxWyXmwGHQxQFdIQnPAOegQIZRAB..i&w=1280&h=853&hcb=2&ved=2ahUKEwjFqJyk2LqUAxWyXmwGHQxQFdIQnPAOegQIZRAB');">
+<!-- animated grid -->
+<div class="absolute inset-0 opacity-20"
+style="
+background-image:
+linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+background-size:60px 60px;">
 </div>
 
-<!-- Dark overlay -->
-<div class="absolute inset-0 bg-slate-950/65"></div>
+<!-- animated blobs -->
+<div class="absolute w-[700px] h-[700px] bg-blue-600/20 rounded-full blur-[120px]
+top-[-200px] left-[-100px] animate-[blob1_14s_infinite]"></div>
 
-<!-- Animated circles -->
-<div class="absolute top-10 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-bounce"></div>
+<div class="absolute w-[650px] h-[650px] bg-cyan-500/20 rounded-full blur-[120px]
+bottom-[-200px] right-[-100px] animate-[blob2_18s_infinite]"></div>
 
-<div class="absolute bottom-0 right-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+<div class="absolute w-[400px] h-[400px] bg-indigo-500/20 rounded-full blur-[100px]
+top-[30%] left-[45%] animate-[blob3_12s_infinite]"></div>
 
-<div class="relative z-10 flex flex-col justify-center items-center text-center h-full px-6">
 
-<h1 class="text-5xl md:text-7xl font-black text-white leading-tight max-w-4xl">
-Professional ISO Certification Insights
+<div class="relative z-10 max-w-7xl mx-auto px-6">
+
+<!-- navbar -->
+<header class="pt-8">
+
+<div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-[30px]
+px-8 py-5 flex justify-between items-center">
+
+<a href="#" class="text-3xl font-black text-white">
+ISO Certification Guide
+</a>
+
+<nav class="hidden md:flex items-center gap-8">
+
+<a href="#" class="text-white/70 hover:text-white">Home</a>
+
+<a href="#" class="text-white/70 hover:text-white">Articles</a>
+
+<a href="admin.html"
+class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full">
+Admin Panel
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<div class="grid lg:grid-cols-2 items-center gap-16 py-24">
+
+<!-- LEFT -->
+
+<div>
+
+<div class="inline-flex items-center gap-3 px-5 py-3
+rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300">
+
+<span class="w-3 h-3 rounded-full bg-blue-400 animate-pulse"></span>
+
+ISO Knowledge Platform
+
+</div>
+
+
+<h1 class="text-6xl md:text-8xl font-black leading-[0.95] text-white mt-8">
+
+Build Trust.<br>
+
+Improve Compliance.<br>
+
+Scale With ISO.
+
 </h1>
 
-<p class="text-xl text-white/80 mt-8 max-w-3xl">
-Latest ISO certification guides, implementation strategies, audit preparation and compliance resources.
+<p class="text-xl text-slate-300 mt-8 max-w-2xl leading-relaxed">
+
+Discover certification insights, audit guidance, implementation frameworks and practical business strategies.
+
 </p>
 
-<div class="mt-10 w-full max-w-xl">
+<div class="mt-10 flex gap-5 flex-wrap">
+
+<button
+class="bg-blue-600 hover:bg-blue-700 px-8 py-5 rounded-2xl text-white font-bold">
+
+Explore Articles
+
+</button>
+
+<button
+class="bg-white/5 border border-white/10 hover:bg-white/10
+px-8 py-5 rounded-2xl text-white">
+
+Learn More
+
+</button>
+
+</div>
+
+<div class="mt-12">
 
 <input
 type="text"
-placeholder="Search articles..."
-class="w-full py-5 px-8 rounded-2xl outline-none text-lg shadow-xl"
-/>
+placeholder="Search certification articles..."
+class="w-full max-w-2xl bg-white/10 border border-white/10
+text-white rounded-2xl px-8 py-5 outline-none backdrop-blur-xl">
 
 </div>
 
 </div>
+
+
+<!-- RIGHT -->
+
+<div class="relative hidden lg:block">
+
+<div class="absolute top-10 right-0 w-72
+bg-white rounded-[30px] p-8 shadow-2xl
+animate-[float1_5s_ease-in-out_infinite]">
+
+<div class="w-14 h-14 rounded-full bg-blue-600 mb-5"></div>
+
+<h3 class="font-black text-2xl">
+ISO 9001
+</h3>
+
+<p class="text-slate-500 mt-4">
+Quality Management
+</p>
+
+</div>
+
+
+<div class="absolute top-[250px] left-0 w-80
+bg-white rounded-[30px] p-8 shadow-2xl
+animate-[float2_7s_ease-in-out_infinite]">
+
+<div class="w-14 h-14 rounded-full bg-cyan-500 mb-5"></div>
+
+<h3 class="font-black text-2xl">
+ISO 27001
+</h3>
+
+<p class="text-slate-500 mt-4">
+Information Security
+</p>
+
+</div>
+
+
+<div class="absolute top-[120px] left-[180px] w-72
+bg-white rounded-[30px] p-8 shadow-2xl
+animate-[float3_6s_ease-in-out_infinite]">
+
+<div class="w-14 h-14 rounded-full bg-indigo-500 mb-5"></div>
+
+<h3 class="font-black text-2xl">
+ISO 45001
+</h3>
+
+<p class="text-slate-500 mt-4">
+Occupational Safety
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+@keyframes blob1{
+0%,100%{transform:translate(0,0);}
+50%{transform:translate(100px,80px);}
+}
+
+@keyframes blob2{
+0%,100%{transform:translate(0,0);}
+50%{transform:translate(-100px,-80px);}
+}
+
+@keyframes blob3{
+0%,100%{transform:translate(0,0);}
+50%{transform:translate(50px,-50px);}
+}
+
+@keyframes float1{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-30px)}
+}
+
+@keyframes float2{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(30px)}
+}
+
+@keyframes float3{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+}
+
+</style>
 
 </section>
 <!-- BLOGS -->
