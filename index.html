@@ -23,154 +23,204 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        @keyframes aurora1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(40px, 30px) scale(1.1); }
+        
+        /* Premium Custom Cursor Reset */
+        @media (hover: hover) and (pointer: fine) {
+            body, button, input, a, .interactive-node {
+                cursor: none !important;
+            }
         }
-        @keyframes aurora2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-40px, -30px) scale(1.05); }
+
+        /* Magnetic Liquid Cursor Core Styles */
+        #magnetic-dot {
+            width: 6px;
+            height: 6px;
+            background: #22d3ee;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, background-color 0.25s;
         }
-        @keyframes floatStage {
-            0%, 100% { transform: translateY(0px) rotateX(60deg) rotateZ(-45deg); }
-            50% { transform: translateY(-12px) rotateX(60deg) rotateZ(-45deg); }
+        #magnetic-ring {
+            width: 34px;
+            height: 34px;
+            border: 1.5px solid rgba(34, 211, 238, 0.4);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.3s, height 0.3s, border-radius 0.3s, background-color 0.3s, border-color 0.3s;
         }
-        @keyframes subtlePulse {
-            0%, 100% { opacity: 0.15; }
-            50% { opacity: 0.35; }
+
+        /* Ambient Fluid Graphics Animations */
+        @keyframes dynamicMesh {
+            0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+            33% { transform: translate(50px, -40px) scale(1.15) rotate(120deg); }
+            66% { transform: translate(-30px, 50px) scale(0.9) rotate(240deg); }
         }
-        .animate-aurora-1 { animation: aurora1 14s ease-in-out infinite; }
-        .animate-aurora-2 { animation: aurora2 16s ease-in-out infinite; }
-        .isometric-container {
-            perspective: 1200px;
+        @keyframes deepPulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; filter: blur(100px); }
+            50% { transform: scale(1.12); opacity: 0.35; filter: blur(130px); }
         }
-        .isometric-stage {
-            transform-style: preserve-3d;
-            transform: rotateX(60deg) rotateZ(-45deg);
-            animation: floatStage 8s ease-in-out infinite;
+        @keyframes cyberScan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
         }
-        .isometric-card {
-            transform-style: preserve-3d;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+        .animate-mesh-1 { animation: dynamicMesh 22s linear infinite; }
+        .animate-mesh-2 { animation: dynamicMesh 26s linear infinite reverse; }
+        .animate-portal-pulse { animation: deepPulse 7s ease-in-out infinite; }
+        
+        /* Ultra Smooth Depth Rendering */
+        .glass-portal-frame {
+            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.03), 0 30px 70px rgba(0, 0, 0, 0.8);
         }
-        /* Double physical translation depth map on interact */
-        .isometric-card:hover {
-            transform: translateZ(24px) scale(1.03);
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(34, 211, 238, 0.4);
-            box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.2);
+        
+        .portal-item {
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .portal-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(6px);
+            border-color: rgba(34, 211, 238, 0.3);
         }
     </style>
 </head>
 
-<body class="bg-slate-50 antialiased">
+<body class="bg-[#030612] antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
 
-<section class="relative min-h-screen flex flex-col overflow-hidden bg-[#030712] pb-24">
+<div id="magnetic-dot" class="hidden md:block"></div>
+<div id="magnetic-ring" class="hidden md:block"></div>
+
+<section class="relative min-h-screen flex flex-col justify-between overflow-hidden pb-16 pt-6">
     
     <div class="absolute inset-0 z-0 pointer-events-none">
-        <div class="absolute w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/15 to-cyan-500/10 blur-[130px] rounded-full -top-40 -left-20 animate-aurora-1"></div>
-        <div class="absolute w-[700px] h-[700px] bg-gradient-to-bl from-indigo-500/20 to-purple-500/5 blur-[150px] rounded-full bottom-20 -right-20 animate-aurora-2"></div>
-        <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 40px 40px;"></div>
-        <div class="absolute top-[30%] left-[45%] w-[500px] h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent skew-y-12" style="animation: subtlePulse 4s infinite"></div>
+        <div class="absolute w-[800px] h-[800px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/5 to-transparent rounded-full -top-[20%] -left-[10%] animate-mesh-1 blur-[100px]"></div>
+        <div class="absolute w-[900px] h-[900px] bg-gradient-to-bl from-indigo-500/10 via-purple-600/5 to-transparent rounded-full -bottom-[20%] -right-[10%] animate-mesh-2 blur-[120px]"></div>
+        
+        <div class="absolute inset-0 opacity-[0.015]" style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 60px 60px;"></div>
     </div>
 
-    <header class="w-full z-50 relative px-6 pt-6 max-w-7xl mx-auto">
-        <div class="w-full bg-white/[0.02] border border-white/10 rounded-2xl px-8 py-4 flex justify-between items-center backdrop-blur-xl shadow-2xl">
+    <header class="w-full z-50 relative px-6 max-w-7xl mx-auto">
+        <div class="w-full bg-slate-950/30 border border-white/[0.05] rounded-3xl px-8 py-5 flex justify-between items-center backdrop-blur-2xl shadow-2xl">
             <div>
-                <h1 class="text-lg font-black text-white tracking-tight">
-                    ISO Certification <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Guide</span>
-                </h1>
+                <a href="index.html" class="interactive-node text-xl font-black text-white tracking-tight flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-br from-blue-500 to-cyan-400 rotate-45"></span>
+                    ISO Certification <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">Guide</span>
+                </a>
             </div>
-            <nav class="flex items-center gap-6">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold tracking-wider uppercase">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> SYSTEM OK
-                </span>
-                <a href="admin.html" class="bg-white/[0.07] hover:bg-white text-white hover:text-slate-950 text-xs font-bold px-4 py-2 rounded-xl border border-white/10 transition-all duration-300 shadow-lg">
-                    Dashboard
+            <nav class="flex items-center gap-8">
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                    <a href="index.html" class="interactive-node hover:text-white transition-colors duration-200">Home</a>
+                    <a href="#articles-view" class="interactive-node hover:text-white transition-colors duration-200">Knowledge Base</a>
+                </div>
+                <span class="h-4 w-[1px] bg-white/10 hidden md:block"></span>
+                <a href="admin.html" class="interactive-node bg-white/[0.04] hover:bg-white text-white hover:text-slate-950 text-xs font-bold px-5 py-2.5 rounded-xl border border-white/10 transition-all duration-300 tracking-wide shadow-md">
+                    Terminal Login
                 </a>
             </nav>
         </div>
     </header>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto grid lg:grid-cols-12 gap-16 lg:gap-8 items-center pt-16">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto grid lg:grid-cols-12 gap-16 lg:gap-8 items-center pt-16 lg:pt-24">
         
-        <div class="lg:col-span-6 flex flex-col justify-center">
-            <div class="inline-flex self-start items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-cyan-400 text-xs font-semibold tracking-wide uppercase shadow-inner backdrop-blur-md">
+        <div class="lg:col-span-7 flex flex-col justify-center">
+            
+            <div class="inline-flex self-start items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.01] border border-white/[0.07] text-cyan-400 text-xs font-semibold tracking-widest uppercase shadow-2xl backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
                 </span>
-                Live ISO Knowledge Platform
+                Active Compliance Stream
             </div>
 
-            <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1]">
+            <h1 class="mt-6 text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
                 The Standard Of <br>
-                <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">Excellence</span>
+                <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">Excellence</span>
             </h1>
 
-            <p class="mt-6 text-slate-400 text-lg max-w-xl leading-relaxed font-normal">
-                Your premium resource for ISO certification guides. Discover strategic insights, frameworks, and compliance content engineered for growth.
+            <p class="mt-8 text-slate-400 text-lg sm:text-xl max-w-xl leading-relaxed font-normal">
+                Your premium repository for framework certification blueprints. Discover compliance analytics and organizational strategies built for growth.
             </p>
 
-            <div class="mt-10 max-w-xl flex flex-col sm:flex-row gap-4 items-stretch">
-                <div class="relative flex-1 bg-white/[0.02] border border-white/10 rounded-2xl backdrop-blur-md shadow-inner transition duration-300 focus-within:border-blue-500/40 focus-within:bg-white/[0.04]">
+            <div class="mt-12 max-w-xl flex flex-col sm:flex-row gap-4 items-stretch relative">
+                <div class="relative flex-1 bg-white/[0.01] border border-white/[0.06] rounded-2xl backdrop-blur-xl shadow-2xl transition duration-300 focus-within:border-cyan-500/40 focus-within:bg-white/[0.02]">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                     <input
                         type="text"
-                        placeholder="Search ISO certification articles..."
-                        class="w-full bg-transparent outline-none text-white pl-12 pr-4 py-4 placeholder-slate-500 font-medium tracking-wide text-sm"
+                        placeholder="Query dynamic ISO matrices..."
+                        class="w-full bg-transparent outline-none text-white pl-12 pr-4 py-4.5 placeholder-slate-600 font-medium tracking-wide text-sm"
                     >
                 </div>
                 
-                <button class="px-7 py-4 rounded-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-lg shadow-blue-950/50 transition-all duration-300 text-sm shrink-0">
-                    Explore Articles
+                <button class="interactive-node px-8 py-4.5 rounded-2xl font-bold bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-slate-950 shadow-xl shadow-cyan-500/10 transition-all duration-300 text-sm font-extrabold tracking-wide">
+                    Search Articles
                 </button>
             </div>
         </div>
 
-        <div class="lg:col-span-6 w-full flex items-center justify-center h-[520px] isometric-container relative">
+        <div class="lg:col-span-5 w-full relative flex items-center justify-center">
             
-            <div class="absolute w-[440px] h-[440px] border border-white/[0.03] rounded-full opacity-40 scale-y-50 pointer-events-none"></div>
-            
-            <div class="isometric-stage relative w-[360px] h-[360px] bg-gradient-to-br from-white/[0.01] to-transparent border border-white/[0.05] rounded-3xl shadow-3xl">
+            <div class="absolute w-[450px] h-[450px] bg-cyan-500/10 rounded-full animate-portal-pulse z-0 pointer-events-none"></div>
+
+            <div class="glass-portal-frame w-full bg-slate-950/40 border border-white/[0.06] rounded-[36px] p-8 backdrop-blur-3xl z-10 relative overflow-hidden">
                 
-                <div class="absolute inset-0 border border-cyan-500/10 rounded-3xl m-3 pointer-events-none opacity-60"></div>
-                <div class="absolute inset-0 border border-blue-500/5 rounded-3xl m-8 pointer-events-none opacity-40"></div>
+                <div class="absolute inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent z-20 pointer-events-none animate-[cyberScan_6s_linear_infinite]"></div>
 
-                <div class="isometric-card absolute top-0 left-0 w-[160px] h-[160px] bg-slate-900/80 border border-white/10 rounded-2xl p-4 flex flex-col justify-between shadow-2xl backdrop-blur-md" style="transform: translateZ(40px);">
-                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.232.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500 leading-tight">Expert Blueprints</p>
-                        <h3 class="text-2xl font-black text-white mt-1">300+</h3>
+                <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
+                    <p class="text-xs uppercase tracking-widest font-bold text-slate-500">Core Ecosystem Index</p>
+                    <div class="flex gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
                     </div>
                 </div>
-
-                <div class="isometric-card absolute top-0 right-0 w-[160px] h-[160px] bg-slate-900/80 border border-white/10 rounded-2xl p-4 flex flex-col justify-between shadow-2xl backdrop-blur-md" style="transform: translateZ(80px) translateX(10px) translateY(-10px);">
-                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500 leading-tight">ISO Categories</p>
-                        <h3 class="text-2xl font-black text-white mt-1">50+</h3>
-                    </div>
-                </div>
-
-                <div class="isometric-card absolute bottom-0 left-1/4 w-[180px] h-[150px] bg-slate-900/90 border border-white/10 rounded-2xl p-4 flex flex-col justify-between shadow-2xl backdrop-blur-md" style="transform: translateZ(120px) translateY(15px);">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.213 6h-2.807"></path></svg>
+                
+                <div class="space-y-4">
+                    <div class="portal-item border border-white/[0.03] bg-white/[0.01] rounded-2xl p-4.5 flex items-center justify-between">
+                        <div class="flex items-center gap-4.5">
+                            <div class="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-inner">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.232.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-200">Framework Blueprints</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Verified optimization records</p>
+                            </div>
                         </div>
-                        <span class="text-[10px] bg-teal-500/20 text-teal-300 font-bold px-2 py-0.5 rounded-full tracking-wide">LIVE</span>
+                        <span class="text-2xl font-black text-white tracking-tight">300+</span>
                     </div>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500 leading-tight">Real-Time Updates</p>
-                        <h3 class="text-2xl font-black text-white mt-1">24/7</h3>
+
+                    <div class="portal-item border border-white/[0.03] bg-white/[0.01] rounded-2xl p-4.5 flex items-center justify-between">
+                        <div class="flex items-center gap-4.5">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-inner">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-200">ISO Categories</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Standardized core systems</p>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-black text-white tracking-tight">50+</span>
+                    </div>
+
+                    <div class="portal-item border border-white/[0.03] bg-white/[0.01] rounded-2xl p-4.5 flex items-center justify-between">
+                        <div class="flex items-center gap-4.5">
+                            <div class="w-11 h-11 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 shadow-inner">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.213 6h-2.807"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-200">Database Sync Frequency</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Continuous payload streaming</p>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-black text-teal-400 tracking-tight">24/7</span>
                     </div>
                 </div>
 
@@ -180,14 +230,15 @@
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto px-6 py-24">
-    <div class="flex justify-between items-center mb-16">
+<section id="articles-view" class="max-w-7xl mx-auto px-6 py-32 bg-[#030612] relative z-20">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div>
-            <h2 class="text-4xl font-black text-slate-900 tracking-tight">
-                Latest Articles
+            <div class="w-12 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mb-4"></div>
+            <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                Latest Insights & Blueprints
             </h2>
-            <p class="text-slate-500 mt-2 text-lg">
-                Latest ISO certification insights and business guides
+            <p class="text-slate-400 mt-2 text-lg">
+                Regulatory execution methodologies and corporate system breakdowns
             </p>
         </div>
     </div>
@@ -212,7 +263,79 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 let allPosts = [];
 
-// LOAD DATA ARRAY FROM FIREBASE REPOSITORIES
+// FLUID MAGNETIC INTERPOLATION ALGORITHM DRIVER
+const dot = document.getElementById('magnetic-dot');
+const ring = document.getElementById('magnetic-ring');
+
+let targetX = 0, targetY = 0;
+let dotX = 0, dotY = 0;
+let ringX = 0, ringY = 0;
+
+let activeInteractiveNode = null;
+
+window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+});
+
+function processRenderCursors() {
+    // Sharp precision snapping calculations for inner node element
+    dotX += (targetX - dotX) * 0.24;
+    dotY += (targetY - dotY) * 0.24;
+    dot.style.left = `${dotX}px`;
+    dot.style.top = `${dotY}px`;
+
+    if (activeInteractiveNode) {
+        // Advanced structural lock positioning mechanics onto hover state components
+        const rect = activeInteractiveNode.getBoundingClientRect();
+        const padding = 10;
+        
+        ringX += (rect.left + rect.width / 2 - ringX) * 0.2;
+        ringY += (rect.top + rect.height / 2 - ringY) * 0.2;
+        
+        ring.style.width = `${rect.width + padding}px`;
+        ring.style.height = `${rect.height + padding}px`;
+        ring.style.borderRadius = window.getComputedStyle(activeInteractiveNode).borderRadius;
+    } else {
+        // Fallback to default fluid trailing circle behavior loop
+        ringX += (targetX - ringX) * 0.12;
+        ringY += (targetY - ringY) * 0.12;
+        
+        ring.style.width = '34px';
+        ring.style.height = '34px';
+        ring.style.borderRadius = '50%';
+    }
+
+    ring.style.left = `${ringX}px`;
+    ring.style.top = `${ringY}px`;
+
+    requestAnimationFrame(processRenderCursors);
+}
+requestAnimationFrame(processRenderCursors);
+
+// MAGNETIC INTERACTIVE NODE DETECTION ROUTINES
+function evaluateNodeTriggers() {
+    document.querySelectorAll('input, button, a, .interactive-node, .portal-item').forEach(element => {
+        if (element.classList.contains('magnetic-mapped')) return;
+        element.classList.add('magnetic-mapped');
+
+        element.addEventListener('mouseenter', () => {
+            activeInteractiveNode = element;
+            dot.style.backgroundColor = '#22d3ee';
+            ring.style.borderColor = '#22d3ee';
+            ring.style.backgroundColor = 'rgba(34, 211, 238, 0.03)';
+        });
+
+        element.addEventListener('mouseleave', () => {
+            activeInteractiveNode = null;
+            dot.style.backgroundColor = '#22d3ee';
+            ring.style.borderColor = 'rgba(34, 211, 238, 0.4)';
+            ring.style.backgroundColor = 'transparent';
+        });
+    });
+}
+
+// ARRAYS EXTRACTION AND FIREBASE VALUE READ METHODS
 database.ref('blogs').on('value', (snapshot) => {
     const data = snapshot.val();
     const container = document.getElementById('posts-container');
@@ -220,8 +343,8 @@ database.ref('blogs').on('value', (snapshot) => {
 
     if (!data) {
         container.innerHTML = `
-            <div class="col-span-full text-center py-20 text-slate-500 font-medium">
-                No Articles Published Yet
+            <div class="col-span-full text-center py-20 text-slate-600 font-medium tracking-wide">
+                No active payload matrices available in cluster.
             </div>
         `;
         return;
@@ -243,35 +366,41 @@ function renderPosts(posts) {
 
     displayPosts.forEach(post => {
         const plainText = post.content ? post.content.replace(/<[^>]+>/g, '') : '';
-        const snippet = plainText.substring(0, 120);
+        const snippet = plainText.substring(0, 110);
         const articleSlug = post.slug ? post.slug.trim() : post.id;
 
         container.innerHTML += `
-            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col justify-between group">
+            <article class="bg-[#080d1a] rounded-[24px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-white/[0.04] hover:border-cyan-500/20 flex flex-col justify-between group">
                 <div>
-                    <div class="overflow-hidden bg-slate-100">
-                        <img src="${post.image}" class="w-full h-[220px] object-cover group-hover:scale-102 transition duration-500">
+                    <div class="overflow-hidden bg-slate-950 aspect-[16/10] relative">
+                        <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500 opacity-80 group-hover:opacity-100">
                     </div>
                     <div class="p-6">
-                        <p class="text-blue-600 font-semibold text-xs tracking-wider uppercase">${post.date}</p>
-                        <h3 class="text-xl font-bold leading-snug mt-3 text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
+                        <p class="text-cyan-400 font-bold text-[11px] tracking-wider uppercase">${post.date}</p>
+                        <h3 class="text-lg font-bold leading-snug mt-3 text-slate-100 group-hover:text-cyan-400 transition-colors duration-200">
                             ${post.title}
                         </h3>
-                        <p class="mt-3 text-slate-500 text-sm leading-relaxed">${snippet}...</p>
+                        <p class="mt-3 text-slate-400 text-sm leading-relaxed">${snippet}...</p>
                     </div>
                 </div>
                 <div class="px-6 pb-6 pt-2">
-                    <a href="blog.html?slug=${articleSlug}" class="inline-flex w-full justify-center items-center gap-2 bg-slate-900 hover:bg-blue-600 transition-all duration-200 text-white font-medium text-sm px-5 py-3.5 rounded-xl shadow-sm">
-                        Read Article 
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="blog.html?slug=${articleSlug}" class="interactive-node inline-flex w-full justify-center items-center gap-2 bg-white/[0.03] hover:bg-cyan-500 border border-white/5 hover:border-cyan-400 text-white hover:text-slate-950 font-bold text-xs px-5 py-3.5 rounded-xl transition-all duration-300">
+                        Read Blueprint 
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </article>
         `;
     });
+    
+    // Bind freshly initialized article assets into cursor track arrays
+    evaluateNodeTriggers();
 }
 
-// SYSTEM SEARCH DISPATCH FILTER
+// FIRE STATIC NODE REGISTRATIONS ON BOOTSTRAP
+evaluateNodeTriggers();
+
+// INPUT DISPATCH HANDLERS
 const searchBox = document.querySelector('input[type="text"]');
 searchBox.addEventListener('input', function() {
     const value = this.value.toLowerCase();
