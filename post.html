@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,21 +10,18 @@
 <meta name="robots" content="index, follow">
 
 <script src="https://cdn.tailwindcss.com"></script>
-
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 <style>
-
 body{
     font-family:'Manrope',sans-serif;
     background:#f8fafc;
 }
 
 /* HERO EFFECT */
-
 .hero-grid{
 background:
 radial-gradient(circle at top left,rgba(59,130,246,.15),transparent 30%),
@@ -33,14 +29,12 @@ radial-gradient(circle at bottom right,rgba(14,165,233,.15),transparent 30%);
 }
 
 /* GLASS NAV */
-
 .glass{
 backdrop-filter:blur(14px);
 background:rgba(255,255,255,.08);
 }
 
 /* BLOG CONTENT */
-
 #content{
 font-size:20px;
 line-height:2.2;
@@ -113,300 +107,194 @@ text-decoration:underline;
 }
 
 @media(max-width:768px){
-
 #content{
 font-size:17px;
 line-height:2;
 }
-
-#content h1{
-font-size:32px;
+#content h1{ font-size:32px; }
+#content h2{ font-size:28px; }
+#content h3{ font-size:24px; }
 }
-
-#content h2{
-font-size:28px;
-}
-
-#content h3{
-font-size:24px;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-
 <header class="fixed top-0 left-0 w-full z-50">
-
 <div class="max-w-7xl mx-auto px-6 pt-6">
-
 <div class="glass border border-white/10 rounded-2xl px-8 py-5 flex justify-between items-center">
-
-<a href="index.html"
-class="text-2xl font-extrabold text-white">
+<a href="index.html" class="text-2xl font-extrabold text-white">
 ISO Certification Guide
 </a>
-
 <nav class="hidden md:flex items-center gap-8 text-white/80">
-
-<a href="index.html" class="hover:text-white">
-Home
-</a>
-
-<a href="index.html" class="hover:text-white">
-Articles
-</a>
-
-<a href="admin.html"
-class="bg-white text-slate-900 px-5 py-2 rounded-full font-semibold">
-Dashboard
-</a>
-
+<a href="index.html" class="hover:text-white">Home</a>
+<a href="index.html" class="hover:text-white">Articles</a>
+<a href="admin.html" class="bg-white text-slate-900 px-5 py-2 rounded-full font-semibold">Dashboard</a>
 </nav>
-
 </div>
-
 </div>
-
 </header>
 
-<!-- HERO -->
-
 <section class="hero-grid bg-slate-950 text-white pt-32 pb-20 overflow-hidden">
-
 <div class="max-w-9xl mx-auto px-8">
-
 <div class="grid lg:grid-cols-2 gap-16 items-center">
-
 <div>
-
 <div class="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-400/20 text-blue-300 px-5 py-2 rounded-full text-sm font-semibold">
-
 <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
-
 ISO Knowledge Base
-
 </div>
 
-<h1 id="hero-title"
-class="text-5xl md:text-7xl font-black leading-tight mt-8">
-Loading...
-</h1>
-
+<h1 id="hero-title" class="text-5xl md:text-7xl font-black leading-tight mt-8">Loading...</h1>
 <p class="text-slate-300 text-xl leading-relaxed mt-8 max-w-2xl">
 Practical insights on ISO standards, compliance, business systems and certification strategies.
 </p>
 
 <div class="flex items-center gap-5 mt-10">
-
-<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-I
+<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center font-bold">I</div>
+<div>
+<p class="font-semibold">Author</p>
+<p id="date" class="text-slate-400 text-sm"></p>
+</div>
+</div>
 </div>
 
 <div>
-
-<p class="font-semibold">
-Author
-</p>
-
-<p id="date"
-class="text-slate-400 text-sm">
-</p>
-
+<img id="featured-image" class="w-full h-[500px] object-cover rounded-[40px] shadow-2xl border border-white/10 invisible"/>
 </div>
-
 </div>
-
 </div>
-
-<div>
-
-<img
-id="featured-image"
-class="w-full h-[500px] object-cover rounded-[40px] shadow-2xl border border-white/10"
-/>
-
-</div>
-
-</div>
-
-</div>
-
 </section>
 
-
-<!-- CONTENT -->
-
 <main class="max-w-[1600px] mx-auto px-6 py-20">
-
 <div class="grid lg:grid-cols-12 gap-10">
-
-<!-- ARTICLE -->
-
 <article class="lg:col-span-9">
-
 <div class="bg-white rounded-[40px] p-10 md:p-20 shadow-sm border border-slate-200">
-
-<div id="content"></div>
-
+<div id="content">Loading article contents...</div>
 </div>
-
 </article>
 
-
-<!-- SIDEBAR -->
-
 <aside class="lg:col-span-3 space-y-8">
-
 <div class="bg-slate-950 text-white rounded-[32px] p-8 relative overflow-hidden">
-
 <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500 blur-3xl opacity-20"></div>
-
 <div class="relative z-10">
-
-<p class="uppercase text-sm tracking-[4px] text-blue-400 font-bold">
-Professional Support
-</p>
-
-<h3 class="text-3xl font-black mt-5">
-Need ISO Certification Help?
-</h3>
-
-<p class="text-slate-300 mt-6 leading-relaxed">
-Get expert guidance on implementation, audits and certification support.
-</p>
-
-<button class="mt-8 w-full bg-blue-600 py-4 rounded-2xl font-bold hover:bg-blue-700 transition">
-Contact Experts
-</button>
-
+<p class="uppercase text-sm tracking-[4px] text-blue-400 font-bold">Professional Support</p>
+<h3 class="text-3xl font-black mt-5">Need ISO Certification Help?</h3>
+<p class="text-slate-300 mt-6 leading-relaxed">Get expert guidance on implementation, audits and certification support.</p>
+<button class="mt-8 w-full bg-blue-600 py-4 rounded-2xl font-bold hover:bg-blue-700 transition">Contact Experts</button>
 </div>
-
 </div>
 
 <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-200">
-
-<h3 class="text-2xl font-extrabold text-slate-900">
-Latest Articles
-</h3>
-
-<div id="recent-posts"
-class="space-y-6 mt-8">
+<h3 class="text-2xl font-extrabold text-slate-900">Latest Articles</h3>
+<div id="recent-posts" class="space-y-6 mt-8"></div>
 </div>
-
-</div>
-
 </aside>
-
 </div>
-
 </main>
 
-
 <script>
-
 const firebaseConfig = {
-apiKey:"AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
-authDomain:"iso-certification-guide.firebaseapp.com",
-databaseURL:"https://iso-certification-guide-default-rtdb.firebaseio.com",
-projectId:"iso-certification-guide",
-storageBucket:"iso-certification-guide.firebasestorage.app",
-messagingSenderId:"277771367161",
-appId:"1:277771367161:web:0f61aef15bb9ce0d64a828"
+    apiKey:"AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
+    authDomain:"iso-certification-guide.firebaseapp.com",
+    databaseURL:"https://iso-certification-guide-default-rtdb.firebaseio.com",
+    projectId:"iso-certification-guide",
+    storageBucket:"iso-certification-guide.firebasestorage.app",
+    messagingSenderId:"277771367161",
+    appId:"1:277771367161:web:0f61aef15bb9ce0d64a828"
 };
 
 firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
-const database=firebase.database();
+const urlParams = new URLSearchParams(window.location.search);
+// Read parameter looking for either 'slug' or legacy 'id' structure natively
+const queryParameter = urlParams.get('slug') || urlParams.get('id');
 
-const urlParams=new URLSearchParams(window.location.search);
+if (queryParameter) {
+    database.ref('blogs').once('value').then(snapshot => {
+        const blogs = snapshot.val();
+        let postFound = false;
 
-const id=urlParams.get('id');
+        if (blogs) {
+            for (let key in blogs) {
+                const post = blogs[key];
 
-database.ref('blogs/'+id)
-.once('value')
-.then(snapshot=>{
+                // Matches against your custom slug field OR the absolute Firebase node key
+                if (post.slug === queryParameter || key === queryParameter) {
+                    document.getElementById('hero-title').innerText = post.title;
+                    
+                    const fImage = document.getElementById('featured-image');
+                    fImage.src = post.image;
+                    fImage.classList.remove('invisible');
 
-const post=snapshot.val();
+                    document.getElementById('date').innerText = post.date;
+                    document.getElementById('content').innerHTML = post.content;
+                    document.title = post.title;
 
-document.getElementById('hero-title').innerText=post.title;
+                    const firstParagraph = document.querySelector('#content p');
+                    if(firstParagraph){
+                        document.querySelector('meta[name="description"]')
+                            .setAttribute('content', firstParagraph.innerText.substring(0,150));
+                    }
+                    
+                    postFound = true;
+                    break;
+                }
+            }
+        }
 
-document.getElementById('featured-image').src=post.image;
-
-document.getElementById('date').innerText=post.date;
-
-document.getElementById('content').innerHTML=post.content;
-
-document.title=post.title;
-
-const firstParagraph=document.querySelector('#content p');
-
-if(firstParagraph){
-
-document.querySelector('meta[name="description"]')
-.setAttribute(
-'content',
-firstParagraph.innerText.substring(0,150)
-);
-
+        if (!postFound) {
+            show404Error();
+        }
+    }).catch(err => {
+        console.error(err);
+        show404Error();
+    });
+} else {
+    show404Error();
 }
 
+// FETCH SIDEBAR RECENT POSTS
+database.ref('blogs').limitToLast(4).once('value').then(snapshot => {
+    const data = snapshot.val();
+    const container = document.getElementById('recent-posts');
+    container.innerHTML = '';
+
+    if(!data) return;
+
+    Object.keys(data).reverse().forEach(key => {
+        const post = data[key];
+        // Clean URL route fallback generation for nested navigational elements
+        const resolvedSlug = post.slug ? post.slug.trim() : key;
+
+        container.innerHTML += `
+            <a href="post.html?slug=${resolvedSlug}" class="flex gap-4 group">
+                <img src="${post.image}" class="w-24 h-24 object-cover rounded-2xl shrink-0" />
+                <div>
+                    <h4 class="font-bold text-slate-800 leading-snug group-hover:text-blue-600 transition">
+                        ${post.title.substring(0,60)}...
+                    </h4>
+                    <p class="text-slate-500 text-sm mt-2">
+                        ${post.date}
+                    </p>
+                </div>
+            </a>
+        `;
+    });
 });
 
-database.ref('blogs')
-.limitToLast(4)
-.once('value')
-.then(snapshot=>{
-
-const data=snapshot.val();
-
-const container=document.getElementById('recent-posts');
-
-container.innerHTML='';
-
-if(!data) return;
-
-Object.keys(data)
-.reverse()
-.forEach(key=>{
-
-const post=data[key];
-
-container.innerHTML+=`
-
-<a href="post.html?id=${key}"
-class="flex gap-4 group">
-
-<img
-src="${post.image}"
-class="w-24 h-24 object-cover rounded-2xl"
-/>
-
-<div>
-
-<h4 class="font-bold text-slate-800 leading-snug group-hover:text-blue-600 transition">
-${post.title.substring(0,60)}...
-</h4>
-
-<p class="text-slate-500 text-sm mt-2">
-${post.date}
-</p>
-
-</div>
-
-</a>
-
-`;
-
-});
-
-});
-
+function show404Error() {
+    document.getElementById('hero-title').innerText = "Article Not Found";
+    document.getElementById('content').innerHTML = `
+        <div class="text-center py-12">
+            <h3 class="text-xl font-bold text-slate-800">Post unavailable</h3>
+            <p class="text-slate-500 mt-2">The link might be broken or the article was deleted.</p>
+            <a href="index.html" class="inline-block mt-6 bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-blue-700 transition">
+                Back to Articles
+            </a>
+        </div>
+    `;
+}
 </script>
 
 </body>
