@@ -155,7 +155,7 @@
     </div>
 
     <div id="posts-container" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        </div>
+    </div>
 </section>
 
 <script>
@@ -201,12 +201,14 @@ function renderPosts(posts) {
     const container = document.getElementById('posts-container');
     container.innerHTML = '';
     
-    // Copy and reverse array to prevent modifying original global reference sequentially 
     const displayPosts = [...posts].reverse();
 
     displayPosts.forEach(post => {
         const plainText = post.content ? post.content.replace(/<[^>]+>/g, '') : '';
         const snippet = plainText.substring(0, 120);
+
+        // Explicit fallback check logic for slug parsing
+        const articleSlug = post.slug ? post.slug.trim() : post.id;
 
         container.innerHTML += `
             <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col justify-between group">
@@ -223,7 +225,7 @@ function renderPosts(posts) {
                     </div>
                 </div>
                 <div class="px-6 pb-6 pt-2">
-                    <a href="blog.html?slug=${post.slug || post.id}" class="inline-flex w-full justify-center items-center gap-2 bg-slate-900 hover:bg-blue-600 transition-all duration-200 text-white font-medium text-sm px-5 py-3.5 rounded-xl shadow-sm">
+                    <a href="blog.html?slug=${articleSlug}" class="inline-flex w-full justify-center items-center gap-2 bg-slate-900 hover:bg-blue-600 transition-all duration-200 text-white font-medium text-sm px-5 py-3.5 rounded-xl shadow-sm">
                         Read Article 
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
