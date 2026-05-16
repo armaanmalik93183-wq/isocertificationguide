@@ -11,8 +11,18 @@
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      // CRITICAL STEP: Sign up on EmailJS.com and swap this string with your Public API Initialization Key
+      emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+   })();
+</script>
 
 <style>
 body{
@@ -35,14 +45,28 @@ body{
 
 <div id="auth-gate" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-50 px-4">
     <div class="bg-white p-10 rounded-3xl w-full max-w-md shadow-2xl">
-        <div class="text-center mb-8">
+        <div class="text-center mb-6">
             <div class="w-20 h-20 bg-blue-600 rounded-3xl mx-auto flex items-center justify-center text-white text-3xl font-bold">A</div>
             <h1 class="text-4xl font-bold mt-5 text-slate-800">Admin Login</h1>
-            <p class="text-slate-500 mt-2">Secure access to dashboard</p>
+            <p class="text-slate-500 mt-2">Secure access to dashboard via Auth</p>
         </div>
-        <input type="password" id="gate-pass" placeholder="Enter Password" class="w-full border border-slate-300 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-blue-500"/>
-        <button onclick="unlockDashboard()" class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-semibold mt-5">Login Dashboard</button>
-        <p id="gate-error" class="hidden text-red-500 text-center mt-4">Incorrect Password</p>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block mb-1.5 text-sm font-semibold text-slate-700">Administrator Email</label>
+                <input type="email" id="gate-email" required placeholder="admin@yourdomain.com" class="w-full border border-slate-300 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-blue-500 text-slate-800"/>
+            </div>
+            <div>
+                <label class="block mb-1.5 text-sm font-semibold text-slate-700">Password Mapping</label>
+                <input type="password" id="gate-pass" required placeholder="••••••••" class="w-full border border-slate-300 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-blue-500 text-slate-800"/>
+            </div>
+        </div>
+
+        <button onclick="unlockDashboard()" class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-semibold mt-6 shadow-lg">
+            Verify & Connect Dashboard
+        </button>
+        
+        <p id="gate-error" class="hidden text-red-500 text-center mt-4 font-medium text-sm border border-red-100 bg-red-50/50 p-3 rounded-xl"></p>
     </div>
 </div>
 
@@ -176,7 +200,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-const SECRET_PASSPHRASE = "8520";
 let editingBlogId = null;
 
 const quill = new Quill('#editor', {
@@ -194,15 +217,47 @@ const quill = new Quill('#editor', {
     }
 });
 
-// LOGIN
-function unlockDashboard(){
-    const input = document.getElementById('gate-pass').value;
-    if(input === SECRET_PASSPHRASE){
+// UPGRADED AUTHENTICATION AND TRANSACTIONAL NOTIFICATION ACCESS CONTROL ENGINE
+async function unlockDashboard(){
+    const email = document.getElementById('gate-email').value.trim();
+    const password = document.getElementById('gate-pass').value;
+    const errorContainer = document.getElementById('gate-error');
+
+    if(!email || !password) {
+        errorContainer.innerText = "Please complete both fields.";
+        errorContainer.classList.remove('hidden');
+        return;
+    }
+
+    try {
+        // 1. Authenticate the admin using Firebase Auth SDK modules
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // 2. Format tracking dataset parameters for EmailJS Template Routing
+        const alertPayload = {
+            to_email: 'your-personal-alerts-email@gmail.com', // Replace with your tracking email target
+            admin_user: email,
+            login_time: new Date().toLocaleString(),
+            status: "AUTHORIZED_CMS_LOGIN"
+        };
+
+        // Sends execution triggers out through initialized transactional mail infrastructure
+        // Replace with your distinct keys generated inside your personal EmailJS dashboard setup
+        await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', alertPayload);
+        console.log("Trace log mail notification dispatched successfully.");
+
+        // 3. Grant access permissions across the visual layout layer
         document.getElementById('auth-gate').classList.add('hidden');
         document.getElementById('dashboard-ui').classList.remove('hidden');
+        errorContainer.classList.add('hidden');
+        
         loadBlogs();
-    }else{
-        document.getElementById('gate-error').classList.remove('hidden');
+
+    } catch (error) {
+        console.error("System authentication routing failure:", error);
+        errorContainer.innerText = error.message;
+        errorContainer.classList.remove('hidden');
     }
 }
 
@@ -219,13 +274,13 @@ function createSlug(text){
     return text
         .toLowerCase()
         .trim()
-        .replace(/[^\w\s-]/g,'') // Clear out unreadable characters
-        .replace(/\s+/g,'-')     // Swap spaces with dashes
-        .replace(/-+/g,'-')      // Prevent trailing double dash issues
-        .replace(/^-|-$/g,'');   // Clean up end loose dashes
+        .replace(/[^\w\s-]/g,'') 
+        .replace(/\s+/g,'-')     
+        .replace(/-+/g,'-')      
+        .replace(/^-|-$/g,'');   
 }
 
-// CREATE / UPDATE BLOG LISEMTER
+// CREATE / UPDATE BLOG LISTENER
 document.getElementById('post-form').addEventListener('submit', async function(e){
     e.preventDefault();
 
@@ -234,13 +289,11 @@ document.getElementById('post-form').addEventListener('submit', async function(e
     const imageFile = document.getElementById('post-image').files[0];
     const content = quill.root.innerHTML;
 
-    // Use custom input values if typed out, fallback to auto formatting the title string
     const finalSlug = customSlugRaw.trim() ? createSlug(customSlugRaw) : createSlug(title);
 
     try{
         let imageURL = '';
 
-        // IMAGE UPLOAD
         if(imageFile){
             const formData = new FormData();
             formData.append('image', imageFile);
@@ -253,7 +306,6 @@ document.getElementById('post-form').addEventListener('submit', async function(e
             imageURL = result.data.url;
         }
 
-        // UPDATE EXISTING BLOG 
         if(editingBlogId){
             const updates = {
                 title: title,
@@ -271,7 +323,6 @@ document.getElementById('post-form').addEventListener('submit', async function(e
             editingBlogId = null;
             document.querySelector('#post-form button[type="submit"]').innerText = 'Publish Blog';
         }
-        // PUBLISH NEW BLOG
         else{
             if(!imageURL){
                 alert('Please select image');
@@ -290,7 +341,6 @@ document.getElementById('post-form').addEventListener('submit', async function(e
             alert('Blog Published Successfully');
         }
 
-        // RESET FORM ACTIONS
         document.getElementById('post-form').reset();
         quill.root.innerHTML = '';
 
@@ -341,7 +391,6 @@ function loadBlogs(){
     });
 }
 
-// EDIT BLOG HANDLER FETCH
 function editBlog(id){
     database.ref('blogs/' + id).once('value').then((snapshot)=>{
         const post = snapshot.val();
@@ -356,14 +405,12 @@ function editBlog(id){
     });
 }
 
-// DELETE BLOG ACTION
 function deleteBlog(id){
     if(confirm('Delete this blog permanently?')){
         database.ref('blogs/' + id).remove();
     }
 }
 
-// ANALYTICS CHART
 new Chart(document.getElementById('analyticsChart'), {
     type: 'bar',
     data: {
