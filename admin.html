@@ -16,14 +16,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script type="text/javascript">
-   (function(){
-      // CRITICAL STEP: Sign up on EmailJS.com and swap this string with your Public API Initialization Key
-      emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-   })();
-</script>
-
 <style>
 body{
     font-family: 'Inter', sans-serif;
@@ -53,17 +45,17 @@ body{
         
         <div class="space-y-4">
             <div>
-                <label class="block mb-1.5 text-sm font-semibold text-slate-700">Administrator Email</label>
-                <input type="email" id="gate-email" required placeholder="admin@yourdomain.com" class="w-full border border-slate-300 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-blue-500 text-slate-800"/>
+                <label class="block mb-1.5 text-sm font-semibold text-slate-700">Email Address</label>
+                <input type="email" id="gate-email" required placeholder="admin@domain.com" class="w-full border border-slate-300 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-blue-500 text-slate-800"/>
             </div>
             <div>
-                <label class="block mb-1.5 text-sm font-semibold text-slate-700">Password Mapping</label>
+                <label class="block mb-1.5 text-sm font-semibold text-slate-700">Password</label>
                 <input type="password" id="gate-pass" required placeholder="••••••••" class="w-full border border-slate-300 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-blue-500 text-slate-800"/>
             </div>
         </div>
 
         <button onclick="unlockDashboard()" class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-semibold mt-6 shadow-lg">
-            Verify & Connect Dashboard
+            Connect Dashboard
         </button>
         
         <p id="gate-error" class="hidden text-red-500 text-center mt-4 font-medium text-sm border border-red-100 bg-red-50/50 p-3 rounded-xl"></p>
@@ -217,7 +209,7 @@ const quill = new Quill('#editor', {
     }
 });
 
-// UPGRADED AUTHENTICATION AND TRANSACTIONAL NOTIFICATION ACCESS CONTROL ENGINE
+// SECURE USER AUTHENTICATION ENGINE
 async function unlockDashboard(){
     const email = document.getElementById('gate-email').value.trim();
     const password = document.getElementById('gate-pass').value;
@@ -230,24 +222,10 @@ async function unlockDashboard(){
     }
 
     try {
-        // 1. Authenticate the admin using Firebase Auth SDK modules
+        // Authenticate user via Firebase Auth API modules
         const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-
-        // 2. Format tracking dataset parameters for EmailJS Template Routing
-        const alertPayload = {
-            to_email: 'your-personal-alerts-email@gmail.com', // Replace with your tracking email target
-            admin_user: email,
-            login_time: new Date().toLocaleString(),
-            status: "AUTHORIZED_CMS_LOGIN"
-        };
-
-        // Sends execution triggers out through initialized transactional mail infrastructure
-        // Replace with your distinct keys generated inside your personal EmailJS dashboard setup
-        await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', alertPayload);
-        console.log("Trace log mail notification dispatched successfully.");
-
-        // 3. Grant access permissions across the visual layout layer
+        
+        // Grant entrance permissions across the visual viewport layout
         document.getElementById('auth-gate').classList.add('hidden');
         document.getElementById('dashboard-ui').classList.remove('hidden');
         errorContainer.classList.add('hidden');
@@ -255,8 +233,8 @@ async function unlockDashboard(){
         loadBlogs();
 
     } catch (error) {
-        console.error("System authentication routing failure:", error);
-        errorContainer.innerText = error.message;
+        console.error("Authentication routine error:", error);
+        errorContainer.innerText = "Invalid credentials or unauthorized access.";
         errorContainer.classList.remove('hidden');
     }
 }
@@ -405,6 +383,7 @@ function editBlog(id){
     });
 }
 
+// DELETE FUNCTION
 function deleteBlog(id){
     if(confirm('Delete this blog permanently?')){
         database.ref('blogs/' + id).remove();
