@@ -280,8 +280,8 @@ window.addEventListener('mousemove', (e) => {
 
 function processRenderCursors() {
     // Sharp precision snapping calculations for inner node element
-    dotX += (targetX - dotX) * 0.24;
-    dotY += (targetY - dotY) * 0.24;
+    dotX += (targetX - dotX) * 0.70;
+    dotY += (targetY - dotY) * 0.65;
     dot.style.left = `${dotX}px`;
     dot.style.top = `${dotY}px`;
 
@@ -290,8 +290,8 @@ function processRenderCursors() {
         const rect = activeInteractiveNode.getBoundingClientRect();
         const padding = 10;
         
-        ringX += (rect.left + rect.width / 2 - ringX) * 0.2;
-        ringY += (rect.top + rect.height / 2 - ringY) * 0.2;
+        ringX += (rect.left + rect.width / 2 - ringX) * 0.45;
+        ringY += (rect.top + rect.height / 2 - ringY) * 0.45;
         
         ring.style.width = `${rect.width + padding}px`;
         ring.style.height = `${rect.height + padding}px`;
@@ -301,8 +301,8 @@ function processRenderCursors() {
         ringX += (targetX - ringX) * 0.12;
         ringY += (targetY - ringY) * 0.12;
         
-        ring.style.width = '34px';
-        ring.style.height = '34px';
+        ring.style.width = '35px';
+        ring.style.height = '35px';
         ring.style.borderRadius = '50%';
     }
 
