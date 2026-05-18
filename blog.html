@@ -159,7 +159,86 @@ if (currentSlug) {
 
                 // Checks custom slug property OR backward-compatible Firebase push ID lookup keys
                 if (post.slug === currentSlug || id === currentSlug) {
-                    document.title = post.title;
+                    document.title = post.title + " | ISO Certification Guide";
+
+let description =
+post.content
+.replace(/<[^>]*>/g,'')
+.substring(0,160);
+
+
+// Meta description
+let metaDesc=document.querySelector(
+'meta[name="description"]'
+);
+
+if(!metaDesc){
+
+metaDesc=document.createElement("meta");
+
+metaDesc.setAttribute(
+"name",
+"description"
+);
+
+document.head.appendChild(metaDesc);
+
+}
+
+metaDesc.setAttribute(
+"content",
+description
+);
+
+
+// Open Graph title
+
+let ogTitle=document.querySelector(
+'meta[property="og:title"]'
+);
+
+if(!ogTitle){
+
+ogTitle=document.createElement("meta");
+
+ogTitle.setAttribute(
+"property",
+"og:title"
+);
+
+document.head.appendChild(ogTitle);
+
+}
+
+ogTitle.setAttribute(
+"content",
+post.title
+);
+
+
+// Open Graph description
+
+let ogDesc=document.querySelector(
+'meta[property="og:description"]'
+);
+
+if(!ogDesc){
+
+ogDesc=document.createElement("meta");
+
+ogDesc.setAttribute(
+"property",
+"og:description"
+);
+
+document.head.appendChild(ogDesc);
+
+}
+
+ogDesc.setAttribute(
+"content",
+description
+);
                     document.getElementById("hero-title").innerText = post.title;
                     
                     const featuredImg = document.getElementById("featured-image");
