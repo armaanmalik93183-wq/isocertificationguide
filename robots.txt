@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://armaanmalik93183-wq.github.io/isocertificationguide/sitemap.xml
