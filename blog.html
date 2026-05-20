@@ -283,13 +283,9 @@ post.title+
 const description=
 
 post.content
-
 .replace(/<[^>]*>/g,"")
-
 .replace(/\s+/g," ")
-
 .trim()
-
 .substring(0,160);
 
 
@@ -301,8 +297,7 @@ document
 )
 .setAttribute(
 "content",
-description
-);
+description);
 
 
 // og title
@@ -313,8 +308,7 @@ document
 )
 .setAttribute(
 "content",
-post.title
-);
+post.title);
 
 
 // og description
@@ -325,7 +319,29 @@ document
 )
 .setAttribute(
 "content",
-description
+description);
+
+
+// canonical update
+
+document
+.getElementById(
+"canonicalTag"
+)
+.href=
+window.location.href;
+
+
+// robots
+
+let robotsMeta=
+document.querySelector(
+'meta[name="robots"]'
+);
+
+robotsMeta.setAttribute(
+"content",
+"index,follow"
 );
 
 
