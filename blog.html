@@ -232,6 +232,25 @@ const currentSlug=
 new URLSearchParams(
 window.location.search
 ).get("slug");
+  const canonicalUrl=
+window.location.href;
+
+document
+.getElementById(
+"canonicalTag"
+)
+.href=
+canonicalUrl;
+
+
+document
+.querySelector(
+'meta[property="og:url"]'
+)
+.setAttribute(
+"content",
+canonicalUrl
+);
 
 
 if(currentSlug){
