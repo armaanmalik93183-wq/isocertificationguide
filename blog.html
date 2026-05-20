@@ -279,6 +279,14 @@ document.title=
 post.title+
 " | ISO Certification Guide";
 
+const description=
+
+post.content
+.replace(/<[^>]*>/g,"")
+.replace(/\s+/g," ")
+.trim()
+.substring(0,160);
+
   const schema = {
 "@context":"https://schema.org",
 "@type":"Article",
@@ -297,15 +305,6 @@ script.text=
 JSON.stringify(schema);
 
 document.head.appendChild(script);
-
-
-const description=
-
-post.content
-.replace(/<[^>]*>/g,"")
-.replace(/\s+/g," ")
-.trim()
-.substring(0,160);
 
 
 // meta description
