@@ -229,7 +229,11 @@ const currentSlug=
 new URLSearchParams(
 window.location.search
 ).get("slug");
-  const canonicalUrl=
+
+
+// SAFE SEO additions
+
+const canonicalUrl=
 window.location.href;
 
 document
@@ -239,15 +243,14 @@ document
 .href=
 canonicalUrl;
 
-
 document
 .querySelector(
 'meta[property="og:url"]'
 )
 .setAttribute(
 "content",
-canonicalUrl
-);
+canonicalUrl);
+
 
 
 if(currentSlug){
@@ -276,6 +279,7 @@ document.title=
 post.title+
 " | ISO Certification Guide";
 
+
 const description=
 
 post.content
@@ -283,6 +287,7 @@ post.content
 .replace(/\s+/g," ")
 .trim()
 .substring(0,160);
+
 
 // meta description
 
@@ -292,7 +297,8 @@ document
 )
 .setAttribute(
 "content",
-description);
+description
+);
 
 
 // og title
@@ -303,7 +309,8 @@ document
 )
 .setAttribute(
 "content",
-post.title);
+post.title
+);
 
 
 // og description
@@ -314,27 +321,7 @@ document
 )
 .setAttribute(
 "content",
-description);
-
-
-// canonical update
-
-document.getElementById(
-"canonicalTag"
-).href =
-`https://armaanmalik93183-wq.github.io/isocertificationguide/blog.html?slug=${currentSlug}`;
-
-
-// robots
-
-let robotsMeta=
-document.querySelector(
-'meta[name="robots"]'
-);
-
-robotsMeta.setAttribute(
-"content",
-"index,follow"
+description
 );
 
 
@@ -355,6 +342,9 @@ document.getElementById(
 
 featuredImg.src=
 post.image;
+
+featuredImg.alt=
+post.title;
 
 featuredImg.classList.remove(
 "invisible"
@@ -464,6 +454,3 @@ Back Home
 }
 
 </script>
-
-</body>
-</html>
