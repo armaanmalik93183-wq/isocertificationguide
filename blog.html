@@ -279,6 +279,25 @@ document.title=
 post.title+
 " | ISO Certification Guide";
 
+  const schema = {
+"@context":"https://schema.org",
+"@type":"Article",
+"headline":post.title,
+"description":description,
+"image":post.image,
+"datePublished":post.date,
+"mainEntityOfPage":window.location.href
+};
+
+let script=document.createElement("script");
+
+script.type="application/ld+json";
+
+script.text=
+JSON.stringify(schema);
+
+document.head.appendChild(script);
+
 
 const description=
 
