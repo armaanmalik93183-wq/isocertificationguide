@@ -201,10 +201,27 @@
     </div>
 
     <div id="posts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        </div>
+    </div>
 </section>
 
 <script>
+// --- SPA ROUTER REDIRECT MECHANISM ---
+(function() {
+    var redirectQuery = window.location.search;
+    if (redirectQuery && redirectQuery.charAt(1) === '/') {
+        var cleanPath = redirectQuery.slice(2).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&'); 
+        }).join('?');
+        
+        // Redirect directly to the blog template while maintaining the slug parameters internally
+        window.location.replace(
+            window.location.protocol + '//' + window.location.host + 
+            window.location.pathname + 'blog.html?slug=' + cleanPath
+        );
+    }
+})();
+// -------------------------------------
+
 const firebaseConfig = {
   apiKey: "AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
   authDomain: "iso-certification-guide.firebaseapp.com",
