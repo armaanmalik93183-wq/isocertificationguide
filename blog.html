@@ -272,10 +272,16 @@ if (!cleanSlug || cleanSlug === 'blog.html' || cleanSlug.endsWith('.html')) {
 
 const currentSlug = cleanSlug;
 
-// Visually mask the URL to remove "blog.html?slug=" from the address bar
+// Visually mask the URL safely across GitHub base directory systems
 if (currentSlug && wasRedirected) {
-    const cleanUrl = window.location.protocol + "//" + window.location.host + 
-                     window.location.pathname.replace('blog.html', '') + currentSlug;
+    let baseDir = window.location.pathname;
+    if (baseDir.includes('blog.html')) {
+        baseDir = baseDir.substring(0, baseDir.lastIndexOf('blog.html'));
+    }
+    if (!baseDir.endsWith('/')) {
+        baseDir += '/';
+    }
+    const cleanUrl = window.location.protocol + "//" + window.location.host + baseDir + currentSlug;
     window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
 }
 // -----------------------------------------------------
