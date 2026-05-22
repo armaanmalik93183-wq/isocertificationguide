@@ -260,18 +260,25 @@ firebase.initializeApp(firebaseConfig);
 
 const database=firebase.database();
 
-// --- FIXED CLEAN PATH ROUTING LOGIC ---
-// 1. First, check if there is a clean path slug (e.g. /isocertificationguide/your-slug)
+// --- FIXED CLEAN PATH ROUTING LOGIC & HISTORY MASK ---
 const pathSegments = window.location.pathname.split('/');
 let cleanSlug = pathSegments.pop() || pathSegments.pop();
+let wasRedirected = false;
 
-// If the clean path ends up tracking 'blog.html' or empty, look inside the query fallback
 if (!cleanSlug || cleanSlug === 'blog.html' || cleanSlug.endsWith('.html')) {
     cleanSlug = new URLSearchParams(window.location.search).get("slug");
+    wasRedirected = true;
 }
 
 const currentSlug = cleanSlug;
-// --------------------------------------
+
+// Visually mask the URL to remove "blog.html?slug=" from the address bar
+if (currentSlug && wasRedirected) {
+    const cleanUrl = window.location.protocol + "//" + window.location.host + 
+                     window.location.pathname.replace('blog.html', '') + currentSlug;
+    window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+}
+// -----------------------------------------------------
 
 if(currentSlug){
 
