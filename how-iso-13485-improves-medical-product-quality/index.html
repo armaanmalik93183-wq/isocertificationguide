@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>ISO Certification Guide</title>
+
+<meta name="description"
+content="Professional ISO certification insights and compliance guides">
+
+<meta property="og:title"
+content="ISO Certification Guide">
+
+<meta property="og:description"
+content="Professional ISO certification insights and compliance guides">
+
+<meta property="og:type"
+content="article">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+
+body{
+background:#f1f5f9;
+font-family:Arial,sans-serif;
+}
+
+.article-content{
+line-height:2;
+font-size:18px;
+color:#334155;
+text-align:justify;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3{
+font-weight:800;
+margin-top:35px;
+margin-bottom:15px;
+color:#0f172a;
+}
+
+.article-content p{
+margin-bottom:25px;
+}
+
+.article-content img{
+width:100%;
+border-radius:25px;
+margin:30px 0;
+}
+
+.article-content ul{
+padding-left:30px;
+list-style:disc;
+margin-bottom:25px;
+}
+
+.hero-bg{
+background:
+linear-gradient(
+90deg,
+#020617,
+#001B44,
+#020617
+);
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero-bg text-white pb-16">
+
+<div class="max-w-7xl mx-auto px-6">
+
+<nav class="pt-8">
+
+<div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl px-8 py-5 flex justify-between">
+
+<!-- FIXED: Changed to "../index.html" to point back out to homepage -->
+<a href="../index.html" class="font-black text-3xl">ISO Certification Guide</a>
+
+<div class="flex gap-8 items-center">
+
+<!-- FIXED: Changed to "../index.html" to point back out to homepage -->
+<a href="../index.html" class="hover:text-blue-400 transition">
+Articles
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+
+<div class="grid lg:grid-cols-2 gap-20 items-center pt-16">
+
+<div>
+
+<div class="inline-block px-5 py-3 rounded-full border border-blue-500 text-blue-300">
+
+ISO Knowledge Base
+
+</div>
+
+<div class="max-w-[850px]">
+
+<h1
+id="hero-title"
+class="text-5xl md:text-6xl font-black leading-[1.05] tracking-[-1px]">
+
+Loading...
+
+</h1>
+
+</div>
+
+<p
+class="mt-8 text-slate-300 text-xl">
+
+Practical insights on ISO standards, compliance, business systems and certification strategies.
+
+</p>
+
+<div class="flex items-center gap-5 mt-10">
+
+<div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+
+I
+
+</div>
+
+<div>
+
+<h4 class="font-bold">
+Author
+</h4>
+
+<p id="date"
+class="text-slate-400">
+
+Loading...
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<img
+id="featured-image"
+src=""
+alt=""
+class="rounded-[35px] w-full shadow-2xl hidden">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="max-w-7xl mx-auto px-6 py-16">
+
+<div class="grid lg:grid-cols-[3fr_1fr] gap-10">
+
+<div class="bg-white p-14 rounded-[35px] shadow-sm">
+
+<div
+id="content"
+class="article-content">
+
+Loading article...
+
+</div>
+
+</div>
+
+
+<aside>
+
+<div class="bg-slate-950 text-white rounded-[35px] p-10 sticky top-10">
+
+<p class="uppercase text-blue-400 tracking-[4px] text-xs font-bold">
+
+Professional Support
+
+</p>
+
+<h2 class="text-4xl font-black mt-6">
+
+Need ISO Certification Help?
+
+</h2>
+
+<p class="text-slate-300 mt-6 text-sm leading-relaxed">
+
+Get guidance on implementation, audit preparation and compliance support.
+
+</p>
+
+<button class="w-full bg-blue-600 hover:bg-blue-700 transition font-semibold py-4 rounded-2xl mt-8">
+
+Contact Experts
+
+</button>
+
+</div>
+
+</aside>
+
+</div>
+
+</section>
+
+
+
+<script>
+
+const firebaseConfig={
+
+apiKey:"AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
+
+authDomain:"iso-certification-guide.firebaseapp.com",
+
+databaseURL:"https://iso-certification-guide-default-rtdb.firebaseio.com",
+
+projectId:"iso-certification-guide",
+
+storageBucket:"iso-certification-guide.firebasestorage.app",
+
+messagingSenderId:"277771367161",
+
+appId:"1:277771367161:web:0f61aef15bb9ce0d64a828"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const database=firebase.database();
+
+// FIXED: Hardcoded slug so this dedicated page always pulls the correct content directly
+const currentSlug = "how-iso-13485-improves-medical-product-quality";
+
+if(currentSlug){
+
+database.ref("blogs")
+.once("value")
+.then(snapshot=>{
+
+const blogs=snapshot.val();
+
+let postFound=false;
+
+if(blogs){
+
+for(let id in blogs){
+
+const post=blogs[id];
+
+if(
+post.slug===currentSlug
+||
+id===currentSlug
+){
+
+document.title=
+post.title+
+" | ISO Certification Guide";
+
+
+const description=
+
+post.content
+
+.replace(/<[^>]*>/g,"")
+
+.replace(/\s+/g," ")
+
+.trim()
+
+.substring(0,160);
+
+
+// meta description
+
+document
+.querySelector(
+'meta[name="description"]'
+)
+.setAttribute(
+"content",
+description
+);
+
+
+// og title
+
+document
+.querySelector(
+'meta[property="og:title"]'
+)
+.setAttribute(
+"content",
+post.title
+);
+
+
+// og description
+
+document
+.querySelector(
+'meta[property="og:description"]'
+)
+.setAttribute(
+"content",
+description
+);
+
+
+// page content
+
+document
+.getElementById(
+"hero-title"
+)
+.innerText=
+post.title;
+
+
+const featuredImg=
+document.getElementById(
+"featured-image"
+);
+
+featuredImg.src=
+post.image;
+
+featuredImg.classList.remove(
+"hidden"
+);
+
+
+document
+.getElementById(
+"date"
+)
+.innerText=
+post.date;
+
+
+document
+.getElementById(
+"content"
+)
+.innerHTML=
+post.content;
+
+
+postFound=true;
+
+break;
+
+}
+
+}
+
+}
+
+
+if(!postFound){
+
+show404Error();
+
+}
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+show404Error();
+
+});
+
+}
+
+else{
+
+show404Error();
+
+}
+
+
+
+function show404Error(){
+
+document
+.getElementById(
+"hero-title"
+)
+.innerText=
+"Article Not Found";
+
+
+document
+.getElementById(
+"date"
+)
+.innerText=
+"N/A";
+
+
+document
+.getElementById(
+"content"
+)
+.innerHTML=`
+
+<div class="text-center py-10">
+
+<h3 class="text-3xl font-bold">
+Article not found
+</h3>
+
+<p class="mt-4 text-slate-500">
+
+The page may have moved or the slug is incorrect.
+
+</p>
+
+<!-- FIXED: Changed link to direct users back out one folder level to home page -->
+<a href="../index.html" class="inline-block mt-6 bg-blue-600 text-white px-6 py-3 rounded-xl">
+Back Home
+</a>
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
