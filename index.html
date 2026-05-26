@@ -5,20 +5,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compliance Intelligence Platform</title>
+<title>ISO Insights Platform</title>
 
-<meta name="description" content="Modern enterprise compliance intelligence platform with advanced ISO insights and security frameworks.">
+<meta name="description" content="Modern animated ISO insights and compliance intelligence platform.">
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 <style>
@@ -35,9 +35,9 @@ scroll-behavior:smooth;
 
 body{
 font-family:'Inter',sans-serif;
-background:#050505;
+background:#ffffff;
 overflow-x:hidden;
-color:white;
+color:#111111;
 }
 
 /* SCROLLBAR */
@@ -47,64 +47,80 @@ width:8px;
 }
 
 ::-webkit-scrollbar-track{
-background:#050505;
+background:#f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb{
-background:linear-gradient(to bottom,#ff1b2d,#ff4458);
+background:linear-gradient(to bottom,#ef4444,#dc2626);
 border-radius:20px;
 }
 
-/* PARTICLES */
+/* BACKGROUND */
 
-#tsparticles{
-position:fixed;
+.hero-bg{
+position:absolute;
 inset:0;
+overflow:hidden;
 z-index:0;
 }
 
-/* BACKGROUND GRID */
+.blob{
+position:absolute;
+border-radius:50%;
+filter:blur(80px);
+opacity:.25;
+animation:float 10s ease-in-out infinite;
+}
 
-.cyber-grid{
-position:fixed;
+.blob-1{
+width:420px;
+height:420px;
+background:#fecaca;
+top:-120px;
+left:-120px;
+}
+
+.blob-2{
+width:360px;
+height:360px;
+background:#fee2e2;
+right:-100px;
+bottom:-100px;
+animation-delay:2s;
+}
+
+.grid-bg{
+position:absolute;
 inset:0;
 background-image:
-linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-background-size:70px 70px;
-z-index:0;
-opacity:.4;
+linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
+background-size:50px 50px;
+opacity:.5;
 }
 
-/* GLOW EFFECTS */
+/* ANIMATIONS */
 
-.glow-red{
-position:absolute;
-width:500px;
-height:500px;
-background:rgba(255,0,60,.12);
-filter:blur(140px);
-border-radius:50%;
-z-index:0;
+@keyframes float{
+0%,100%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(-25px);
+}
 }
 
-.glow-cyan{
-position:absolute;
-width:400px;
-height:400px;
-background:rgba(0,255,255,.08);
-filter:blur(140px);
-border-radius:50%;
-z-index:0;
+.float{
+animation:float 6s ease-in-out infinite;
 }
 
 /* NAVBAR */
 
 .navbar{
+background:rgba(255,255,255,.7);
 backdrop-filter:blur(20px);
-background:rgba(8,8,8,.65);
-border:1px solid rgba(255,255,255,.06);
-box-shadow:0 10px 40px rgba(0,0,0,.4);
+border:1px solid rgba(0,0,0,.05);
+box-shadow:0 10px 40px rgba(0,0,0,.04);
 }
 
 /* HERO */
@@ -117,90 +133,104 @@ letter-spacing:-.05em;
 }
 
 .red-text{
-color:#ff1b2d;
+color:#ef4444;
 }
 
 .hero-sub{
-color:#8f8f8f;
 font-size:1.15rem;
-line-height:1.8;
+line-height:1.9;
+color:#666666;
 max-width:650px;
 }
 
 /* BUTTONS */
 
-.btn-red{
-background:#ff1b2d;
+.btn-primary{
+background:#ef4444;
 color:white;
-font-weight:800;
+font-weight:700;
 transition:.35s ease;
-box-shadow:0 0 0 rgba(255,27,45,.4);
+box-shadow:0 10px 25px rgba(239,68,68,.2);
 }
 
-.btn-red:hover{
+.btn-primary:hover{
 transform:translateY(-4px);
-box-shadow:0 20px 40px rgba(255,27,45,.35);
+box-shadow:0 20px 40px rgba(239,68,68,.25);
 }
 
-.btn-dark{
-border:1px solid rgba(255,255,255,.1);
-background:rgba(255,255,255,.03);
+.btn-secondary{
+background:white;
+border:1px solid #e5e5e5;
 transition:.35s ease;
 }
 
-.btn-dark:hover{
-border-color:#ff1b2d;
-background:rgba(255,27,45,.08);
+.btn-secondary:hover{
+border-color:#ef4444;
+color:#ef4444;
 }
 
 /* GLASS */
 
 .glass{
-background:rgba(255,255,255,.03);
+background:rgba(255,255,255,.75);
 backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.06);
-}
-
-.cyber-border{
-position:relative;
-overflow:hidden;
-}
-
-.cyber-border::before{
-content:'';
-position:absolute;
-inset:0;
-padding:1px;
-border-radius:inherit;
-background:linear-gradient(140deg,transparent,rgba(255,27,45,.5),transparent);
--webkit-mask:
-linear-gradient(#fff 0 0) content-box,
-linear-gradient(#fff 0 0);
--webkit-mask-composite:xor;
-mask-composite:exclude;
-}
-
-/* FLOATING */
-
-@keyframes float{
-0%,100%{
-transform:translateY(0px);
-}
-50%{
-transform:translateY(-18px);
-}
-}
-
-.float{
-animation:float 6s ease-in-out infinite;
+border:1px solid rgba(0,0,0,.05);
+box-shadow:0 10px 40px rgba(0,0,0,.05);
 }
 
 /* HERO CARD */
 
-.hero-panel{
-box-shadow:
-0 0 80px rgba(255,0,50,.12),
-inset 0 0 30px rgba(255,255,255,.02);
+.hero-card{
+position:relative;
+overflow:hidden;
+}
+
+.hero-card::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(140deg,transparent,rgba(239,68,68,.08),transparent);
+}
+
+/* CATEGORY CARD */
+
+.category-card{
+transition:.35s ease;
+}
+
+.category-card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 50px rgba(239,68,68,.12);
+border-color:#ef4444;
+}
+
+/* BLOG CARD */
+
+.blog-card{
+transition:.4s ease;
+overflow:hidden;
+}
+
+.blog-card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 60px rgba(0,0,0,.08);
+}
+
+.blog-card img{
+transition:transform .6s ease;
+}
+
+.blog-card:hover img{
+transform:scale(1.06);
+}
+
+/* SECTION */
+
+.section-title{
+font-size:clamp(2rem,5vw,4.5rem);
+font-weight:900;
+line-height:1;
+letter-spacing:-.05em;
 }
 
 /* STATS */
@@ -211,64 +241,26 @@ font-weight:900;
 line-height:1;
 }
 
-/* BLOG CARDS */
+/* TAG */
 
-.blog-card{
-transition:.4s ease;
-overflow:hidden;
+.tag{
+background:#fef2f2;
+border:1px solid #fee2e2;
+color:#ef4444;
 }
 
-.blog-card:hover{
-transform:translateY(-10px);
-border-color:rgba(255,27,45,.3);
-box-shadow:0 20px 50px rgba(255,0,50,.12);
+/* INPUT */
+
+.input{
+background:white;
+border:1px solid #e5e5e5;
+transition:.3s ease;
 }
 
-.blog-card img{
-transition:transform .6s ease;
-}
-
-.blog-card:hover img{
-transform:scale(1.08);
-}
-
-/* SECTION TITLE */
-
-.section-title{
-font-size:clamp(2rem,5vw,4rem);
-font-weight:900;
-letter-spacing:-.04em;
-}
-
-/* CATEGORY CARDS */
-
-.category-card{
-transition:.35s ease;
-}
-
-.category-card:hover{
-transform:translateY(-8px);
-border-color:rgba(255,27,45,.25);
-box-shadow:0 15px 50px rgba(255,0,50,.1);
-}
-
-/* SCAN LINE */
-
-.scan-line{
-position:absolute;
-inset-x:0;
-height:1px;
-background:linear-gradient(to right,transparent,#ff1b2d,transparent);
-animation:scan 5s linear infinite;
-}
-
-@keyframes scan{
-0%{
-top:-10%;
-}
-100%{
-top:110%;
-}
+.input:focus{
+outline:none;
+border-color:#ef4444;
+box-shadow:0 0 0 4px rgba(239,68,68,.1);
 }
 
 </style>
@@ -277,44 +269,48 @@ top:110%;
 
 <body>
 
-<div id="tsparticles"></div>
+<!-- HERO BACKGROUND -->
 
-<div class="cyber-grid"></div>
+<div class="hero-bg">
 
-<div class="glow-red top-[-150px] left-[-150px]"></div>
+<div class="grid-bg"></div>
 
-<div class="glow-cyan bottom-[-150px] right-[-150px]"></div>
+<div class="blob blob-1"></div>
+
+<div class="blob blob-2"></div>
+
+</div>
 
 <!-- NAVBAR -->
 
 <header class="fixed top-0 left-0 w-full z-50 px-6 py-5">
 
-<div class="navbar max-w-7xl mx-auto rounded-[30px] px-8 py-5 flex items-center justify-between">
+<div class="navbar max-w-7xl mx-auto rounded-[28px] px-8 py-5 flex items-center justify-between">
 
 <div class="flex items-center gap-3">
 
-<div class="w-4 h-4 rotate-45 bg-red-500"></div>
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
 
 <h2 class="text-2xl font-black tracking-tight">
-Compliance<span class="red-text">IQ</span>
+ISO<span class="red-text">Insights</span>
 </h2>
 
 </div>
 
-<nav class="hidden lg:flex items-center gap-10 text-sm font-semibold text-zinc-400">
+<nav class="hidden lg:flex items-center gap-10 text-sm font-semibold text-zinc-500">
 
-<a href="#" class="hover:text-white transition">HOME</a>
+<a href="#" class="hover:text-red-500 transition">Home</a>
 
-<a href="#categories" class="hover:text-white transition">FRAMEWORKS</a>
+<a href="#categories" class="hover:text-red-500 transition">Standards</a>
 
-<a href="#articles" class="hover:text-white transition">INSIGHTS</a>
+<a href="#articles" class="hover:text-red-500 transition">Articles</a>
 
-<a href="#stats" class="hover:text-white transition">ANALYTICS</a>
+<a href="#stats" class="hover:text-red-500 transition">Insights</a>
 
 </nav>
 
-<button class="btn-red px-7 py-3 rounded-2xl text-sm">
-EXPLORE PLATFORM
+<button class="btn-primary px-7 py-3 rounded-2xl text-sm">
+Explore Platform
 </button>
 
 </div>
@@ -323,7 +319,7 @@ EXPLORE PLATFORM
 
 <!-- HERO -->
 
-<section class="relative min-h-screen flex items-center overflow-hidden px-6 pt-36">
+<section class="relative min-h-screen flex items-center px-6 pt-36 overflow-hidden">
 
 <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
 
@@ -331,57 +327,56 @@ EXPLORE PLATFORM
 
 <div>
 
-<div class="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border border-red-500/20 text-red-400 text-xs uppercase tracking-[0.25em] font-bold">
+<div class="inline-flex items-center gap-3 px-5 py-2 rounded-full tag text-xs uppercase tracking-[0.25em] font-bold">
 
 <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
 
-Enterprise Compliance Intelligence
+Modern Compliance Platform
 
 </div>
 
 <h1 class="hero-title mt-8">
 
-Absolute Confidence
-<br>
+Future Of
+<span class="red-text">ISO</span>
 
-Through
-<span class="red-text">Advanced</span>
-
-Infrastructure
+Knowledge
+&
+Insights
 
 </h1>
 
 <p class="hero-sub mt-8">
 
-Delivering enterprise-grade compliance intelligence, governance frameworks,
-security insights, and operational excellence for modern organizations.
+Discover premium ISO certification articles, business compliance insights,
+implementation strategies, governance frameworks, and operational excellence resources.
 
 </p>
 
 <div class="mt-12 flex flex-wrap gap-5">
 
-<button class="btn-red px-9 py-5 rounded-2xl text-sm tracking-wide">
-EXPLORE ARTICLES
+<button class="btn-primary px-9 py-5 rounded-2xl text-sm tracking-wide">
+Explore Articles
 </button>
 
-<button class="btn-dark px-9 py-5 rounded-2xl text-sm tracking-wide">
-VIEW FRAMEWORKS
+<button class="btn-secondary px-9 py-5 rounded-2xl text-sm tracking-wide">
+View Standards
 </button>
 
 </div>
 
 <div class="mt-10 flex flex-wrap gap-3">
 
-<div class="glass px-5 py-3 rounded-xl text-sm border border-white/5">
+<div class="tag px-5 py-3 rounded-xl text-sm">
+ISO 9001
+</div>
+
+<div class="tag px-5 py-3 rounded-xl text-sm">
 ISO 27001
 </div>
 
-<div class="glass px-5 py-3 rounded-xl text-sm border border-white/5">
-Risk Governance
-</div>
-
-<div class="glass px-5 py-3 rounded-xl text-sm border border-white/5">
-Security Intelligence
+<div class="tag px-5 py-3 rounded-xl text-sm">
+ISO 45001
 </div>
 
 </div>
@@ -392,27 +387,23 @@ Security Intelligence
 
 <div class="relative flex justify-center">
 
-<div class="absolute w-[550px] h-[550px] border border-red-500/10 rounded-full"></div>
+<div class="glass hero-card rounded-[40px] p-10 w-full max-w-[520px] float">
 
-<div class="absolute w-[420px] h-[420px] border border-red-500/10 rounded-full"></div>
-
-<div class="absolute w-[300px] h-[300px] border border-red-500/10 rounded-full"></div>
-
-<div class="glass cyber-border hero-panel rounded-[40px] p-10 w-full max-w-[520px] relative overflow-hidden float">
-
-<div class="scan-line"></div>
+<div class="relative z-10">
 
 <div class="flex justify-between items-center mb-8">
 
 <p class="text-zinc-500 uppercase tracking-[0.3em] text-xs font-bold">
-Threat Intelligence
+Platform Analytics
 </p>
 
 <div class="flex gap-2">
 
 <div class="w-2 h-2 rounded-full bg-red-500"></div>
-<div class="w-2 h-2 rounded-full bg-white"></div>
-<div class="w-2 h-2 rounded-full bg-red-500"></div>
+
+<div class="w-2 h-2 rounded-full bg-orange-400"></div>
+
+<div class="w-2 h-2 rounded-full bg-pink-400"></div>
 
 </div>
 
@@ -425,7 +416,7 @@ Threat Intelligence
 <div>
 
 <p class="text-zinc-500 text-sm">
-Published Insights
+Published Articles
 </p>
 
 <h3 class="text-3xl font-black mt-1">
@@ -445,7 +436,7 @@ Published Insights
 <div>
 
 <p class="text-zinc-500 text-sm">
-Framework Categories
+ISO Standards
 </p>
 
 <h3 class="text-3xl font-black mt-1">
@@ -465,7 +456,7 @@ Framework Categories
 <div>
 
 <p class="text-zinc-500 text-sm">
-Enterprise Reach
+Monthly Readers
 </p>
 
 <h3 class="text-3xl font-black mt-1">
@@ -488,58 +479,60 @@ Enterprise Reach
 
 </div>
 
+</div>
+
 </section>
 
 <!-- STATS -->
 
-<section id="stats" class="relative z-10 border-y border-white/5">
+<section id="stats" class="relative py-24 border-y border-zinc-100 bg-[#fafafa]">
 
-<div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4">
+<div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 px-6">
 
-<div class="text-center py-14 border-r border-white/5">
+<div class="text-center">
 
-<div class="stats-number text-white">
+<div class="stats-number">
 10+
 </div>
 
 <p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
-Years Active
+Years Experience
 </p>
 
 </div>
 
-<div class="text-center py-14 border-r border-white/5">
+<div class="text-center">
 
-<div class="stats-number text-white">
-45+
+<div class="stats-number">
+50+
 </div>
 
 <p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
-Experts
+ISO Standards
 </p>
 
 </div>
 
-<div class="text-center py-14 border-r border-white/5">
+<div class="text-center">
 
-<div class="stats-number text-white">
-200+
+<div class="stats-number">
+500+
 </div>
 
 <p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
-Enterprise Clients
+Published Articles
 </p>
 
 </div>
 
-<div class="text-center py-14">
+<div class="text-center">
 
-<div class="stats-number text-white">
-24/7
+<div class="stats-number">
+25+
 </div>
 
 <p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
-Monitoring
+Industries
 </p>
 
 </div>
@@ -550,7 +543,7 @@ Monitoring
 
 <!-- CATEGORIES -->
 
-<section id="categories" class="relative z-10 py-32 px-6">
+<section id="categories" class="relative py-32 px-6">
 
 <div class="max-w-7xl mx-auto">
 
@@ -559,10 +552,15 @@ Monitoring
 <div class="w-16 h-[2px] bg-red-500 mb-6"></div>
 
 <h2 class="section-title">
-Compliance Intelligence
-<br>
-<span class="red-text">Frameworks</span>
+
+Popular
+<span class="red-text">ISO Standards</span>
+
 </h2>
+
+<p class="text-zinc-500 mt-5 text-lg max-w-2xl">
+Explore globally recognized ISO standards and business implementation insights.
+</p>
 
 </div>
 
@@ -575,11 +573,11 @@ Compliance Intelligence
 </div>
 
 <h3 class="text-2xl font-black mt-8">
-Governance Systems
+ISO 9001
 </h3>
 
 <p class="text-zinc-500 mt-4 leading-relaxed">
-Enterprise governance and operational structure frameworks.
+Quality management systems and operational excellence strategies.
 </p>
 
 </div>
@@ -591,11 +589,11 @@ Enterprise governance and operational structure frameworks.
 </div>
 
 <h3 class="text-2xl font-black mt-8">
-Security Intelligence
+ISO 27001
 </h3>
 
 <p class="text-zinc-500 mt-4 leading-relaxed">
-Advanced infrastructure protection and cyber intelligence systems.
+Information security systems and risk management insights.
 </p>
 
 </div>
@@ -607,11 +605,11 @@ Advanced infrastructure protection and cyber intelligence systems.
 </div>
 
 <h3 class="text-2xl font-black mt-8">
-Risk Analytics
+ISO 45001
 </h3>
 
 <p class="text-zinc-500 mt-4 leading-relaxed">
-Modern compliance risk assessment and monitoring strategies.
+Occupational health and workplace safety management systems.
 </p>
 
 </div>
@@ -624,7 +622,7 @@ Modern compliance risk assessment and monitoring strategies.
 
 <!-- BLOG SECTION -->
 
-<section id="articles" class="relative z-10 py-32 px-6">
+<section id="articles" class="relative py-32 px-6 bg-[#fafafa]">
 
 <div class="max-w-7xl mx-auto">
 
@@ -635,28 +633,26 @@ Modern compliance risk assessment and monitoring strategies.
 <div class="w-16 h-[2px] bg-red-500 mb-6"></div>
 
 <h2 class="section-title">
+
 Latest
 <span class="red-text">Insights</span>
+
 </h2>
 
-<p class="text-zinc-500 mt-4 text-lg">
-Strategic intelligence, compliance systems, and enterprise frameworks.
+<p class="text-zinc-500 mt-5 text-lg">
+Business compliance, ISO standards, implementation guides, and industry updates.
 </p>
 
 </div>
 
 <div class="w-full lg:w-[420px]">
 
-<div class="glass rounded-2xl overflow-hidden relative">
-
 <input
 type="text"
 id="searchBox"
-placeholder="Search intelligence articles..."
-class="w-full bg-transparent px-6 py-5 outline-none text-white placeholder:text-zinc-600"
+placeholder="Search articles..."
+class="input w-full px-6 py-5 rounded-2xl"
 />
-
-</div>
 
 </div>
 
@@ -673,32 +669,35 @@ class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
 <!-- CTA -->
 
-<section class="relative z-10 px-6 pb-32">
+<section class="relative py-32 px-6">
 
-<div class="max-w-6xl mx-auto glass rounded-[40px] p-16 relative overflow-hidden">
+<div class="max-w-6xl mx-auto glass rounded-[40px] p-16 text-center overflow-hidden relative">
 
-<div class="absolute inset-0 bg-gradient-to-r from-red-500/10 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-red-50 to-white"></div>
 
 <div class="relative z-10">
 
-<h2 class="section-title max-w-4xl">
-Transform Your
-<span class="red-text">Compliance Intelligence</span>
-Infrastructure
+<h2 class="section-title max-w-4xl mx-auto">
+
+Stay Updated With
+<span class="red-text">ISO Intelligence</span>
+
 </h2>
 
-<p class="text-zinc-500 mt-6 text-lg max-w-2xl">
-Advanced insights, modern frameworks, and enterprise-grade intelligence systems.
+<p class="text-zinc-500 mt-6 text-lg max-w-2xl mx-auto">
+Get the latest ISO certification insights, compliance strategies, and implementation guides.
 </p>
 
-<div class="mt-10 flex flex-wrap gap-5">
+<div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
 
-<button class="btn-red px-9 py-5 rounded-2xl text-sm">
-GET STARTED
-</button>
+<input
+type="email"
+placeholder="Enter your email"
+class="input px-6 py-5 rounded-2xl w-full sm:w-[350px]"
+>
 
-<button class="btn-dark px-9 py-5 rounded-2xl text-sm">
-LEARN MORE
+<button class="btn-primary px-8 py-5 rounded-2xl">
+Subscribe Now
 </button>
 
 </div>
@@ -711,31 +710,31 @@ LEARN MORE
 
 <!-- FOOTER -->
 
-<footer class="relative z-10 border-t border-white/5 py-12 px-6">
+<footer class="border-t border-zinc-100 py-12 px-6">
 
 <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between gap-10 items-center">
 
 <div>
 
 <h3 class="text-3xl font-black">
-Compliance<span class="red-text">IQ</span>
+ISO<span class="red-text">Insights</span>
 </h3>
 
-<p class="text-zinc-600 mt-3">
-Modern enterprise intelligence platform.
+<p class="text-zinc-500 mt-3">
+Modern animated ISO knowledge platform.
 </p>
 
 </div>
 
 <div class="flex gap-8 text-sm text-zinc-500">
 
-<a href="#" class="hover:text-white transition">Home</a>
+<a href="#" class="hover:text-red-500 transition">Home</a>
 
-<a href="#" class="hover:text-white transition">Frameworks</a>
+<a href="#" class="hover:text-red-500 transition">Standards</a>
 
-<a href="#" class="hover:text-white transition">Insights</a>
+<a href="#" class="hover:text-red-500 transition">Articles</a>
 
-<a href="#" class="hover:text-white transition">Contact</a>
+<a href="#" class="hover:text-red-500 transition">Contact</a>
 
 </div>
 
@@ -744,39 +743,6 @@ Modern enterprise intelligence platform.
 </footer>
 
 <script>
-
-/* PARTICLES */
-
-tsParticles.load("tsparticles", {
-particles: {
-number: {
-value: 70
-},
-color: {
-value: "#ff1b2d"
-},
-links: {
-enable: true,
-distance: 140,
-color: "#ff1b2d",
-opacity: 0.15,
-width: 1
-},
-move: {
-enable: true,
-speed: 1
-},
-opacity: {
-value: 0.4
-},
-size: {
-value: 2
-}
-},
-background: {
-color: "transparent"
-}
-});
 
 /* FIREBASE */
 
@@ -817,7 +783,7 @@ container.innerHTML = '';
 if(!data){
 
 container.innerHTML = `
-<div class="col-span-full text-center py-20 text-zinc-600">
+<div class="col-span-full text-center py-20 text-zinc-500">
 No articles found.
 </div>
 `;
@@ -859,18 +825,18 @@ const articleSlug = post.slug
 
 container.innerHTML += `
 
-<article class="blog-card glass rounded-[30px] border border-white/5 flex flex-col overflow-hidden">
+<article class="blog-card glass rounded-[30px] flex flex-col overflow-hidden">
 
 <div class="aspect-[16/10] overflow-hidden relative">
 
 <img src="${post.image}"
 class="w-full h-full object-cover">
 
-<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
 
 <div class="absolute top-5 left-5">
 
-<span class="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] uppercase tracking-[0.25em] font-bold">
+<span class="tag px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.25em] font-bold">
 
 ${post.date}
 
@@ -896,12 +862,12 @@ ${snippet}...
 
 <div class="mt-8 flex items-center justify-between">
 
-<span class="text-xs uppercase tracking-[0.25em] text-zinc-600">
+<span class="text-xs uppercase tracking-[0.25em] text-zinc-500">
 5 Min Read
 </span>
 
 <a href="${articleSlug}"
-class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
+class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
 
 →
 
@@ -925,7 +891,7 @@ gsap.utils.toArray('.blog-card').forEach((card, i) => {
 
 gsap.from(card,{
 opacity:0,
-y:80,
+y:60,
 duration:1,
 delay:i * 0.08
 });
@@ -972,7 +938,7 @@ gsap.utils.toArray('.category-card').forEach((card, i) => {
 
 gsap.from(card,{
 opacity:0,
-y:60,
+y:50,
 duration:1,
 delay:i * 0.1,
 scrollTrigger:{
