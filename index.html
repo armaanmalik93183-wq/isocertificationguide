@@ -1,310 +1,988 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="YyJDwVkSVNOMCP-VrUmtS4LdXW80X78HNrhmNCN_fAU" />
-    <meta name="google-site-verification" content="YyJDwVkSVNOMCP-VrUmtS4LdXW80X78HNrhmNCN_fAU" />
-    <meta name="description" content="Professional ISO certification blogs and compliance insights">
-    <meta name="keywords" content="ISO Certification, ISO Saudi Arabia, ISO Blogs">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="ISO Certification Guide">
-    <meta property="og:description" content="Professional ISO certification blogs">
-    <meta property="og:type" content="website">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ISO Certification Guide</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Compliance Intelligence Platform</title>
 
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<meta name="description" content="Modern enterprise compliance intelligence platform with advanced ISO insights and security frameworks.">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+<script src="https://cdn.tailwindcss.com"></script>
 
-        /* Ambient Fluid Graphics Animations */
-        @keyframes dynamicMesh {
-            0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-            33% { transform: translate(50px, -40px) scale(1.15) rotate(120deg); }
-            66% { transform: translate(-30px, 50px) scale(0.9) rotate(240deg); }
-        }
-        @keyframes deepPulse {
-            0%, 100% { transform: scale(1); opacity: 0.2; filter: blur(100px); }
-            50% { transform: scale(1.12); opacity: 0.35; filter: blur(130px); }
-        }
-        @keyframes cyberScan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        .animate-mesh-1 { animation: dynamicMesh 22s linear infinite; }
-        .animate-mesh-2 { animation: dynamicMesh 26s linear infinite reverse; }
-        .animate-portal-pulse { animation: deepPulse 7s ease-in-out infinite; }
-        
-        /* Ultra Smooth Depth Rendering */
-        .glass-portal-frame {
-            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.03), 0 30px 70px rgba(0, 0, 0, 0.8);
-        }
-        
-        .portal-item {
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .portal-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(6px);
-            border-color: rgba(34, 211, 238, 0.3);
-        }
-    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#050505;
+overflow-x:hidden;
+color:white;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#050505;
+}
+
+::-webkit-scrollbar-thumb{
+background:linear-gradient(to bottom,#ff1b2d,#ff4458);
+border-radius:20px;
+}
+
+/* PARTICLES */
+
+#tsparticles{
+position:fixed;
+inset:0;
+z-index:0;
+}
+
+/* BACKGROUND GRID */
+
+.cyber-grid{
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+background-size:70px 70px;
+z-index:0;
+opacity:.4;
+}
+
+/* GLOW EFFECTS */
+
+.glow-red{
+position:absolute;
+width:500px;
+height:500px;
+background:rgba(255,0,60,.12);
+filter:blur(140px);
+border-radius:50%;
+z-index:0;
+}
+
+.glow-cyan{
+position:absolute;
+width:400px;
+height:400px;
+background:rgba(0,255,255,.08);
+filter:blur(140px);
+border-radius:50%;
+z-index:0;
+}
+
+/* NAVBAR */
+
+.navbar{
+backdrop-filter:blur(20px);
+background:rgba(8,8,8,.65);
+border:1px solid rgba(255,255,255,.06);
+box-shadow:0 10px 40px rgba(0,0,0,.4);
+}
+
+/* HERO */
+
+.hero-title{
+font-size:clamp(3rem,8vw,7rem);
+font-weight:900;
+line-height:.95;
+letter-spacing:-.05em;
+}
+
+.red-text{
+color:#ff1b2d;
+}
+
+.hero-sub{
+color:#8f8f8f;
+font-size:1.15rem;
+line-height:1.8;
+max-width:650px;
+}
+
+/* BUTTONS */
+
+.btn-red{
+background:#ff1b2d;
+color:white;
+font-weight:800;
+transition:.35s ease;
+box-shadow:0 0 0 rgba(255,27,45,.4);
+}
+
+.btn-red:hover{
+transform:translateY(-4px);
+box-shadow:0 20px 40px rgba(255,27,45,.35);
+}
+
+.btn-dark{
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.03);
+transition:.35s ease;
+}
+
+.btn-dark:hover{
+border-color:#ff1b2d;
+background:rgba(255,27,45,.08);
+}
+
+/* GLASS */
+
+.glass{
+background:rgba(255,255,255,.03);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.cyber-border{
+position:relative;
+overflow:hidden;
+}
+
+.cyber-border::before{
+content:'';
+position:absolute;
+inset:0;
+padding:1px;
+border-radius:inherit;
+background:linear-gradient(140deg,transparent,rgba(255,27,45,.5),transparent);
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+}
+
+/* FLOATING */
+
+@keyframes float{
+0%,100%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(-18px);
+}
+}
+
+.float{
+animation:float 6s ease-in-out infinite;
+}
+
+/* HERO CARD */
+
+.hero-panel{
+box-shadow:
+0 0 80px rgba(255,0,50,.12),
+inset 0 0 30px rgba(255,255,255,.02);
+}
+
+/* STATS */
+
+.stats-number{
+font-size:4rem;
+font-weight:900;
+line-height:1;
+}
+
+/* BLOG CARDS */
+
+.blog-card{
+transition:.4s ease;
+overflow:hidden;
+}
+
+.blog-card:hover{
+transform:translateY(-10px);
+border-color:rgba(255,27,45,.3);
+box-shadow:0 20px 50px rgba(255,0,50,.12);
+}
+
+.blog-card img{
+transition:transform .6s ease;
+}
+
+.blog-card:hover img{
+transform:scale(1.08);
+}
+
+/* SECTION TITLE */
+
+.section-title{
+font-size:clamp(2rem,5vw,4rem);
+font-weight:900;
+letter-spacing:-.04em;
+}
+
+/* CATEGORY CARDS */
+
+.category-card{
+transition:.35s ease;
+}
+
+.category-card:hover{
+transform:translateY(-8px);
+border-color:rgba(255,27,45,.25);
+box-shadow:0 15px 50px rgba(255,0,50,.1);
+}
+
+/* SCAN LINE */
+
+.scan-line{
+position:absolute;
+inset-x:0;
+height:1px;
+background:linear-gradient(to right,transparent,#ff1b2d,transparent);
+animation:scan 5s linear infinite;
+}
+
+@keyframes scan{
+0%{
+top:-10%;
+}
+100%{
+top:110%;
+}
+}
+
+</style>
+
 </head>
 
-<body class="bg-[#030612] antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
+<body>
 
-<section class="relative min-h-screen flex flex-col justify-between overflow-hidden pb-16 pt-6">
-    
-    <div class="absolute inset-0 z-0 pointer-events-none">
-        <div class="absolute w-[800px] h-[800px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/5 to-transparent rounded-full -top-[20%] -left-[10%] animate-mesh-1 blur-[100px]"></div>
-        <div class="absolute w-[900px] h-[900px] bg-gradient-to-bl from-indigo-500/10 via-purple-600/5 to-transparent rounded-full -bottom-[20%] -right-[10%] animate-mesh-2 blur-[120px]"></div>
-        
-        <div class="absolute inset-0 opacity-[0.015]" style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 60px 60px;"></div>
-    </div>
+<div id="tsparticles"></div>
 
-    <header class="w-full z-50 relative px-6 max-w-7xl mx-auto">
-        <div class="w-full bg-slate-950/30 border border-white/[0.05] rounded-3xl px-8 py-5 flex justify-between items-center backdrop-blur-2xl shadow-2xl">
-            <div>
-                <a href="index.html" class="text-xl font-black text-white tracking-tight flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-br from-blue-500 to-cyan-400 rotate-45"></span>
-                    ISO Certification <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">Guide</span>
-                </a>
-            </div>
-        </div>
-    </header>
+<div class="cyber-grid"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center pt-20">
-        
-        <div class="lg:col-span-7 flex flex-col justify-center">
-            
-            <div class="inline-flex self-start items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.01] border border-white/[0.07] text-cyan-400 text-xs font-semibold tracking-widest uppercase shadow-2xl backdrop-blur-md">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-                </span>
-                Active Compliance Stream
-            </div>
+<div class="glow-red top-[-150px] left-[-150px]"></div>
 
-            <h1 class="mt-6 text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight text-white leading-[1.12]">
-                The Standard Of <br>
-                <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">Excellence</span>
-            </h1>
+<div class="glow-cyan bottom-[-150px] right-[-150px]"></div>
 
-            <p class="mt-8 text-slate-400 text-lg sm:text-xl max-w-xl leading-relaxed font-normal">
-                Your premium repository for framework certification blueprints. Discover compliance analytics and organizational strategies built for growth.
-            </p>
+<!-- NAVBAR -->
 
-            <div class="mt-10 max-w-xl flex flex-col sm:flex-row gap-4 items-stretch relative">
-                <div class="relative flex-1 bg-white/[0.01] border border-white/[0.06] rounded-2xl backdrop-blur-xl shadow-2xl transition duration-300 focus-within:border-cyan-500/40 focus-within:bg-white/[0.02]">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Query dynamic ISO matrices..."
-                        class="w-full bg-transparent outline-none text-white pl-12 pr-4 py-4.5 placeholder-slate-600 font-medium tracking-wide text-sm"
-                    >
-                </div>
-                
-                <button class="px-8 py-4.5 rounded-2xl font-bold bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-slate-950 shadow-xl shadow-cyan-500/10 transition-all duration-300 text-sm font-extrabold tracking-wide">
-                    Search Articles
-                </button>
-            </div>
-        </div>
+<header class="fixed top-0 left-0 w-full z-50 px-6 py-5">
 
-        <div class="lg:col-span-5 w-full flex items-center justify-center h-[380px] sm:h-[540px] scale-90 sm:scale-100 isometric-container relative select-none">
-            
-            <div class="absolute w-[450px] h-[450px] bg-cyan-500/10 rounded-full animate-portal-pulse z-0 pointer-events-none"></div>
+<div class="navbar max-w-7xl mx-auto rounded-[30px] px-8 py-5 flex items-center justify-between">
 
-            <div class="glass-portal-frame w-full bg-slate-950/40 border border-white/[0.06] rounded-[36px] p-8 backdrop-blur-3xl z-10 relative overflow-hidden">
-                
-                <div class="absolute inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent z-20 pointer-events-none animate-[cyberScan_6s_linear_infinite]"></div>
+<div class="flex items-center gap-3">
 
-                <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
-                    <p class="text-xs uppercase tracking-widest font-bold text-slate-500">Core Ecosystem Index</p>
-                    <div class="flex gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                    </div>
-                </div>
-                
-                <div class="space-y-4">
-                    <div class="portal-item border border-white/[0.03] bg-white/[0.01] rounded-2xl p-4.5 flex items-center justify-between">
-                        <div class="flex items-center gap-4.5">
-                            <div class="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-inner">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.232.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-semibold text-slate-200">Framework Blueprints</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Verified optimization records</p>
-                            </div>
-                        </div>
-                        <span class="text-2xl font-black text-white tracking-tight">300+</span>
-                    </div>
+<div class="w-4 h-4 rotate-45 bg-red-500"></div>
 
-                    <div class="portal-item border border-white/[0.03] bg-white/[0.01] rounded-2xl p-4.5 flex items-center justify-between">
-                        <div class="flex items-center gap-4.5">
-                            <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-inner">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-semibold text-slate-200">ISO Categories</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Standardized core systems</p>
-                            </div>
-                        </div>
-                        <span class="text-2xl font-black text-white tracking-tight">50+</span>
-                    </div>
+<h2 class="text-2xl font-black tracking-tight">
+Compliance<span class="red-text">IQ</span>
+</h2>
 
-                    <div class="portal-item border border-white/[0.03] bg-white/[0.01] rounded-2xl p-4.5 flex items-center justify-between">
-                        <div class="flex items-center gap-4.5">
-                            <div class="w-11 h-11 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 shadow-inner">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.213 6h-2.807"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-semibold text-slate-200">Database Sync Frequency</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Continuous payload streaming</p>
-                            </div>
-                        </div>
-                        <span class="text-2xl font-black text-teal-400 tracking-tight">24/7</span>
-                    </div>
-                </div>
+</div>
 
-            </div>
-        </div>
+<nav class="hidden lg:flex items-center gap-10 text-sm font-semibold text-zinc-400">
 
-    </div>
+<a href="#" class="hover:text-white transition">HOME</a>
+
+<a href="#categories" class="hover:text-white transition">FRAMEWORKS</a>
+
+<a href="#articles" class="hover:text-white transition">INSIGHTS</a>
+
+<a href="#stats" class="hover:text-white transition">ANALYTICS</a>
+
+</nav>
+
+<button class="btn-red px-7 py-3 rounded-2xl text-sm">
+EXPLORE PLATFORM
+</button>
+
+</div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="relative min-h-screen flex items-center overflow-hidden px-6 pt-36">
+
+<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
+
+<!-- LEFT -->
+
+<div>
+
+<div class="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border border-red-500/20 text-red-400 text-xs uppercase tracking-[0.25em] font-bold">
+
+<div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+
+Enterprise Compliance Intelligence
+
+</div>
+
+<h1 class="hero-title mt-8">
+
+Absolute Confidence
+<br>
+
+Through
+<span class="red-text">Advanced</span>
+
+Infrastructure
+
+</h1>
+
+<p class="hero-sub mt-8">
+
+Delivering enterprise-grade compliance intelligence, governance frameworks,
+security insights, and operational excellence for modern organizations.
+
+</p>
+
+<div class="mt-12 flex flex-wrap gap-5">
+
+<button class="btn-red px-9 py-5 rounded-2xl text-sm tracking-wide">
+EXPLORE ARTICLES
+</button>
+
+<button class="btn-dark px-9 py-5 rounded-2xl text-sm tracking-wide">
+VIEW FRAMEWORKS
+</button>
+
+</div>
+
+<div class="mt-10 flex flex-wrap gap-3">
+
+<div class="glass px-5 py-3 rounded-xl text-sm border border-white/5">
+ISO 27001
+</div>
+
+<div class="glass px-5 py-3 rounded-xl text-sm border border-white/5">
+Risk Governance
+</div>
+
+<div class="glass px-5 py-3 rounded-xl text-sm border border-white/5">
+Security Intelligence
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="relative flex justify-center">
+
+<div class="absolute w-[550px] h-[550px] border border-red-500/10 rounded-full"></div>
+
+<div class="absolute w-[420px] h-[420px] border border-red-500/10 rounded-full"></div>
+
+<div class="absolute w-[300px] h-[300px] border border-red-500/10 rounded-full"></div>
+
+<div class="glass cyber-border hero-panel rounded-[40px] p-10 w-full max-w-[520px] relative overflow-hidden float">
+
+<div class="scan-line"></div>
+
+<div class="flex justify-between items-center mb-8">
+
+<p class="text-zinc-500 uppercase tracking-[0.3em] text-xs font-bold">
+Threat Intelligence
+</p>
+
+<div class="flex gap-2">
+
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<div class="w-2 h-2 rounded-full bg-white"></div>
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+
+</div>
+
+</div>
+
+<div class="space-y-5">
+
+<div class="glass rounded-2xl p-5 flex justify-between items-center">
+
+<div>
+
+<p class="text-zinc-500 text-sm">
+Published Insights
+</p>
+
+<h3 class="text-3xl font-black mt-1">
+500+
+</h3>
+
+</div>
+
+<div class="text-red-500 text-3xl">
+↗
+</div>
+
+</div>
+
+<div class="glass rounded-2xl p-5 flex justify-between items-center">
+
+<div>
+
+<p class="text-zinc-500 text-sm">
+Framework Categories
+</p>
+
+<h3 class="text-3xl font-black mt-1">
+40+
+</h3>
+
+</div>
+
+<div class="text-red-500 text-3xl">
+◎
+</div>
+
+</div>
+
+<div class="glass rounded-2xl p-5 flex justify-between items-center">
+
+<div>
+
+<p class="text-zinc-500 text-sm">
+Enterprise Reach
+</p>
+
+<h3 class="text-3xl font-black mt-1">
+10K+
+</h3>
+
+</div>
+
+<div class="text-red-500 text-3xl">
+◉
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="articles-view" class="max-w-7xl mx-auto px-6 py-32 bg-[#030612] relative z-20">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div>
-            <div class="w-12 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mb-4"></div>
-            <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                Latest Insights & Blueprints
-            </h2>
-            <p class="text-slate-400 mt-2 text-lg">
-                Regulatory execution methodologies and corporate system breakdowns
-            </p>
-        </div>
-    </div>
+<!-- STATS -->
 
-    <div id="posts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-    </div>
+<section id="stats" class="relative z-10 border-y border-white/5">
+
+<div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4">
+
+<div class="text-center py-14 border-r border-white/5">
+
+<div class="stats-number text-white">
+10+
+</div>
+
+<p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
+Years Active
+</p>
+
+</div>
+
+<div class="text-center py-14 border-r border-white/5">
+
+<div class="stats-number text-white">
+45+
+</div>
+
+<p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
+Experts
+</p>
+
+</div>
+
+<div class="text-center py-14 border-r border-white/5">
+
+<div class="stats-number text-white">
+200+
+</div>
+
+<p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
+Enterprise Clients
+</p>
+
+</div>
+
+<div class="text-center py-14">
+
+<div class="stats-number text-white">
+24/7
+</div>
+
+<p class="mt-3 text-zinc-500 uppercase tracking-[0.25em] text-xs">
+Monitoring
+</p>
+
+</div>
+
+</div>
+
 </section>
+
+<!-- CATEGORIES -->
+
+<section id="categories" class="relative z-10 py-32 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="mb-20">
+
+<div class="w-16 h-[2px] bg-red-500 mb-6"></div>
+
+<h2 class="section-title">
+Compliance Intelligence
+<br>
+<span class="red-text">Frameworks</span>
+</h2>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+<div class="category-card glass rounded-[30px] p-8">
+
+<div class="text-red-500 text-4xl">
+◎
+</div>
+
+<h3 class="text-2xl font-black mt-8">
+Governance Systems
+</h3>
+
+<p class="text-zinc-500 mt-4 leading-relaxed">
+Enterprise governance and operational structure frameworks.
+</p>
+
+</div>
+
+<div class="category-card glass rounded-[30px] p-8">
+
+<div class="text-red-500 text-4xl">
+◉
+</div>
+
+<h3 class="text-2xl font-black mt-8">
+Security Intelligence
+</h3>
+
+<p class="text-zinc-500 mt-4 leading-relaxed">
+Advanced infrastructure protection and cyber intelligence systems.
+</p>
+
+</div>
+
+<div class="category-card glass rounded-[30px] p-8">
+
+<div class="text-red-500 text-4xl">
+⬢
+</div>
+
+<h3 class="text-2xl font-black mt-8">
+Risk Analytics
+</h3>
+
+<p class="text-zinc-500 mt-4 leading-relaxed">
+Modern compliance risk assessment and monitoring strategies.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOG SECTION -->
+
+<section id="articles" class="relative z-10 py-32 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="flex flex-col lg:flex-row justify-between gap-8 mb-16">
+
+<div>
+
+<div class="w-16 h-[2px] bg-red-500 mb-6"></div>
+
+<h2 class="section-title">
+Latest
+<span class="red-text">Insights</span>
+</h2>
+
+<p class="text-zinc-500 mt-4 text-lg">
+Strategic intelligence, compliance systems, and enterprise frameworks.
+</p>
+
+</div>
+
+<div class="w-full lg:w-[420px]">
+
+<div class="glass rounded-2xl overflow-hidden relative">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search intelligence articles..."
+class="w-full bg-transparent px-6 py-5 outline-none text-white placeholder:text-zinc-600"
+/>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="posts-container"
+class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="relative z-10 px-6 pb-32">
+
+<div class="max-w-6xl mx-auto glass rounded-[40px] p-16 relative overflow-hidden">
+
+<div class="absolute inset-0 bg-gradient-to-r from-red-500/10 to-transparent"></div>
+
+<div class="relative z-10">
+
+<h2 class="section-title max-w-4xl">
+Transform Your
+<span class="red-text">Compliance Intelligence</span>
+Infrastructure
+</h2>
+
+<p class="text-zinc-500 mt-6 text-lg max-w-2xl">
+Advanced insights, modern frameworks, and enterprise-grade intelligence systems.
+</p>
+
+<div class="mt-10 flex flex-wrap gap-5">
+
+<button class="btn-red px-9 py-5 rounded-2xl text-sm">
+GET STARTED
+</button>
+
+<button class="btn-dark px-9 py-5 rounded-2xl text-sm">
+LEARN MORE
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="relative z-10 border-t border-white/5 py-12 px-6">
+
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between gap-10 items-center">
+
+<div>
+
+<h3 class="text-3xl font-black">
+Compliance<span class="red-text">IQ</span>
+</h3>
+
+<p class="text-zinc-600 mt-3">
+Modern enterprise intelligence platform.
+</p>
+
+</div>
+
+<div class="flex gap-8 text-sm text-zinc-500">
+
+<a href="#" class="hover:text-white transition">Home</a>
+
+<a href="#" class="hover:text-white transition">Frameworks</a>
+
+<a href="#" class="hover:text-white transition">Insights</a>
+
+<a href="#" class="hover:text-white transition">Contact</a>
+
+</div>
+
+</div>
+
+</footer>
 
 <script>
-// --- SPA ROUTER REDIRECT MECHANISM ---
-(function() {
-    var redirectQuery = window.location.search;
-    if (redirectQuery && redirectQuery.charAt(1) === '/') {
-        var cleanPath = redirectQuery.slice(2).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&'); 
-        }).join('?');
-        
-        // Redirect directly to the blog template while maintaining the slug parameters internally
-        window.location.replace(
-            window.location.protocol + '//' + window.location.host + 
-            window.location.pathname + 'blog.html?slug=' + cleanPath
-        );
-    }
-})();
-// -------------------------------------
+
+/* PARTICLES */
+
+tsParticles.load("tsparticles", {
+particles: {
+number: {
+value: 70
+},
+color: {
+value: "#ff1b2d"
+},
+links: {
+enable: true,
+distance: 140,
+color: "#ff1b2d",
+opacity: 0.15,
+width: 1
+},
+move: {
+enable: true,
+speed: 1
+},
+opacity: {
+value: 0.4
+},
+size: {
+value: 2
+}
+},
+background: {
+color: "transparent"
+}
+});
+
+/* FIREBASE */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
-  authDomain: "iso-certification-guide.firebaseapp.com",
-  databaseURL: "https://iso-certification-guide-default-rtdb.firebaseio.com",
-  projectId: "iso-certification-guide",
-  storageBucket: "iso-certification-guide.firebasestorage.app",
-  messagingSenderId: "277771367161",
-  appId: "1:277771367161:web:0f61aef15bb9ce0d64a828",
-  measurementId: "G-MJL8MBRQEB"
+
+apiKey: "AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
+
+authDomain: "iso-certification-guide.firebaseapp.com",
+
+databaseURL: "https://iso-certification-guide-default-rtdb.firebaseio.com",
+
+projectId: "iso-certification-guide",
+
+storageBucket: "iso-certification-guide.firebasestorage.app",
+
+messagingSenderId: "277771367161",
+
+appId: "1:277771367161:web:0f61aef15bb9ce0d64a828"
+
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const database = firebase.database();
+
 let allPosts = [];
 
-// ARRAYS EXTRACTION AND FIREBASE VALUE READ METHODS
+/* LOAD POSTS */
+
 database.ref('blogs').on('value', (snapshot) => {
-    const data = snapshot.val();
-    const container = document.getElementById('posts-container');
-    container.innerHTML = '';
 
-    if (!data) {
-        container.innerHTML = `
-            <div class="col-span-full text-center py-20 text-slate-600 font-medium tracking-wide">
-                No active payload matrices available in cluster.
-            </div>
-        `;
-        return;
-    }
+const data = snapshot.val();
 
-    allPosts = Object.keys(data).map(key => ({
-        id: key,
-        ...data[key]
-    }));
+const container = document.getElementById('posts-container');
 
-    renderPosts(allPosts);
-});
+container.innerHTML = '';
 
-function renderPosts(posts) {
-    const container = document.getElementById('posts-container');
-    container.innerHTML = '';
-    
-    const displayPosts = [...posts].reverse();
+if(!data){
 
-    displayPosts.forEach(post => {
-        const plainText = post.content ? post.content.replace(/<[^>]+>/g, '') : '';
-        const snippet = plainText.substring(0, 110);
-        const articleSlug = post.slug ? post.slug.trim() : post.id;
+container.innerHTML = `
+<div class="col-span-full text-center py-20 text-zinc-600">
+No articles found.
+</div>
+`;
 
-        container.innerHTML += `
-            <article class="bg-[#080d1a] rounded-[24px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-white/[0.04] hover:border-cyan-500/20 flex flex-col justify-between group">
-                <div>
-                    <div class="overflow-hidden bg-slate-950 aspect-[16/10] relative">
-                        <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="p-6">
-                        <p class="text-cyan-400 font-bold text-[11px] tracking-wider uppercase">${post.date}</p>
-                        <h3 class="text-lg font-bold leading-snug mt-3 text-slate-100 group-hover:text-cyan-400 transition-colors duration-200">
-                            ${post.title}
-                        </h3>
-                        <p class="mt-3 text-slate-400 text-sm leading-relaxed">${snippet}...</p>
-                    </div>
-                </div>
-                <div class="px-6 pb-6 pt-2">
-                    <a href="${articleSlug}" class="inline-flex w-full justify-center items-center gap-2 bg-white/[0.03] hover:bg-cyan-500 border border-white/5 hover:border-cyan-400 text-white hover:text-slate-950 font-bold text-xs px-5 py-3.5 rounded-xl transition-all duration-300">
-                        Read Blueprint 
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </article>
-        `;
-    });
+return;
+
 }
 
-// SEARCH FILTERS
-const searchBox = document.querySelector('input[type="text"]');
-searchBox.addEventListener('input', function() {
-    const value = this.value.toLowerCase();
-    const filtered = allPosts.filter(post => 
-        post.title.toLowerCase().includes(value)
-    );
-    renderPosts(filtered);
+allPosts = Object.keys(data).map(key => ({
+id:key,
+...data[key]
+}));
+
+renderPosts(allPosts);
+
 });
+
+/* RENDER POSTS */
+
+function renderPosts(posts){
+
+const container = document.getElementById('posts-container');
+
+container.innerHTML = '';
+
+const displayPosts = [...posts].reverse();
+
+displayPosts.forEach(post => {
+
+const plainText = post.content
+? post.content.replace(/<[^>]+>/g,'')
+: '';
+
+const snippet = plainText.substring(0,110);
+
+const articleSlug = post.slug
+? post.slug.trim()
+: post.id;
+
+container.innerHTML += `
+
+<article class="blog-card glass rounded-[30px] border border-white/5 flex flex-col overflow-hidden">
+
+<div class="aspect-[16/10] overflow-hidden relative">
+
+<img src="${post.image}"
+class="w-full h-full object-cover">
+
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+
+<div class="absolute top-5 left-5">
+
+<span class="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] uppercase tracking-[0.25em] font-bold">
+
+${post.date}
+
+</span>
+
+</div>
+
+</div>
+
+<div class="p-7 flex flex-col flex-1">
+
+<h3 class="text-2xl font-black leading-tight hover:text-red-500 transition">
+
+${post.title}
+
+</h3>
+
+<p class="text-zinc-500 mt-5 leading-relaxed text-sm flex-1">
+
+${snippet}...
+
+</p>
+
+<div class="mt-8 flex items-center justify-between">
+
+<span class="text-xs uppercase tracking-[0.25em] text-zinc-600">
+5 Min Read
+</span>
+
+<a href="${articleSlug}"
+class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
+
+→
+
+</a>
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+});
+
+/* GSAP RELOAD */
+
+setTimeout(() => {
+
+gsap.utils.toArray('.blog-card').forEach((card, i) => {
+
+gsap.from(card,{
+opacity:0,
+y:80,
+duration:1,
+delay:i * 0.08
+});
+
+});
+
+},100);
+
+}
+
+/* SEARCH */
+
+const searchBox = document.getElementById('searchBox');
+
+searchBox.addEventListener('input', function(){
+
+const value = this.value.toLowerCase();
+
+const filtered = allPosts.filter(post =>
+post.title.toLowerCase().includes(value)
+);
+
+renderPosts(filtered);
+
+});
+
+/* GSAP */
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from('.hero-title',{
+opacity:0,
+y:100,
+duration:1.3
+});
+
+gsap.from('.float',{
+opacity:0,
+scale:.8,
+duration:1.5
+});
+
+gsap.utils.toArray('.category-card').forEach((card, i) => {
+
+gsap.from(card,{
+opacity:0,
+y:60,
+duration:1,
+delay:i * 0.1,
+scrollTrigger:{
+trigger:card,
+start:'top 90%',
+}
+});
+
+});
+
 </script>
 
 </body>
