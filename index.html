@@ -60,13 +60,13 @@
         .hero-iso-bg{
     position:absolute;
     top:50%;
-    right:-450px;
-    width:1400px;
+    right:-550px;
+    width:1500px;
     transform:translateY(-50%);
-    opacity:.12;
+    opacity:.06;
     pointer-events:none;
     z-index:1;
-    animation:heroFloat 8s ease-in-out infinite;
+    animation:heroFloat 10s ease-in-out infinite;
 }
 
 .hero-iso-bg img{
@@ -75,8 +75,9 @@
     object-fit:contain;
     mix-blend-mode:screen;
     filter:
-        drop-shadow(0 0 20px rgba(34,211,238,.2))
-        drop-shadow(0 0 60px rgba(34,211,238,.15));
+       blur(1px)
+        brightness(.7)
+        drop-shadow(0 0 20px rgba(34,211,238,.08));
 }
 
 @keyframes heroFloat{
@@ -119,7 +120,7 @@
 </div>
     
     <div class="absolute inset-0 z-0 pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-r from-[#030612] via-[#030612]/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#030612] via-[#030612]/92 to-[#030612]/40"></div>
         <div class="absolute w-[800px] h-[800px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/5 to-transparent rounded-full -top-[20%] -left-[10%] animate-mesh-1 blur-[100px]"></div>
         <div class="absolute w-[900px] h-[900px] bg-gradient-to-bl from-indigo-500/10 via-purple-600/5 to-transparent rounded-full -bottom-[20%] -right-[10%] animate-mesh-2 blur-[120px]"></div>
         
