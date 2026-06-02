@@ -202,6 +202,19 @@
 
     <div id="posts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
     </div>
+    <div id="pagination" class="flex justify-center items-center gap-3 mt-12">
+    <button id="prevPage"
+        class="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-cyan-500 transition">
+        Previous
+    </button>
+
+    <span id="pageInfo" class="text-slate-300 font-medium"></span>
+
+    <button id="nextPage"
+        class="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-cyan-500 transition">
+        Next
+    </button>
+</div>
 </section>
 
 <script>
@@ -236,6 +249,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 let allPosts = [];
+    const postsPerPage = 8;
+let currentPage = 1;
 
 // ARRAYS EXTRACTION AND FIREBASE VALUE READ METHODS
 database.ref('blogs').on('value', (snapshot) => {
@@ -257,7 +272,7 @@ database.ref('blogs').on('value', (snapshot) => {
         ...data[key]
     }));
 
-    renderPosts(allPosts);
+    renderPosts(allPosts, currentPage);
 });
 
 function renderPosts(posts) {
