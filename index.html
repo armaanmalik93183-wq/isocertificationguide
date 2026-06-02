@@ -60,20 +60,23 @@
         .hero-iso-bg{
     position:absolute;
     top:50%;
-    right:-120px;
+    right:-450px;
+    width:1400px;
     transform:translateY(-50%);
-    width:1000px;
-    z-index:1;
+    opacity:.12;
     pointer-events:none;
-    opacity:.25;
+    z-index:1;
+    animation:heroFloat 8s ease-in-out infinite;
 }
 
 .hero-iso-bg img{
     width:100%;
     height:auto;
+    object-fit:contain;
+    mix-blend-mode:screen;
     filter:
-        drop-shadow(0 0 30px rgba(34,211,238,.3))
-        drop-shadow(0 0 80px rgba(34,211,238,.15));
+        drop-shadow(0 0 20px rgba(34,211,238,.2))
+        drop-shadow(0 0 60px rgba(34,211,238,.15));
 }
 
 @keyframes heroFloat{
@@ -81,17 +84,29 @@
         transform:translateY(-50%);
     }
     50%{
-        transform:translateY(calc(-50% - 20px));
+        transform:translateY(calc(-50% - 15px));
     }
-}
-
-.hero-iso-bg{
-    animation:heroFloat 8s ease-in-out infinite;
 }
 
 .hero-content{
     position:relative;
-    z-index:10;
+    z-index:20;
+}
+
+@media(max-width:1024px){
+    .hero-iso-bg{
+        width:900px;
+        right:-300px;
+        opacity:.08;
+    }
+}
+
+@media(max-width:768px){
+    .hero-iso-bg{
+        width:650px;
+        right:-220px;
+        opacity:.05;
+    }
 }
     </style>
 </head>
@@ -124,7 +139,7 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto pt-20">
         
-        <div class="hero-content max-w-3xl flex flex-col justify-center">
+        <div class="hero-content max-w-4xl flex flex-col justify-center">
             
             <div class="inline-flex self-start items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.01] border border-white/[0.07] text-cyan-400 text-xs font-semibold tracking-widest uppercase shadow-2xl backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
