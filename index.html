@@ -109,42 +109,51 @@
         opacity:.05;
     }
 }
-        .cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #00ffea;
+       .cursor {
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9999;
+    background: radial-gradient(
+        circle,
+        #ffffff,
+        #00ffff,
+        #0066ff
+    );
+    animation: spin 2s linear infinite;
     box-shadow:
-        0 0 10px #00ffea,
-        0 0 20px #00ffea,
-        0 0 40px #00ffea;
-    transition: transform 0.1s ease;
+        0 0 10px #00ffff,
+        0 0 25px #00ffff,
+        0 0 50px #0066ff;
 }
 
-.cursor::after {
+.cursor::before {
     content: '';
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(0,255,234,.5);
-    border-radius: 50%;
     position: absolute;
-    top: -11px;
-    left: -11px;
-    animation: pulse 1.5s infinite;
+    inset: -10px;
+    border: 2px dashed #00ffff;
+    border-radius: 50%;
+    animation: rotateRing 3s linear infinite;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(.8);
-        opacity: 1;
+@keyframes spin {
+    from {
+        transform: rotate(0);
     }
-    100% {
-        transform: scale(1.8);
-        opacity: 0;
+    to {
+        transform: rotate(360deg);
     }
+}
+
+@keyframes rotateRing {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
     </style>
 </head>
 
