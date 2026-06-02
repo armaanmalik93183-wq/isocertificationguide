@@ -57,6 +57,42 @@
             transform: translateX(6px);
             border-color: rgba(34, 211, 238, 0.3);
         }
+        .hero-iso-bg{
+    position:absolute;
+    top:50%;
+    right:-120px;
+    transform:translateY(-50%);
+    width:1000px;
+    z-index:1;
+    pointer-events:none;
+    opacity:.25;
+}
+
+.hero-iso-bg img{
+    width:100%;
+    height:auto;
+    filter:
+        drop-shadow(0 0 30px rgba(34,211,238,.3))
+        drop-shadow(0 0 80px rgba(34,211,238,.15));
+}
+
+@keyframes heroFloat{
+    0%,100%{
+        transform:translateY(-50%);
+    }
+    50%{
+        transform:translateY(calc(-50% - 20px));
+    }
+}
+
+.hero-iso-bg{
+    animation:heroFloat 8s ease-in-out infinite;
+}
+
+.hero-content{
+    position:relative;
+    z-index:10;
+}
     </style>
 </head>
 
