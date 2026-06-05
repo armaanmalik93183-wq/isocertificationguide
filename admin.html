@@ -406,7 +406,7 @@ function deleteBlog(id){
     }
 }
 
-// NO STORAGE METHOD: Convert file to a URL with a free server API and save directly to Realtime Database
+// FIXED STORAGELESS METHOD: Uploads computer file to a free hosting API, then saves link to Firebase Database
 document.getElementById('pdf-resource-form').addEventListener('submit', async function(e){
     e.preventDefault();
 
@@ -424,36 +424,39 @@ document.getElementById('pdf-resource-form').addEventListener('submit', async fu
     submitBtn.disabled = true;
 
     try {
-        // 1. Pack the computer PDF into a Form Data object
+        // 1. Pack the local PDF file data
         const formData = new FormData();
-        formData.append('file', selectedFile);
+        formData.append('reqtype', 'fileupload');
+        formData.append('fileToUpload', selectedFile);
 
-        // 2. Upload file directly to a free alternative file host API
-        const response = await fetch('https://file.io', {
+        // 2. Upload directly to Catbox API (No CORS block on GitHub Pages)
+        const response = await fetch('https://catbox.moe/user/api.php', {
             method: 'POST',
             body: formData
         });
         
-        const result = await response.json();
-        
-        if(!result.success) {
-            throw new Error("File hosting service rejected payload.");
+        if (!response.ok) {
+            throw new Error("The file hosting server is busy. Please try again.");
         }
-        
-        const downloadUrl = result.link; // The free live file link generated
 
-        // 3. Directly save to your Realtime Database 'pdfs' node cluster path
+        const downloadUrl = await response.text(); // Catbox returns the direct URL as pure text
+
+        if(!downloadUrl.includes('http')) {
+            throw new Error("Invalid server response.");
+        }
+
+        // 3. Save the title and direct link to your Realtime Database 'pdfs' path
         await database.ref('pdfs').push({
             title: pdfTitle,
-            url: downloadUrl,
+            url: downloadUrl.trim(),
             date: new Date().toLocaleDateString(),
             timestamp: Date.now()
         });
 
-        alert('PDF file processed and published successfully without Storage!');
+        alert('PDF file processed and published successfully!');
         document.getElementById('pdf-resource-form').reset();
     } catch(error) {
-        console.error("File converter exception:", error);
+        console.error("Upload process error:", error);
         alert('Failed to publish: ' + error.message);
     } finally {
         submitBtn.innerText = "Publish PDF";
