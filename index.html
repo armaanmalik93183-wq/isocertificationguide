@@ -58,65 +58,60 @@
             border-color: rgba(34, 211, 238, 0.3);
         }
         .hero-iso-bg{
-    position:absolute;
-    top:50%;
-    right:-350px;
-    width:1300px;
-    transform:translateY(-50%);
-    opacity:.18;
-    pointer-events:none;
-    z-index:1;
-    animation:heroFloat 10s ease-in-out infinite;
-}
+            position:absolute;
+            top:50%;
+            right:-350px;
+            width:1300px;
+            transform:translateY(-50%);
+            opacity:.18;
+            pointer-events:none;
+            z-index:1;
+            animation:heroFloat 10s ease-in-out infinite;
+        }
 
-.hero-iso-bg img{
-    width:100%;
-    height:auto;
-    object-fit:contain;
+        .hero-iso-bg img{
+            width:100%;
+            height:auto;
+            object-fit:contain;
+            filter:
+                brightness(.9)
+                contrast(1.5)
+                drop-shadow(0 0 30px rgba(34,211,238,.15));
+        }
 
-    filter:
-        brightness(.9)
-        contrast(1.5)
-        drop-shadow(0 0 30px rgba(34,211,238,.15));
-}
+        @keyframes heroFloat{
+            0%,100%{ transform:translateY(-50%); }
+            50%{ transform:translateY(calc(-50% - 15px)); }
+        }
 
-@keyframes heroFloat{
-    0%,100%{
-        transform:translateY(-50%);
-    }
-    50%{
-        transform:translateY(calc(-50% - 15px));
-    }
-}
+        .hero-content{
+            position:relative;
+            z-index:20;
+        }
 
-.hero-content{
-    position:relative;
-    z-index:20;
-}
+        @media(max-width:1024px){
+            .hero-iso-bg{
+                width:900px;
+                right:-300px;
+                opacity:.08;
+            }
+        }
 
-@media(max-width:1024px){
-    .hero-iso-bg{
-        width:900px;
-        right:-300px;
-        opacity:.08;
-    }
-}
-
-@media(max-width:768px){
-    .hero-iso-bg{
-        width:650px;
-        right:-220px;
-        opacity:.05;
-    }
-}
+        @media(max-width:768px){
+            .hero-iso-bg{
+                width:650px;
+                right:-220px;
+                opacity:.05;
+            }
+        }
     </style>
 </head>
     
 <body class="bg-[#030612] antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
 <section class="relative min-h-screen flex flex-col justify-between overflow-hidden pb-16 pt-6">
     <div class="hero-iso-bg">
-    <img src="images/iso-hero.png" alt="ISO Hero">
-</div>
+        <img src="images/iso-hero.png" alt="ISO Hero">
+    </div>
     
     <div class="absolute inset-0 z-0 pointer-events-none">
         <div class="absolute inset-0 bg-gradient-to-r from-[#030612] via-[#030612]/70 to-[#030612]/20"></div>
@@ -138,9 +133,7 @@
     </header>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto pt-20">
-        
         <div class="hero-content max-w-4xl flex flex-col justify-center">
-            
             <div class="inline-flex self-start items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.01] border border-white/[0.07] text-cyan-400 text-xs font-semibold tracking-widest uppercase shadow-2xl backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -180,7 +173,23 @@
     </div>
 </section>
 
-<section id="articles-view" class="max-w-7xl mx-auto px-6 py-32 bg-[#030612] relative z-20">
+<section id="pdf-resources-view" class="max-w-7xl mx-auto px-6 py-20 bg-[#030612] relative z-20 border-t border-white/[0.03]">
+    <div class="mb-10">
+        <div class="w-12 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full mb-4"></div>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+            Official Blueprints & PDF Manuals
+        </h2>
+        <p class="text-slate-400 mt-2 text-lg">
+            Directly download premium frameworks, compliance trackers, and structural documentation.
+        </p>
+    </div>
+
+    <div id="home-pdf-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="text-slate-500 italic py-4 animate-pulse">Establishing stream connection...</div>
+    </div>
+</section>
+
+<section id="articles-view" class="max-w-7xl mx-auto px-6 py-20 bg-[#030612] relative z-20 border-t border-white/[0.03]">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div>
             <div class="w-12 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mb-4"></div>
@@ -219,7 +228,6 @@
             return s.replace(/~and~/g, '&'); 
         }).join('?');
         
-        // Redirect directly to the blog template while maintaining the slug parameters internally
         window.location.replace(
             window.location.protocol + '//' + window.location.host + 
             window.location.pathname + 'blog.html?slug=' + cleanPath
@@ -242,10 +250,48 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 let allPosts = [];
-    const postsPerPage = 8;
+const postsPerPage = 8;
 let currentPage = 1;
 
-// ARRAYS EXTRACTION AND FIREBASE VALUE READ METHODS
+// NEW: REALTIME FIREBASE STREAM LISTENER FOR PDF ENGINE
+database.ref('pdfs').on('value', (snapshot) => {
+    const data = snapshot.val();
+    const targetList = document.getElementById('home-pdf-list');
+    if (!targetList) return;
+    
+    targetList.innerHTML = '';
+    
+    if (!data) {
+        targetList.innerHTML = `
+            <div class="text-slate-600 font-medium py-4">
+                No verified blueprints or manual streams linked inside this cluster yet.
+            </div>
+        `;
+        return;
+    }
+
+    Object.keys(data).reverse().forEach(key => {
+        const item = data[key];
+        targetList.innerHTML += `
+            <div class="bg-[#080d1a] border border-white/[0.04] hover:border-emerald-500/30 p-6 rounded-[24px] flex justify-between items-center transition-all duration-300 group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold text-sm">
+                        PDF
+                    </div>
+                    <div>
+                        <h4 class="text-base font-bold text-slate-100 group-hover:text-emerald-400 transition duration-300">${item.title}</h4>
+                        <p class="text-xs text-slate-500 mt-0.5">Published: ${item.date || 'Recent'}</p>
+                    </div>
+                </div>
+                <a href="${item.url}" target="_blank" class="bg-white/[0.03] hover:bg-emerald-600 border border-white/5 hover:border-emerald-500 text-white hover:text-slate-950 font-bold text-xs px-5 py-3 rounded-xl transition-all duration-300 whitespace-nowrap">
+                    Download
+                </a>
+            </div>
+        `;
+    });
+});
+
+// ARRAYS EXTRACTION AND FIREBASE VALUE READ METHODS (BLOGS)
 database.ref('blogs').on('value', (snapshot) => {
     const data = snapshot.val();
     const container = document.getElementById('posts-container');
@@ -309,17 +355,12 @@ function renderPosts(posts, page = 1) {
 
     updatePagination(posts);
 }
-    function updatePagination(posts) {
+
+function updatePagination(posts) {
     const totalPages = Math.ceil(posts.length / postsPerPage);
-
-    document.getElementById('pageInfo').textContent =
-        `Page ${currentPage} of ${totalPages}`;
-
-    document.getElementById('prevPage').disabled =
-        currentPage === 1;
-
-    document.getElementById('nextPage').disabled =
-        currentPage === totalPages;
+    document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+    document.getElementById('prevPage').disabled = currentPage === 1;
+    document.getElementById('nextPage').disabled = currentPage === totalPages;
 }
 
 // SEARCH FILTERS
@@ -330,29 +371,25 @@ searchBox.addEventListener('input', function() {
         post.title.toLowerCase().includes(value)
     );
     currentPage = 1;
-renderPosts(filtered, currentPage);
+    renderPosts(filtered, currentPage);
 });
-    document.getElementById('prevPage').addEventListener('click', () => {
+
+document.getElementById('prevPage').addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
         renderPosts(allPosts, currentPage);
-
-        document.getElementById('articles-view')
-            .scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('articles-view').scrollIntoView({ behavior: 'smooth' });
     }
 });
 
 document.getElementById('nextPage').addEventListener('click', () => {
     const totalPages = Math.ceil(allPosts.length / postsPerPage);
-
     if (currentPage < totalPages) {
         currentPage++;
         renderPosts(allPosts, currentPage);
-
-        document.getElementById('articles-view')
-            .scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('articles-view').scrollIntoView({ behavior: 'smooth' });
     }
 });
-    </script>
+</script>
 </body>
 </html>
