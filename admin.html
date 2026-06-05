@@ -15,6 +15,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <style>
 body{
@@ -110,10 +111,10 @@ body{
                             <input type="text" id="pdf-title" required placeholder="e.g., ISO 9001:2015 Implementation Guide" class="w-full border border-slate-300 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"/>
                         </div>
                         <div class="flex-1 w-full">
-                            <label class="block mb-2 font-medium text-slate-700">Paste PDF URL Link <span class="text-xs text-slate-400 font-normal">(From Firebase Storage or GitHub)</span></label>
-                            <input type="url" id="pdf-url" required placeholder="https://..." class="w-full border border-slate-300 rounded-2xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm text-slate-700"/>
+                            <label class="block mb-2 font-medium text-slate-700">Select PDF File from Computer</label>
+                            <input type="file" id="pdf-file-input" accept=".pdf" required class="w-full border border-slate-300 rounded-2xl px-4 py-2.5 bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-700"/>
                         </div>
-                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 transition text-white px-8 py-3.5 rounded-2xl font-semibold w-full md:w-auto whitespace-nowrap h-fit">
+                        <button type="submit" id="pdf-submit-btn" class="bg-emerald-600 hover:bg-emerald-700 transition text-white px-8 py-3.5 rounded-2xl font-semibold w-full md:w-auto whitespace-nowrap h-fit">
                             Publish PDF
                         </button>
                     </form>
@@ -407,26 +408,50 @@ function deleteBlog(id){
     }
 }
 
-// ADDED PROCESSOR: Listen to PDF Form submission and write data packet to Firebase Database
+// UPDATED PROCESSOR: Uploads file data directly to Firebase Storage before creating the text record
 document.getElementById('pdf-resource-form').addEventListener('submit', async function(e){
     e.preventDefault();
 
     const pdfTitle = document.getElementById('pdf-title').value;
-    const pdfUrl = document.getElementById('pdf-url').value;
+    const fileInput = document.getElementById('pdf-file-input');
+    const submitBtn = document.getElementById('pdf-submit-btn');
+    const selectedFile = fileInput.files[0];
+
+    if(!selectedFile) {
+        alert("Please select a file to upload first!");
+        return;
+    }
+
+    submitBtn.innerText = "Uploading File...";
+    submitBtn.disabled = true;
 
     try {
+        // 1. Establish file storage pathways pointer container reference
+        const storageRef = firebase.storage().ref();
+        const fileRef = storageRef.child('iso_resource_pdfs/' + Date.now() + '_' + selectedFile.name);
+
+        // 2. Stream binary file stream to secure Firebase Storage node bucket
+        const uploadSnapshot = await fileRef.put(selectedFile);
+        
+        // 3. Resolve permanent public reference URL from storage asset engine
+        const downloadUrl = await uploadSnapshot.ref.getDownloadURL();
+
+        // 4. Append record structure onto primary database configuration path
         await database.ref('pdfs').push({
             title: pdfTitle,
-            url: pdfUrl,
+            url: downloadUrl,
             date: new Date().toLocaleDateString(),
             timestamp: Date.now()
         });
 
-        alert('PDF published successfully to homepage database pipeline!');
+        alert('PDF file uploaded to Storage and published successfully!');
         document.getElementById('pdf-resource-form').reset();
     } catch(error) {
-        console.error(error);
-        alert('Failed to drop record: ' + error.message);
+        console.error("Storage streaming engine lifecycle fault:", error);
+        alert('Failed to process upload chain: ' + error.message);
+    } finally {
+        submitBtn.innerText = "Publish PDF";
+        submitBtn.disabled = false;
     }
 });
 
