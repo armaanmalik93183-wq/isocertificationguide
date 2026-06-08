@@ -2,224 +2,56 @@
 <html lang="en">
 <head>
     <meta name="google-site-verification" content="YyJDwVkSVNOMCP-VrUmtS4LdXW80X78HNrhmNCN_fAU" />
-    <meta name="google-site-verification" content="YyJDwVkSVNOMCP-VrUmtS4LdXW80X78HNrhmNCN_fAU" />
     <meta name="description" content="Professional ISO certification blogs and compliance insights">
     <meta name="keywords" content="ISO Certification, ISO Saudi Arabia, ISO Blogs">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="ISO Certification Guide">
-    <meta property="og:description" content="Professional ISO certification blogs">
     <meta property="og:type" content="website">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ISO Certification Guide</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Ambient Fluid Graphics Animations */
+        body { font-family: 'Inter', sans-serif; }
         @keyframes dynamicMesh {
             0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
             33% { transform: translate(50px, -40px) scale(1.15) rotate(120deg); }
             66% { transform: translate(-30px, 50px) scale(0.9) rotate(240deg); }
         }
-        @keyframes deepPulse {
-            0%, 100% { transform: scale(1); opacity: 0.2; filter: blur(100px); }
-            50% { transform: scale(1.12); opacity: 0.35; filter: blur(130px); }
-        }
-        @keyframes cyberScan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-
         .animate-mesh-1 { animation: dynamicMesh 22s linear infinite; }
         .animate-mesh-2 { animation: dynamicMesh 26s linear infinite reverse; }
-        .animate-portal-pulse { animation: deepPulse 7s ease-in-out infinite; }
-        
-        /* Ultra Smooth Depth Rendering */
-        .glass-portal-frame {
-            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.03), 0 30px 70px rgba(0, 0, 0, 0.8);
-        }
-        
-        .portal-item {
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .portal-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(6px);
-            border-color: rgba(34, 211, 238, 0.3);
-        }
-        .hero-iso-bg{
-            position:absolute;
-            top:50%;
-            right:-350px;
-            width:1300px;
-            transform:translateY(-50%);
-            opacity:.18;
-            pointer-events:none;
-            z-index:1;
-            animation:heroFloat 10s ease-in-out infinite;
-        }
-
-        .hero-iso-bg img{
-            width:100%;
-            height:auto;
-            object-fit:contain;
-            filter:
-                brightness(.9)
-                contrast(1.5)
-                drop-shadow(0 0 30px rgba(34,211,238,.15));
-        }
-
-        @keyframes heroFloat{
-            0%,100%{ transform:translateY(-50%); }
-            50%{ transform:translateY(calc(-50% - 15px)); }
-        }
-
-        .hero-content{
-            position:relative;
-            z-index:20;
-        }
-
-        @media(max-width:1024px){
-            .hero-iso-bg{
-                width:900px;
-                right:-300px;
-                opacity:.08;
-            }
-        }
-
-        @media(max-width:768px){
-            .hero-iso-bg{
-                width:650px;
-                right:-220px;
-                opacity:.05;
-            }
-        }
+        .hero-iso-bg { position:absolute; top:50%; right:-350px; width:1300px; transform:translateY(-50%); opacity:.18; pointer-events:none; z-index:1; animation:heroFloat 10s ease-in-out infinite; }
+        @keyframes heroFloat{ 0%,100%{ transform:translateY(-50%); } 50%{ transform:translateY(calc(-50% - 15px)); } }
     </style>
 </head>
     
 <body class="bg-[#030612] antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
 <section class="relative min-h-screen flex flex-col justify-between overflow-hidden pb-16 pt-6">
-    <div class="hero-iso-bg">
-        <img src="images/iso-hero.png" alt="ISO Hero">
-    </div>
-    
-    <div class="absolute inset-0 z-0 pointer-events-none">
-        <div class="absolute inset-0 bg-gradient-to-r from-[#030612] via-[#030612]/70 to-[#030612]/20"></div>
-        <div class="absolute w-[800px] h-[800px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/5 to-transparent rounded-full -top-[20%] -left-[10%] animate-mesh-1 blur-[100px]"></div>
-        <div class="absolute w-[900px] h-[900px] bg-gradient-to-bl from-indigo-500/10 via-purple-600/5 to-transparent rounded-full -bottom-[20%] -right-[10%] animate-mesh-2 blur-[120px]"></div>
-        
-        <div class="absolute inset-0 opacity-[0.015]" style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 60px 60px;"></div>
-    </div>
-
     <header class="w-full z-50 relative px-6 max-w-7xl mx-auto">
         <div class="w-full bg-slate-950/30 border border-white/[0.05] rounded-3xl px-8 py-5 flex justify-between items-center backdrop-blur-2xl shadow-2xl">
-            <div>
-                <a href="index.html" class="text-xl font-black text-white tracking-tight flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-br from-blue-500 to-cyan-400 rotate-45"></span>
-                    ISO Certification <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">Guide</span>
-                </a>
-            </div>
+            <a href="index.html" class="text-xl font-black text-white tracking-tight">ISO Certification Guide</a>
         </div>
     </header>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto pt-20">
-        <div class="hero-content max-w-4xl flex flex-col justify-center">
-            <div class="inline-flex self-start items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.01] border border-white/[0.07] text-cyan-400 text-xs font-semibold tracking-widest uppercase shadow-2xl backdrop-blur-md">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-                </span>
-                Active Compliance Stream
-            </div>
-
-           <h1 class="mt-6 text-5xl sm:text-6xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]">
-                The Standard Of <br>
-                <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">Excellence</span>
-            </h1>
-
-            <p class="mt-8 text-slate-400 text-lg sm:text-xl max-w-xl leading-relaxed font-normal">
-                Your premium repository for framework certification blueprints. Discover compliance analytics and organizational strategies built for growth.
-            </p>
-
-            <div class="mt-10 max-w-xl flex flex-col sm:flex-row gap-4 items-stretch relative">
-                <div class="relative flex-1 bg-white/[0.01] border border-white/[0.06] rounded-2xl backdrop-blur-xl shadow-2xl transition duration-300 focus-within:border-cyan-500/40 focus-within:bg-white/[0.02]">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Query dynamic ISO matrices..."
-                        class="w-full bg-transparent outline-none text-white pl-12 pr-4 py-4.5 placeholder-slate-600 font-medium tracking-wide text-sm"
-                    >
-                </div>
-                
-                <button class="px-8 py-4.5 rounded-2xl font-bold bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-slate-950 shadow-xl shadow-cyan-500/10 transition-all duration-300 text-sm font-extrabold tracking-wide">
-                    Search Articles
-                </button>
-            </div>
-       </div>
-    </div>
+        </div>
 </section>
 
 <section id="articles-view" class="max-w-7xl mx-auto px-6 py-20 bg-[#030612] relative z-20 border-t border-white/[0.03]">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div>
-            <div class="w-12 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mb-4"></div>
-            <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                Latest Insights & Blueprints
-            </h2>
-            <p class="text-slate-400 mt-2 text-lg">
-                Regulatory execution methodologies and corporate system breakdowns
-            </p>
-        </div>
-    </div>
-
-    <div id="posts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-    </div>
+    <div id="posts-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
     <div id="pagination" class="flex justify-center items-center gap-3 mt-12">
-    <button id="prevPage"
-        class="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-cyan-500 transition">
-        Previous
-    </button>
-
-    <span id="pageInfo" class="text-slate-300 font-medium"></span>
-
-    <button id="nextPage"
-        class="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-cyan-500 transition">
-        Next
-    </button>
-</div>
+        <button id="prevPage" class="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-cyan-500 transition">Previous</button>
+        <span id="pageInfo" class="text-slate-300 font-medium"></span>
+        <button id="nextPage" class="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-cyan-500 transition">Next</button>
+    </div>
 </section>
 
 <script>
-// --- SPA ROUTER REDIRECT MECHANISM ---
-(function() {
-    var redirectQuery = window.location.search;
-    if (redirectQuery && redirectQuery.charAt(1) === '/') {
-        var cleanPath = redirectQuery.slice(2).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&'); 
-        }).join('?');
-        
-        window.location.replace(
-            window.location.protocol + '//' + window.location.host + 
-            window.location.pathname + 'blog.html?slug=' + cleanPath
-        );
-    }
-})();
-// -------------------------------------
-
 const firebaseConfig = {
   apiKey: "AIzaSyAq3IgYIFu7l6N_mKNVcyfWKDp1akTauDs",
   authDomain: "iso-certification-guide.firebaseapp.com",
@@ -227,8 +59,7 @@ const firebaseConfig = {
   projectId: "iso-certification-guide",
   storageBucket: "iso-certification-guide.firebasestorage.app",
   messagingSenderId: "277771367161",
-  appId: "1:277771367161:web:0f61aef15bb9ce0d64a828",
-  measurementId: "G-MJL8MBRQEB"
+  appId: "1:277771367161:web:0f61aef15bb9ce0d64a828"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -237,106 +68,39 @@ let allPosts = [];
 const postsPerPage = 8;
 let currentPage = 1;
 
-// NEW: REALTIME FIREBASE STREAM LISTENER FOR PDF ENGINE
-database.ref('pdfs').on('value', (snapshot) => {
-    const data = snapshot.val();
-    const targetList = document.getElementById('home-pdf-list');
-    if (!targetList) return;
-    
-    targetList.innerHTML = '';
-    
-    if (!data) {
-        targetList.innerHTML = `
-            <div class="text-slate-600 font-medium py-4">
-                No verified blueprints or manual streams linked inside this cluster yet.
-            </div>
-        `;
-        return;
-    }
-
-    Object.keys(data).reverse().forEach(key => {
-        const item = data[key];
-        targetList.innerHTML += `
-            <div class="bg-[#080d1a] border border-white/[0.04] hover:border-emerald-500/30 p-6 rounded-[24px] flex justify-between items-center transition-all duration-300 group">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold text-sm">
-                        PDF
-                    </div>
-                    <div>
-                        <h4 class="text-base font-bold text-slate-100 group-hover:text-emerald-400 transition duration-300">${item.title}</h4>
-                        <p class="text-xs text-slate-500 mt-0.5">Published: ${item.date || 'Recent'}</p>
-                    </div>
-                </div>
-                <a href="${item.url}" target="_blank" class="bg-white/[0.03] hover:bg-emerald-600 border border-white/5 hover:border-emerald-500 text-white hover:text-slate-950 font-bold text-xs px-5 py-3 rounded-xl transition-all duration-300 whitespace-nowrap">
-                    Download
-                </a>
-            </div>
-        `;
-    });
-});
-
-// ARRAYS EXTRACTION AND FIREBASE VALUE READ METHODS (BLOGS)
 database.ref('blogs').on('value', (snapshot) => {
     const data = snapshot.val();
     const container = document.getElementById('posts-container');
     container.innerHTML = '';
-
-    if (!data) {
-        container.innerHTML = `
-            <div class="col-span-full text-center py-20 text-slate-600 font-medium tracking-wide">
-                No active payload matrices available in cluster.
-            </div>
-        `;
-        return;
-    }
-
-    allPosts = Object.keys(data).map(key => ({
-        id: key,
-        ...data[key]
-    }));
-
+    if (!data) return;
+    allPosts = Object.keys(data).map(key => ({ id: key, ...data[key] }));
     renderPosts(allPosts, currentPage);
 });
 
 function renderPosts(posts, page = 1) {
     const container = document.getElementById('posts-container');
     container.innerHTML = '';
-
-    const displayPosts = [...posts].reverse();
-
-    const start = (page - 1) * postsPerPage;
-    const end = start + postsPerPage;
-
-    const paginatedPosts = displayPosts.slice(start, end);
+    const paginatedPosts = [...posts].reverse().slice((page - 1) * postsPerPage, page * postsPerPage);
 
     paginatedPosts.forEach(post => {
-        const plainText = post.content ? post.content.replace(/<[^>]+>/g, '') : '';
-        const snippet = plainText.substring(0, 110);
+        const snippet = post.content ? post.content.replace(/<[^>]+>/g, '').substring(0, 110) : '';
         const articleSlug = post.slug ? post.slug.trim() : post.id;
+        // FIXED URL FORMAT: blog.html?slug=...
+        const articleUrl = `blog.html?slug=${encodeURIComponent(articleSlug)}`;
 
         container.innerHTML += `
-            <article class="bg-[#080d1a] rounded-[24px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-white/[0.04] hover:border-cyan-500/20 flex flex-col justify-between group">
+            <article class="bg-[#080d1a] rounded-[24px] overflow-hidden shadow-sm hover:shadow-2xl border border-white/[0.04] p-6 flex flex-col justify-between">
                 <div>
-                    <div class="overflow-hidden bg-slate-950 aspect-[16/10] relative">
-                        <img src="${post.image}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <p class="text-cyan-400 font-bold text-[11px] tracking-wider uppercase">${post.date}</p>
-                        <h3 class="text-lg font-bold leading-snug mt-3 text-slate-100">
-                            ${post.title}
-                        </h3>
-                        <p class="mt-3 text-slate-400 text-sm leading-relaxed">${snippet}...</p>
-                    </div>
+                    <img src="${post.image}" class="w-full h-40 object-cover rounded-xl mb-4">
+                    <h3 class="text-lg font-bold text-slate-100">${post.title}</h3>
+                    <p class="mt-3 text-slate-400 text-sm">${snippet}...</p>
                 </div>
-                <div class="px-6 pb-6 pt-2">
-                    <a href="${articleSlug}" class="inline-flex w-full justify-center items-center gap-2 bg-white/[0.03] hover:bg-cyan-500 border border-white/5 hover:border-cyan-400 text-white hover:text-slate-950 font-bold text-xs px-5 py-3.5 rounded-xl transition-all duration-300">
-                        Read Blueprint
-                    </a>
-                </div>
+                <a href="${articleUrl}" class="mt-6 block text-center bg-cyan-600 text-white py-3 rounded-xl font-bold text-sm">
+                    Read Blueprint
+                </a>
             </article>
         `;
     });
-
     updatePagination(posts);
 }
 
@@ -346,34 +110,6 @@ function updatePagination(posts) {
     document.getElementById('prevPage').disabled = currentPage === 1;
     document.getElementById('nextPage').disabled = currentPage === totalPages;
 }
-
-// SEARCH FILTERS
-const searchBox = document.querySelector('input[type="text"]');
-searchBox.addEventListener('input', function() {
-    const value = this.value.toLowerCase();
-    const filtered = allPosts.filter(post => 
-        post.title.toLowerCase().includes(value)
-    );
-    currentPage = 1;
-    renderPosts(filtered, currentPage);
-});
-
-document.getElementById('prevPage').addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        renderPosts(allPosts, currentPage);
-        document.getElementById('articles-view').scrollIntoView({ behavior: 'smooth' });
-    }
-});
-
-document.getElementById('nextPage').addEventListener('click', () => {
-    const totalPages = Math.ceil(allPosts.length / postsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        renderPosts(allPosts, currentPage);
-        document.getElementById('articles-view').scrollIntoView({ behavior: 'smooth' });
-    }
-});
 </script>
 </body>
 </html>
